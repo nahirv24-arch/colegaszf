@@ -1,7 +1,7 @@
 {
   "name": "zf-material-colegas",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Material para colegas — ZF Propiedades (React + TypeScript + Vite)",
   "type": "module",
   "scripts": {
@@ -9,9 +9,15 @@
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.node.json",
     "build": "npm run typecheck && vite build",
     "preview": "vite preview",
-    "validar": "python scripts/validar_extraccion.py"
+    "validar": "python scripts/validar_extraccion.py",
+    "sb:migrar": "node scripts/supabase/migrar.mjs",
+    "sb:importar": "node scripts/supabase/importar.mjs",
+    "sb:admin": "node scripts/supabase/asignar_admin.mjs",
+    "sb:exportar": "node scripts/supabase/exportar.mjs",
+    "sb:pruebas": "node scripts/supabase/pruebas_seguridad.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.119.0",
     "jspdf": "^4.2.1",
     "jszip": "^3.10.2",
     "react": "^19.3.1",
@@ -23,6 +29,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.3.0",
+    "supabase": "^3.1.0",
     "typescript": "^7.0.2",
     "vite": "^8.3.8"
   }

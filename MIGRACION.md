@@ -8,7 +8,8 @@ Netlify (colegaszfpropiedades.netlify.app) **no cambia** hasta que se decida exp
 | 1. Análisis y protección | Completa (11/11/2026) | — |
 | 2. Separar datos e imágenes | Completa (11/11/2026) | `desarrollo` |
 | 3. React + TypeScript + Vite | Completa (11/11/2026) | `desarrollo` |
-| 4. Supabase | No iniciada | — |
+| 4. Supabase (proyecto de PRUEBA) | Completa (11/11/2026) | `desarrollo` |
+| 5. Panel de administración | No iniciada | — |
 
 ---
 
@@ -303,3 +304,146 @@ en ese navegador hasta descargar el archivo). Permitía:
 
 Todo en la rama `desarrollo`. No se hizo push de esta fase. `node_modules/` y `dist/` no se guardan
 en Git (se regeneran con `npm install` y `npm run build`).
+
+---
+
+## Fase 4 — Supabase: base de datos, archivos, autenticación y permisos (11/11/2026)
+
+**Entorno:** proyecto de PRUEBA `zf-colegas-pruebas` (región São Paulo). La web publicada en Netlify
+**no** está conectada; la página React sigue leyendo `datos/` y `media/` locales. `index.html` original,
+`datos/`, `media/` y `main` sin cambios.
+
+**Instalado (autorizado por Nahir):** `@supabase/supabase-js` y el CLI `supabase` (solo dentro del
+proyecto, sin Docker).
+
+### Configuración
+
+- `.env.local` (NO se sube a GitHub) con 4 datos: dirección del proyecto, clave pública, clave secreta
+  y conexión a la base. Modelo: `.env.local.ejemplo`.
+- Solo la dirección y la clave **pública** pueden llegar a la página (variables `VITE_*`). Se verificó
+  que el código compilado no contiene ninguna clave secreta.
+- En Supabase: registro público **desactivado**; Site URL `http://localhost:5173`; redirección
+  `http://localhost:5173/admin/**` (para recuperar contraseña).
+
+### Comandos
+
+| Comando | Qué hace |
+|---|---|
+| `npm run sb:migrar` | Aplica las migraciones pendientes (Supabase recuerda las aplicadas) |
+| `npm run sb:importar -- --ver` | Informe previo, sin cambiar nada |
+| `npm run sb:importar` | Importa lo que falte (no duplica, no pisa cambios, no borra) |
+| `npm run sb:admin -- correo@...` | Da el rol administrador a una cuenta ya creada en Supabase |
+| `npm run sb:exportar` | Respaldo completo en `respaldos/` y en el bucket privado |
+| `npm run sb:pruebas` | Pruebas de seguridad (cuentas temporales que después se borran) |
+
+### Esquema (supabase/migrations/)
+
+| Migración | Contenido |
+|---|---|
+| `…120000_esquema.sql` | Tablas |
+| `…120100_seguridad.sql` | Roles, sellos de fecha/usuario, historial, privilegios y RLS |
+| `…120200_storage.sql` | Buckets `media` (público) y `privado` con sus políticas |
+| `…120300_funciones.sql` | Lectura pública, papelera, estadísticas, exportación, importación |
+| `…120400_historial_roles.sql` | Corrección detectada por las pruebas (historial de cambios de roles) |
+
+**Tablas**
+- `desarrollos`: `id` original (links `/#id`), `posicion` (orden original), nombre, dirección,
+  desarrollista, posesión, gastos, `nota_tabla`, `links` (los 3, aunque estén vacíos), `columnas`
+  (lista ordenada `[clave, título]`), `disponibles_ejemplo`, `info_extra` (información complementaria),
+  `estado` (`borrador`/`publicado`), `visible`, fechas y usuario de creación/modificación, papelera
+  (`eliminado_en`, `eliminado_por`).
+- `unidades`: desarrollo, `posicion` (fila original), `campos` (TODOS los campos de la fila, como texto),
+  `orden_campos` (orden original de los campos). Columnas calculadas solas para filtrar y contar:
+  grupo, piso, unidad, tipología, estado, precio (texto, sin convertir). Superficies (`sup`, `total`,
+  `suptotal`, `balcon`, `terraza`) y demás columnas propias quedan en `campos`.
+- `medios`: desarrollo (vacío = general), `tipo` (portada, foto, render, plano, pagina_brochure,
+  portada_general, logo), `orden`, bucket, ruta, nombre, ancho, alto, bytes, sha256, formato, mime,
+  metadatos, fechas, papelera. Un solo archivo activo por posición: el orden del brochure queda fijo.
+- `configuracion`: clave/valor; `actualizado` = "2026-11-06" (pública).
+- `roles_usuario`: `administrador` (y `editor`, reservado para el futuro).
+- `historial`: fecha, usuario, rol, tabla, registro, acción (crear, editar, eliminar, restaurar,
+  borrar_definitivo), copia de antes y después. No guarda contraseñas (las tablas no tienen ninguna).
+
+**Estados comerciales reales:** "Disponible" (206) y "Reservada" (1). "Vendida" no existe en los datos:
+las estadísticas la cuentan (0) e informan `existe_estado_vendida: false`.
+
+### Seguridad (RLS + privilegios SQL)
+
+- Ser administrador lo decide la base (`es_admin()` lee `roles_usuario`), no la página.
+- **Visitantes:** solo leen desarrollos `publicado` + `visible` + fuera de la papelera, y sus unidades y
+  medios. No escriben nada. No ven roles, historial ni borradores.
+- **Usuario con sesión sin rol:** igual que un visitante.
+- **Administrador:** lee todo (borradores, ocultos, papelera, historial) y crea/modifica desarrollos,
+  unidades, medios y configuración; publica/oculta; usa la papelera.
+- **Nadie desde el navegador** puede: asignar roles, escribir el historial, borrar definitivamente
+  desarrollos/medios/configuración, ni ejecutar la importación (solo con la clave secreta).
+- Las fechas y el usuario de cada cambio los pone la base (no se pueden falsificar).
+
+### Storage
+
+- `media` (público): las 174 imágenes, misma estructura que `media/`
+  (`<desarrollo>/fotos|renders|planos|brochure/...`, `general/`). Lectura por dirección directa;
+  solo el admin sube o reemplaza; nadie lista salvo el admin; nadie borra desde el navegador.
+- `privado` (privado): respaldos (`respaldos/original-2026-11-11/` con los JSON originales y las
+  exportaciones). Solo el admin.
+
+### Autenticación (preparada; las pantallas son de la fase 5)
+
+`web/src/servicios/auth.ts`: iniciar sesión (email + contraseña), cerrar sesión (en todos los
+dispositivos), consultar si la cuenta es admin (a la base), pedir recuperación de contraseña (respuesta
+igual exista o no la cuenta) y guardar contraseña nueva (mínimo 12 caracteres), leer estadísticas.
+`web/src/servicios/fuenteSupabase.ts`: fuente de datos alternativa, lista pero **no activada**.
+
+### Importación y resultados
+
+- Informe previo: origen 17 / 207 / 174; base vacía.
+- Importación: 17 desarrollos importados, 207 unidades, 174 archivos subidos, 1 configuración.
+- **Verificación:** lo que hay en la base, rearmado, tiene el mismo contenido que `datos/desarrollos.json`:
+  todos los valores, el orden de desarrollos, unidades, columnas, fotos, renders, planos y páginas, el
+  orden de los campos de cada unidad, y los precios como texto. Única diferencia: el orden en que se
+  *listan* algunas claves de objetos (dentro de `links`, y la posición de `imagenes` en Reggia 6/7/9),
+  que la base guarda ordenadas; no cambia ningún valor ni lo que muestra la página.
+- Reimportación: los 17 "ya existía (idéntico)", sin duplicados (17 / 207 / 174).
+- Cambio posterior protegido: se modificó la nota de Reggia 7, se reimportó → "MODIFICADO después:
+  no se toca" y el cambio siguió ahí; luego se volvió al valor original.
+- Respaldo: `npm run sb:exportar` → 17 / 207 / 174 en `respaldos/` y en `privado/respaldos/`.
+
+### Pruebas de seguridad (ejecutadas el 11/11/2026 contra el proyecto de prueba)
+
+| # | Prueba | Resultado |
+|---|---|---|
+| 1 | Visitante consulta publicados | OK — 17 desarrollos, 207 unidades |
+| 2 | Visitante no ve borradores | OK — ni tabla, ni unidades, ni contenido público, ni historial, ni roles |
+| 3 | Visitante no modifica nada | OK — 20 intentos rechazados (tablas, funciones, Storage) y datos intactos |
+| 4 | Usuario con sesión sin rol no modifica | OK — los mismos 20 intentos rechazados; tampoco ve borradores |
+| 5 | Admin consulta y modifica datos de prueba | OK — creó borrador y unidad, editó, papelera y restauración; historial con su usuario |
+| 6 | Nadie se asigna admin desde el navegador | OK — inserción, upsert, metadatos de usuario y edición de roles rechazados |
+| 7 | Archivos privados no descargables | OK — dirección pública 400; visitante y usuario común rechazados; admin sí |
+| 8 | Archivos públicos funcionan | OK — 174 de 174 descargados con bytes idénticos (huella SHA-256) |
+| 9 | Datos se conservan al reabrir | OK — conexiones nuevas ven los cambios; datos presentes entre ejecuciones |
+| 10 | Importación sin duplicados | OK — segunda ejecución: 17 "ya existía (idéntico)", conteos sin cambios |
+
+Error real encontrado y corregido: el historial no podía registrar cambios de roles (migración
+`…120400`). Las pruebas dejan en el historial los registros del desarrollo de prueba (creado y borrado).
+
+Estadísticas leídas como admin: 17 desarrollos, 17 publicados, 0 borradores, 13 con material
+incompleto, 207 unidades (206 disponibles, 1 reservada, 0 vendidas), 38 fotos, 23 renders, 32 planos,
+72 páginas de brochure, 7 portadas.
+
+**No probado todavía:** el correo de recuperación de contraseña (se prueba con la cuenta real de Nahir)
+y el inicio de sesión desde una pantalla (fase 5).
+
+### Cuenta administradora de Nahir (pendiente — la crea ella)
+
+1. Supabase → **Authentication → Users → Add user → Create new user**.
+2. Su correo y una contraseña fuerte (12+ caracteres, guardada en un gestor de contraseñas);
+   marcar **Auto Confirm User**.
+3. Avisar el correo; se ejecuta `npm run sb:admin -- su-correo` (solo agrega el rol; no ve la contraseña).
+
+### Pendiente antes del panel visual (fase 5)
+
+1. Crear la cuenta administradora de Nahir y probar inicio de sesión y recuperación de contraseña.
+2. Para producción: segundo proyecto de Supabase separado, y correo propio (SMTP) para los avisos de
+   contraseña (el correo incluido en Supabase tiene un límite bajo de envíos).
+3. Decidir con Nahir: archivos de borradores en `privado` y pasarlos a `media` al publicar.
+4. El plan gratuito pausa el proyecto tras una semana sin uso (se reactiva desde el panel).

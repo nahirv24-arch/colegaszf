@@ -9,6 +9,11 @@ __pycache__/
 # Seguridad: nunca subir credenciales ni datos de clientes
 .env
 .env.*
+!.env.local.ejemplo
+supabase/.temp/
+supabase/.branches/
+# Exportaciones y respaldos generados por los scripts
+respaldos/
 *.xlsx
 *.xls
 *.csv

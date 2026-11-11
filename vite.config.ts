@@ -51,6 +51,9 @@ function contenidoRaiz(): Plugin {
 
 export default defineConfig({
   root: resolve(RAIZ, "web"),
+  // .env.local vive en la raíz del proyecto. Vite solo pasa a la página las variables VITE_*
+  // (la URL y la clave pública); las secretas nunca llegan al navegador.
+  envDir: RAIZ,
   base: "/",
   publicDir: resolve(RAIZ, "web", "public"),
   plugins: [react(), contenidoRaiz()],
