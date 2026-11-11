@@ -4,6 +4,9 @@ import { cerrarSesion } from "../servicios/auth";
 import { useSesion } from "./sesion";
 import { useConfirmar } from "./ui";
 
+/** El aviso «Entorno de prueba» solo aparece si el panel está conectado al proyecto de prueba de Supabase. */
+const ES_PRUEBA = String(import.meta.env.VITE_SUPABASE_URL ?? "").includes("xwstxvbcfdizrhezulxl");
+
 const MENU = [
   { a: "/admin", texto: "Dashboard", icono: "M4 13h6V4H4zm0 7h6v-5H4zm10 0h6v-9h-6zm0-16v5h6V4z", fin: true },
   { a: "/admin/desarrollos", texto: "Desarrollos", icono: "M4 21V8l8-5 8 5v13h-6v-6h-4v6z" },
@@ -66,7 +69,7 @@ export function Diseno() {
           <button type="button" className="adm-hamburguesa" aria-label="Abrir menú" aria-expanded={menuAbierto}
                   onClick={() => setMenuAbierto(!menuAbierto)}><span /><span /><span /></button>
           <h1>{tituloDe(loc.pathname)}</h1>
-          <span className="adm-entorno" title="Los cambios se guardan en el proyecto de prueba de Supabase">Entorno de prueba</span>
+          {ES_PRUEBA ? <span className="adm-entorno" title="Los cambios se guardan en el proyecto de prueba de Supabase">Entorno de prueba</span> : null}
         </header>
         <main id="adm-contenido" className="adm-contenido" tabIndex={-1}>
           <Outlet />
