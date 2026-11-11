@@ -1,0 +1,16 @@
+# Archivos de Python
+__pycache__/
+*.pyc
+
+# Seguridad: nunca subir credenciales ni datos de clientes
+.env
+.env.*
+*.xlsx
+*.xls
+*.csv
+*.db
+*.sqlite
+
+# Restos de instalaciones y copias
+*.zip
+copias_de_seguridad/

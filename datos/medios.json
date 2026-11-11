@@ -1,0 +1,2970 @@
+{
+  "descripcion": "Inventario de imágenes extraídas de index.html (fase 2). 'archivos' = un registro por archivo único; 'referencias' = cada lugar donde se usa.",
+  "origen": {
+    "archivo": "index.html",
+    "sha256": "2f0eefa48df46decb5b9bbcb5da7c0fded827137d7086e811a63cac0a21742fa"
+  },
+  "logo": "media/general/logo.png",
+  "archivos": [
+    {
+      "ruta": "media/foresta/portada.webp",
+      "sha256": "b053dc221bfb930eb367c3a290f01ba1117d030fe1905dd1db2e217476a4e4cb",
+      "bytes": 108498,
+      "formato": "webp",
+      "ancho": 1080,
+      "alto": 566
+    },
+    {
+      "ruta": "media/general/logo.png",
+      "sha256": "33b5634644dd5e68bd8070fe1d9a139217b731dd01bb4679a1e7b4824eaf428f",
+      "bytes": 46856,
+      "formato": "png",
+      "ancho": 1206,
+      "alto": 872
+    },
+    {
+      "ruta": "media/general/portada.webp",
+      "sha256": "aa0ea4e1120c5e49f844e84627c920777104b84bd58741e17f7ba693a6936f24",
+      "bytes": 59442,
+      "formato": "webp",
+      "ancho": 1062,
+      "alto": 586
+    },
+    {
+      "ruta": "media/ignea-15/portada.webp",
+      "sha256": "83359b719c2f47fa657ce5cf947fce98fe83ea62868f2002332a581257c8d20a",
+      "bytes": 161720,
+      "formato": "webp",
+      "ancho": 1254,
+      "alto": 1254
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-01.jpg",
+      "sha256": "00fdc79006fe3f5cdf08ee47a54d52a3f8053a92eb1c9afdfc03a50b0c3475c3",
+      "bytes": 20372,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-02.jpg",
+      "sha256": "1ecb4eb5874ad3c876d780fbfcc02fd0c75872b6324f87add7558948d2862375",
+      "bytes": 122988,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-03.jpg",
+      "sha256": "1fc1d132cf7b1e92cc1b8e44eb6746b3d717d45eafa9648dcfb0fa85682ba0d7",
+      "bytes": 26729,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-04.jpg",
+      "sha256": "1c06ae9a602ef1ea1e9ef4c07a86305d897e490b5f7e6598d67d61982e86c342",
+      "bytes": 35645,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-05.jpg",
+      "sha256": "dbf6c6e2b57c37274adcbe39ace25cf8a3a4142e0f9b82bb187da9f52dbb7a1d",
+      "bytes": 163976,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-06.jpg",
+      "sha256": "1ea40a748fcf791b7478e1541e0da33b85916981f96d74e1e481e122217bd316",
+      "bytes": 94834,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-07.jpg",
+      "sha256": "b84c5fde0fec7e8a762477472fad7cccdec1fdb29ea034002218ac8b350d9b05",
+      "bytes": 54207,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-08.jpg",
+      "sha256": "600008e929b9fa7371d3330bf17f6ee1861c542cf05cba824338906cb9bdcfea",
+      "bytes": 63754,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-09.jpg",
+      "sha256": "6fffb7b723f9253493cf9c81a7ea9be0cbbb0e91db9a40839208e2d3cac6e395",
+      "bytes": 67967,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-10.jpg",
+      "sha256": "563ed047884e602f4158bea35710419fb6bfe455c8687a95063b6c765fdeb2a9",
+      "bytes": 85341,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-11.jpg",
+      "sha256": "e04a75a765369d7415bd7c7fc92f2f5daf0253039b85c0382f93da4a9d48facd",
+      "bytes": 84576,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-12.jpg",
+      "sha256": "c9ee188d9f8d1d9beaed9693d3a1421bdb3f6fbadd84ea5ab8a37eb83fcb496a",
+      "bytes": 68774,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-13.jpg",
+      "sha256": "e12d51631f6519721145a6d7e170c1cc1c216c987f55e3952d1605e996237409",
+      "bytes": 77531,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-14.jpg",
+      "sha256": "e7deac91bd6f01b09ded322a41cf030585491e10e78bf4eaa3ae12b28ffeb18c",
+      "bytes": 73519,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-15.jpg",
+      "sha256": "d900435438c0a1ae11247db89ea8a278d28d7cc64f694dc4ff5c15e0a587c4ce",
+      "bytes": 69429,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-16.jpg",
+      "sha256": "33b4c126a9c56081ad028cab2b01c344a87ddc3de5fde8e4c6519e5aab3f0547",
+      "bytes": 70125,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-17.jpg",
+      "sha256": "390cf93a87b167af43d9d4d0b7da5e1f6042a2fe4e8d57b9ccb5b252cbdf9bd1",
+      "bytes": 51287,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-18.jpg",
+      "sha256": "6659cea27fb83aa9375832cc0d65b3f9c0027c752208647d6faf94ce3033a93b",
+      "bytes": 35841,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-19.jpg",
+      "sha256": "4b0edcc7c922843f57c6c91e19a08e46e83d433954844a60a3b70082a5b61a19",
+      "bytes": 87196,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-20.jpg",
+      "sha256": "3599755dc910386c7ebdb0261155e53428d3ff20fda7e412589d22629f45f350",
+      "bytes": 48709,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-21.jpg",
+      "sha256": "a415904e3a3cdcea933b46d230eabd118c8c729624669d1c89887dfc758ca202",
+      "bytes": 65897,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/brochure/pagina-22.jpg",
+      "sha256": "f4fee8b900af24cceff776e281cba01d08a08a8dc0b5610444822f2cdaa53faa",
+      "bytes": 21241,
+      "formato": "jpeg",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/magna-11/fotos/foto-01.jpg",
+      "sha256": "c0ef5f7f7f3e4c26089cac46ee4cafdc71131f0ea104ea530742db8c8764e994",
+      "bytes": 179877,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 1050
+    },
+    {
+      "ruta": "media/magna-11/fotos/foto-02.jpg",
+      "sha256": "14d40dc0bfe8b9b47c58bd5d12fd54fe096fe21fdd2bf348fec2ccf0e857644f",
+      "bytes": 115318,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 933
+    },
+    {
+      "ruta": "media/magna-11/fotos/foto-03.jpg",
+      "sha256": "3b472d976b0c98ec6279f6f90bdeec2ad60040a27e564eef16091b72462bbaec",
+      "bytes": 83428,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 933
+    },
+    {
+      "ruta": "media/magna-11/fotos/foto-04.jpg",
+      "sha256": "8212bc4ceb1d0844a662fde17745e9cd7c7220bc8df289896425303b2bad218f",
+      "bytes": 63127,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 933
+    },
+    {
+      "ruta": "media/magna-11/fotos/foto-05.jpg",
+      "sha256": "0e859ff0a7e94163cbc26db00a830123e3568b7217c648c1af050574e8b398f3",
+      "bytes": 79509,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 933
+    },
+    {
+      "ruta": "media/magna-11/fotos/foto-06.jpg",
+      "sha256": "51908c042e3895afa1194d79ff8260db4e080246741cbb8633db4042e9b48c7f",
+      "bytes": 107578,
+      "formato": "jpeg",
+      "ancho": 933,
+      "alto": 1400
+    },
+    {
+      "ruta": "media/magna-11/fotos/foto-07.jpg",
+      "sha256": "c60db25a02459882435f9bf0119b78af7bce6d222ddecb56e6d5153c9f8ee0cf",
+      "bytes": 93599,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 933
+    },
+    {
+      "ruta": "media/magna-11/fotos/foto-08.jpg",
+      "sha256": "ce3a508eff534c912bd36152638a4cb8c16527f838912403768f3c9d06390b88",
+      "bytes": 90598,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 933
+    },
+    {
+      "ruta": "media/magna-11/fotos/foto-09.jpg",
+      "sha256": "8280469358ec765e20a09c287a2046c1aa7ae3ceefe0ef0e37ea153ec14537a6",
+      "bytes": 120625,
+      "formato": "jpeg",
+      "ancho": 933,
+      "alto": 1400
+    },
+    {
+      "ruta": "media/magna-11/fotos/foto-10.jpg",
+      "sha256": "37f794fd5a87814035265285c6c754eb9c401d2b2226ed957ed3791319256cb3",
+      "bytes": 140198,
+      "formato": "jpeg",
+      "ancho": 933,
+      "alto": 1400
+    },
+    {
+      "ruta": "media/magna-11/fotos/foto-11.jpg",
+      "sha256": "e6c963deac40e9c5a75d1a22d0843dbbd1aa03f88440289b62e6c67d2fa013e1",
+      "bytes": 102975,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 933
+    },
+    {
+      "ruta": "media/magna-11/fotos/foto-12.jpg",
+      "sha256": "b66fe2beaec3c56a961e7f78537554b0d066fdd3f7f4f3dd26a0afbb2006320d",
+      "bytes": 119670,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 933
+    },
+    {
+      "ruta": "media/magna-11/fotos/foto-13.jpg",
+      "sha256": "95c38a0fe11c6175888240186a0f11781e649a435f68c66dc9316dde4f649a67",
+      "bytes": 119146,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 933
+    },
+    {
+      "ruta": "media/magna-11/fotos/foto-14.jpg",
+      "sha256": "e55c5c85bee5107845d6321d24e4b868dde63038ff58bbe77e5a574f172fee7d",
+      "bytes": 156900,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 933
+    },
+    {
+      "ruta": "media/magna-11/fotos/foto-15.jpg",
+      "sha256": "8525bdbedc3cb8c89cd4943d06844273786f1664329475c464d8b84a30b76d82",
+      "bytes": 219025,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 933
+    },
+    {
+      "ruta": "media/magna-11/fotos/foto-16.jpg",
+      "sha256": "913079507aa051634baeaaf7f24f90117f6e33eb32ea08ef6b342046af968935",
+      "bytes": 123289,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 933
+    },
+    {
+      "ruta": "media/magna-11/planos/plano-01.jpg",
+      "sha256": "80ecde7295bdbd38bc72ab09b4ca83fd754644e624733b7f9f2218eb7e9c456c",
+      "bytes": 299290,
+      "formato": "jpeg",
+      "ancho": 2200,
+      "alto": 894
+    },
+    {
+      "ruta": "media/magna-11/planos/plano-02.jpg",
+      "sha256": "6d18d8f916943ce5fe52b4130906de360d89b994674229ecff02ec5c3cbf9248",
+      "bytes": 336653,
+      "formato": "jpeg",
+      "ancho": 2200,
+      "alto": 930
+    },
+    {
+      "ruta": "media/magna-11/planos/plano-03.jpg",
+      "sha256": "1936060435f3e9147e2c2522742115b80c4d0f052be477ca679d6ba95eaec5a2",
+      "bytes": 329930,
+      "formato": "jpeg",
+      "ancho": 2200,
+      "alto": 930
+    },
+    {
+      "ruta": "media/magna-11/planos/plano-04.jpg",
+      "sha256": "f31f576a51f8c6b9c1a15709c46d23fb8a8a824a16ff92f235d951d7e3a1fa1a",
+      "bytes": 334348,
+      "formato": "jpeg",
+      "ancho": 2200,
+      "alto": 930
+    },
+    {
+      "ruta": "media/magna-11/planos/plano-05.jpg",
+      "sha256": "2bbab5e27c94a7790115b3e41aac86c3432befd775d33913065407bb52fba56f",
+      "bytes": 223832,
+      "formato": "jpeg",
+      "ancho": 2200,
+      "alto": 930
+    },
+    {
+      "ruta": "media/magna-11/portada.webp",
+      "sha256": "eda596745c1fb9bcba3d5ab34699473adec74aa62a71106f13dec4a49a0fa138",
+      "bytes": 389646,
+      "formato": "webp",
+      "ancho": 1400,
+      "alto": 1556
+    },
+    {
+      "ruta": "media/magna-11/renders/render-01.jpg",
+      "sha256": "760c599186879c03295192c0b24c1772299f3e271e71e300e3bf1aeb7af4e13c",
+      "bytes": 119042,
+      "formato": "jpeg",
+      "ancho": 1275,
+      "alto": 626
+    },
+    {
+      "ruta": "media/magna-11/renders/render-02.jpg",
+      "sha256": "dca6cce7924d2174be5b6cb73a0c7c55d3547b8b38e97d960ac386d97329285b",
+      "bytes": 110091,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 788
+    },
+    {
+      "ruta": "media/magna-11/renders/render-03.jpg",
+      "sha256": "142b39c149d22b540f2c70a8d9c04015d1602f07dbbe18eef21c72d81061ba34",
+      "bytes": 126860,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 1077
+    },
+    {
+      "ruta": "media/magna-11/renders/render-04.jpg",
+      "sha256": "11b223368c61e68d0f7f4affbed57d8458225f17fcc26cecd468c0b726b2fc53",
+      "bytes": 155761,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 1077
+    },
+    {
+      "ruta": "media/magna-11/renders/render-05.jpg",
+      "sha256": "59decf38f106637e8dc6722f84413b620a5249e35cd881d8b68802368fbae0d2",
+      "bytes": 137143,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 1077
+    },
+    {
+      "ruta": "media/magna-11/renders/render-06.jpg",
+      "sha256": "5f9ac1617c2081b4af97d2347592dd982bde4ad07ea8d24a6db26d99c729b9a6",
+      "bytes": 172481,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 1077
+    },
+    {
+      "ruta": "media/magna-11/renders/render-07.jpg",
+      "sha256": "bc6a336664d513dbce590bef4c6bc86a9a5fbf7fab0211b8795327165f3e4cc0",
+      "bytes": 453840,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 1556
+    },
+    {
+      "ruta": "media/magna-11/renders/render-08.jpg",
+      "sha256": "51e9cda16c11eeca69e4bbc1502a05b50481ea0497f87268ecfad148821fa738",
+      "bytes": 449907,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 1556
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-01.webp",
+      "sha256": "75e9aafd3d80c4ffd1b87d74bf8fcf5b090690d32ffb687f68ce9aa5d30e03c4",
+      "bytes": 6922,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-02.webp",
+      "sha256": "df91adb89db9e2a4ec8977efe754cd68327f7c9dedbaaccd77cd9b4055eb801c",
+      "bytes": 87418,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-03.webp",
+      "sha256": "e4a62c457ae2455a91cdaa66ec184088dd028deee88c664083e706be78d79d06",
+      "bytes": 93788,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-04.webp",
+      "sha256": "52eeeddeb9a40236d42119fd47b283c07f587a3784b78ee5b895c62d40d8feff",
+      "bytes": 20050,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-05.webp",
+      "sha256": "1195d6c9d009d2fcf7c04aa056a6942c9b8130cf2bc1888a4b45ce563332d6ee",
+      "bytes": 7810,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-06.webp",
+      "sha256": "a713bfe43f9a58b437b85d4e7b75c3d5f86b3c28e54c6c9d72b44856d642e9a4",
+      "bytes": 11314,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-07.webp",
+      "sha256": "c582e5e9ed2334a8fe9bd2093ee7834c038c437c2181b37612a46507921c8464",
+      "bytes": 32760,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-08.webp",
+      "sha256": "de510bb3bde9c674c603eb927b325d8994ed7011921e5ff55a4c1fa28f92f082",
+      "bytes": 33642,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-09.webp",
+      "sha256": "5c28ff6ffb1dcf3a0ef7f61fadee01c56c87d164f652d1804ebf267126988d7a",
+      "bytes": 35268,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-10.webp",
+      "sha256": "8c5bfdc83bb0f7c25e23b3bec578b643554d04a12451f7e69a1230ebdc8512cc",
+      "bytes": 13628,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-11.webp",
+      "sha256": "2272e6b2cc0ff2dbabad4b5ce3c6ee12b2c3741507d1b74a2f77705606c03858",
+      "bytes": 31160,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-12.webp",
+      "sha256": "2ab60610c0a8eb813ef311713827b25f87af55265cdde22e273aefb5ad5dcef1",
+      "bytes": 31962,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-13.webp",
+      "sha256": "036fbb4c5e5888980b4f1d7dd15f68546139aafbbaae25cac22348573f83a3e3",
+      "bytes": 34290,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-14.webp",
+      "sha256": "a75d937e493c3c891269f54c3d73ce5ea0c68edf54724816692b9d6a85ee56d2",
+      "bytes": 25872,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-15.webp",
+      "sha256": "c354969a3343a4dfd295a1331932abdf91581b402ef40565d70b6556f7fde3ff",
+      "bytes": 33722,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-16.webp",
+      "sha256": "e1a0b933d8923ce1693deb6988c011bd1fb9df0eedc8eb3c8f7b02cc8d6ab17f",
+      "bytes": 31252,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-17.webp",
+      "sha256": "e577a23a2ee37ecc098b9dca088d3e8741c375b85e50b97de330de2545735727",
+      "bytes": 34120,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-18.webp",
+      "sha256": "329fc783fa3197be739dbf01c7e21d157ee71796d05b5e456efa86af1a2b86b9",
+      "bytes": 32918,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-19.webp",
+      "sha256": "361f8454e3e0f6e69776a11e3b7f43b6a315c90cbbbcfd1715b640818e5c312b",
+      "bytes": 33362,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-20.webp",
+      "sha256": "b10d5dacf53e184c876aeb15c1bd0e06644f68beefa209f61f38147fb5e9f2c6",
+      "bytes": 29084,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-21.webp",
+      "sha256": "d374baab1e84852b1beb63285308b46d98bb4e08fcef81711898859bbc1aad98",
+      "bytes": 27970,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-22.webp",
+      "sha256": "7497ac12ea803fdefd000ca43434b51769a5194e1fc44396bbedb4f7b69cf3f2",
+      "bytes": 29558,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-23.webp",
+      "sha256": "738d137048bd0219e739d6bc7ea6faca00d5899ecaabbe0c95c94e139da0a251",
+      "bytes": 25692,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-24.webp",
+      "sha256": "741ae36460b2a5cc0ff72718c5df2c067068147b8254b1b6b138e2f866a9ef19",
+      "bytes": 25828,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-25.webp",
+      "sha256": "3a35f542c2f767c23584e1a0ad8448c872c8b8cac1f32c1bb093470adbbcf1ec",
+      "bytes": 33582,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-26.webp",
+      "sha256": "06cacdd916aaee8288e3e405d6c1f8ed12ba91f41fd43aff5d604b3941f1b5c3",
+      "bytes": 25612,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-27.webp",
+      "sha256": "fec9bd2781d6da6e582609661d1ce0e1e337cab314a8bd59a35d185911541a40",
+      "bytes": 31978,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-28.webp",
+      "sha256": "ec759155d13e03eead13d1023508236c87d781566f016d9da18e430ba3a3d2ad",
+      "bytes": 57184,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-29.webp",
+      "sha256": "a4e27cbaefb3253a74921b9d8ee5e93ae1e2def2359714727dd1c8327c09ccc1",
+      "bytes": 49134,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-30.webp",
+      "sha256": "eb776e87cf8085cfbe900a320e3819af6f385e751684a325f14bfd45b6d0e5a7",
+      "bytes": 35892,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-31.webp",
+      "sha256": "2cbae295638aa2088dfc9d9a55cb987b2d98baad64408511f7ddba05bcdc03b6",
+      "bytes": 40790,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/brochure/pagina-32.webp",
+      "sha256": "1d69bdd00271a89171b6367e7931397c9b3d50f32f65182d3ee9d08d24a161fa",
+      "bytes": 36394,
+      "formato": "webp",
+      "ancho": 1000,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/fotos/foto-01.jpg",
+      "sha256": "557059c124f8c40c9129981ac491ebc56b1ea6c34d124436bec9912408dbd1db",
+      "bytes": 133869,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 647
+    },
+    {
+      "ruta": "media/patagonia-15/fotos/foto-02.jpg",
+      "sha256": "faa94a6e7c92638e667de4244ca3e598883beb609c1bd901a8db5f84c8c916e9",
+      "bytes": 121627,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 647
+    },
+    {
+      "ruta": "media/patagonia-15/fotos/foto-03.jpg",
+      "sha256": "7f08df159a7f3810e788b320f68f39f0fde8f789da4eb179a323bb0b2715fdb0",
+      "bytes": 65750,
+      "formato": "jpeg",
+      "ancho": 960,
+      "alto": 1280
+    },
+    {
+      "ruta": "media/patagonia-15/fotos/foto-04.jpg",
+      "sha256": "99132a59f5b65ab35956f379f91d44be35f2de73e66c680598f1fb1d8bfdaa90",
+      "bytes": 557858,
+      "formato": "jpeg",
+      "ancho": 1190,
+      "alto": 2576
+    },
+    {
+      "ruta": "media/patagonia-15/fotos/foto-05.jpg",
+      "sha256": "bce653409b82394eef35a452a4f92aee10ed81f049c26cb087062e15d7748c62",
+      "bytes": 145390,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 647
+    },
+    {
+      "ruta": "media/patagonia-15/fotos/foto-06.jpg",
+      "sha256": "8a2feb877cb46e4db31739849696d7ad75f214532b97e3b9e771a72a6b9a6f56",
+      "bytes": 165337,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 647
+    },
+    {
+      "ruta": "media/patagonia-15/fotos/foto-07.jpg",
+      "sha256": "3c86d30d9fd70ebc61bdc7c693c4bc379d588a61a17d87ce30adc8c0bd71aeb5",
+      "bytes": 93854,
+      "formato": "jpeg",
+      "ancho": 1280,
+      "alto": 960
+    },
+    {
+      "ruta": "media/patagonia-15/fotos/foto-08.jpg",
+      "sha256": "c29100d4c272036a576235572776ef71b396210f9c7f80e9302bd6c09e40a3d2",
+      "bytes": 126991,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 646
+    },
+    {
+      "ruta": "media/patagonia-15/fotos/foto-09.jpg",
+      "sha256": "c40f128922da1cbf69e1679536785a89501c8ec8c4b82f9364a4002764d79811",
+      "bytes": 85496,
+      "formato": "jpeg",
+      "ancho": 1280,
+      "alto": 960
+    },
+    {
+      "ruta": "media/patagonia-15/fotos/foto-10.jpg",
+      "sha256": "271c8c63fc98ce9f1138f961d6464e0d21fe83955e017b90e14919ec2c3bd951",
+      "bytes": 499128,
+      "formato": "jpeg",
+      "ancho": 1190,
+      "alto": 2576
+    },
+    {
+      "ruta": "media/patagonia-15/fotos/foto-11.jpg",
+      "sha256": "5afdd900909355307d8b6b1d085d67f0cee9334fdd19263e317e8e71dd0554af",
+      "bytes": 90143,
+      "formato": "jpeg",
+      "ancho": 960,
+      "alto": 1280
+    },
+    {
+      "ruta": "media/patagonia-15/fotos/foto-12.jpg",
+      "sha256": "788ddc8d888d7718388ccabf7b2cb6ca4086f7bed51deecb24d39f9b3a24d640",
+      "bytes": 200602,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 647
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-01.webp",
+      "sha256": "5b2387e169ea1cbac553498638de1fade9b1afe9ae35cb97fd25e919f72c0114",
+      "bytes": 35712,
+      "formato": "webp",
+      "ancho": 1100,
+      "alto": 629
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-02.webp",
+      "sha256": "7f4dd900e40c80b776e5631ee58f542da6bb8238524a2b0f086daff2a77f130a",
+      "bytes": 31228,
+      "formato": "webp",
+      "ancho": 1100,
+      "alto": 733
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-03.webp",
+      "sha256": "4e0c6a98f21fc4f3cdbea89ddd1d18f474b0a5a3a1971c4930ec672d104d6098",
+      "bytes": 37160,
+      "formato": "webp",
+      "ancho": 1088,
+      "alto": 960
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-04.webp",
+      "sha256": "b7a539cf25f8b85fc41f73e293acd86456589bcccadf4192bca4dfd578c2a300",
+      "bytes": 43894,
+      "formato": "webp",
+      "ancho": 832,
+      "alto": 1248
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-05.webp",
+      "sha256": "d3b5b62a50f7c16dd5a59924e9c159f5e7b0261bec364d8c2231c3183fef48dd",
+      "bytes": 47488,
+      "formato": "webp",
+      "ancho": 960,
+      "alto": 1088
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-06.webp",
+      "sha256": "6019c951c76af86a27df18109ca5580f59998bc467ca0d5972f4b0e77d70e88c",
+      "bytes": 42496,
+      "formato": "webp",
+      "ancho": 832,
+      "alto": 1248
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-07.webp",
+      "sha256": "45ceddc454d1eb4fdb2dfa7b109b5918ef0fc352f6dae58cf4e550923f4684b0",
+      "bytes": 42314,
+      "formato": "webp",
+      "ancho": 1088,
+      "alto": 960
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-08.webp",
+      "sha256": "9c95ebd313843b10224e3a60b12699bad8d737daf12d6dc8ebc6f77d4101a9f1",
+      "bytes": 37658,
+      "formato": "webp",
+      "ancho": 992,
+      "alto": 1056
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-09.webp",
+      "sha256": "b61e5fb5ea9b64706de7da5115ce87963ef272fecece5944ae61faf9addaaae2",
+      "bytes": 34688,
+      "formato": "webp",
+      "ancho": 864,
+      "alto": 1184
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-10.webp",
+      "sha256": "9277a4f79a66ec12f0cef15d687958e5cd50ac3aff43c7a763e4f3cf951fc1e8",
+      "bytes": 42430,
+      "formato": "webp",
+      "ancho": 1088,
+      "alto": 960
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-11.webp",
+      "sha256": "be8e6c365c88c0c346f70812a116d7201f3e226d8b1eb583f5abcef3e32e530b",
+      "bytes": 38902,
+      "formato": "webp",
+      "ancho": 1100,
+      "alto": 733
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-12.webp",
+      "sha256": "02f5ddfc4ed77ce2ae58a2355b999450ef65af826e2c077aacecf3fd1833b298",
+      "bytes": 36350,
+      "formato": "webp",
+      "ancho": 1100,
+      "alto": 688
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-13.webp",
+      "sha256": "7eecd36f483c5e9e7a20686ce750a38792ced32741ae2fadd705a80a028f5009",
+      "bytes": 50732,
+      "formato": "webp",
+      "ancho": 1100,
+      "alto": 803
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-14.webp",
+      "sha256": "7e77fc823bcf74b3a2f6881f7b021c4b43e8aa28cedc3888fbe4a399c7cf134f",
+      "bytes": 39444,
+      "formato": "webp",
+      "ancho": 1100,
+      "alto": 526
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-15.webp",
+      "sha256": "f427234eddd2c7d6b0b2f8a6999dc9f012156c7cf9f288e2c56ad8ba211c8415",
+      "bytes": 29814,
+      "formato": "webp",
+      "ancho": 1100,
+      "alto": 526
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-16.webp",
+      "sha256": "48909889de01926c01e4d13b0bfb3a519e0fc989584c717eeb0fa13f2e64b19d",
+      "bytes": 41816,
+      "formato": "webp",
+      "ancho": 1100,
+      "alto": 688
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-17.webp",
+      "sha256": "f01165f3c2d84ba01edb0845049f146bab6ce1b5d13772bc02709c0fc396356d",
+      "bytes": 27134,
+      "formato": "webp",
+      "ancho": 1100,
+      "alto": 481
+    },
+    {
+      "ruta": "media/patagonia-15/planos/plano-18.webp",
+      "sha256": "10e7056c27b0bdcec8559744e5665ce4496cacbb3ff2dc0f84606695e81a016d",
+      "bytes": 336080,
+      "formato": "webp",
+      "ancho": 2400,
+      "alto": 1567
+    },
+    {
+      "ruta": "media/patagonia-15/portada.webp",
+      "sha256": "a11a34f4b541c95a4025eb0041d375456a6b656066667caad3e92273851e609a",
+      "bytes": 234598,
+      "formato": "webp",
+      "ancho": 1500,
+      "alto": 1000
+    },
+    {
+      "ruta": "media/patagonia-15/renders/render-01.webp",
+      "sha256": "d047587f25f2e11d8624fa0bdbb57aaf5c62820056341ad0a6b9e1f2e5e95961",
+      "bytes": 62890,
+      "formato": "webp",
+      "ancho": 1200,
+      "alto": 800
+    },
+    {
+      "ruta": "media/patagonia-15/renders/render-02.webp",
+      "sha256": "6255cebbcef04191a5545522bc0c2a2915683917fce6da1833016320899fc697",
+      "bytes": 54142,
+      "formato": "webp",
+      "ancho": 1200,
+      "alto": 800
+    },
+    {
+      "ruta": "media/patagonia-15/renders/render-03.webp",
+      "sha256": "e165ba0ea45a6d8a52360a7ed5fc0cd31e78511aef018ee7801b6c19489fda31",
+      "bytes": 54680,
+      "formato": "webp",
+      "ancho": 1200,
+      "alto": 800
+    },
+    {
+      "ruta": "media/patagonia-15/renders/render-04.webp",
+      "sha256": "5a08685cabcd973bf53dbe9346869b3c1f97f3d891d7cd9ee1fa0fc8a9a199df",
+      "bytes": 45836,
+      "formato": "webp",
+      "ancho": 1200,
+      "alto": 800
+    },
+    {
+      "ruta": "media/patagonia-15/renders/render-05.webp",
+      "sha256": "edb16c314e7b265aebd4a0039bc6e2519f715cb1d8d3f2c49be2a6be326fabd5",
+      "bytes": 59698,
+      "formato": "webp",
+      "ancho": 1200,
+      "alto": 800
+    },
+    {
+      "ruta": "media/patagonia-15/renders/render-06.webp",
+      "sha256": "fad261d9ab37b13392cd1068370d1f3a82bb0b6715b1e66108ea3a8978c9b21c",
+      "bytes": 47742,
+      "formato": "webp",
+      "ancho": 1200,
+      "alto": 800
+    },
+    {
+      "ruta": "media/patagonia-15/renders/render-07.webp",
+      "sha256": "0a74637fb3260e18580c86f632a901956ec9fb737d0d999b23a9f979124485e2",
+      "bytes": 23908,
+      "formato": "webp",
+      "ancho": 1200,
+      "alto": 800
+    },
+    {
+      "ruta": "media/patagonia-15/renders/render-08.webp",
+      "sha256": "1607911b09edc1dc265c366cb48766ec6db81367894fc6bf19303a8b4f870136",
+      "bytes": 33420,
+      "formato": "webp",
+      "ancho": 1200,
+      "alto": 800
+    },
+    {
+      "ruta": "media/patagonia-15/renders/render-09.webp",
+      "sha256": "35839177ab3e1b3aa1f5bf0ac46d6d6ac88b6b254e8f155404beb356bab604e7",
+      "bytes": 43396,
+      "formato": "webp",
+      "ancho": 1200,
+      "alto": 800
+    },
+    {
+      "ruta": "media/patagonia-15/renders/render-10.webp",
+      "sha256": "3a8f0ee933a5a64b3ecdb06b06483b55e4ae3288f4eb0e474afd29d47fdd93b3",
+      "bytes": 46308,
+      "formato": "webp",
+      "ancho": 1200,
+      "alto": 800
+    },
+    {
+      "ruta": "media/patagonia-15/renders/render-11.webp",
+      "sha256": "5796f649635f31523a1e64bfd093e77e5fb5dd97729fded784e4683789a8519b",
+      "bytes": 147384,
+      "formato": "webp",
+      "ancho": 1200,
+      "alto": 800
+    },
+    {
+      "ruta": "media/reggia-6/brochure/pagina-01.jpg",
+      "sha256": "e7d3100f03b89a8e6ebe80b430bdf1f07e482e40f418ef6c2b44449fafaca9c0",
+      "bytes": 123772,
+      "formato": "jpeg",
+      "ancho": 1357,
+      "alto": 1400
+    },
+    {
+      "ruta": "media/reggia-6/brochure/pagina-02.jpg",
+      "sha256": "23fe86cd760f786eb9d0e918cec06bfe0e5223312eb3228f0dd5fad5cfd20390",
+      "bytes": 58498,
+      "formato": "jpeg",
+      "ancho": 1172,
+      "alto": 691
+    },
+    {
+      "ruta": "media/reggia-6/brochure/pagina-03.jpg",
+      "sha256": "5a1308ffab237f280718903a553dc0d60ce9f439ab58df4647216c2182389099",
+      "bytes": 121294,
+      "formato": "jpeg",
+      "ancho": 938,
+      "alto": 568
+    },
+    {
+      "ruta": "media/reggia-6/brochure/pagina-04.jpg",
+      "sha256": "a004cabbf57176ff0c33165d8eaaa61b2198c84162f49b4664ef0c815bf65759",
+      "bytes": 155016,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 832
+    },
+    {
+      "ruta": "media/reggia-6/brochure/pagina-05.jpg",
+      "sha256": "6b01ce8f2600fcee0b8e1b10480eab57d3fd60480af7b67800e5b7186fa26663",
+      "bytes": 257220,
+      "formato": "jpeg",
+      "ancho": 1292,
+      "alto": 858
+    },
+    {
+      "ruta": "media/reggia-6/brochure/pagina-06.jpg",
+      "sha256": "6767cba642d13b5c41973ad6b7c37dc22921452a77122d6d31e488f97c9b304a",
+      "bytes": 103374,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 582
+    },
+    {
+      "ruta": "media/reggia-6/brochure/pagina-07.jpg",
+      "sha256": "3c06e089bf19e8c11d0019bbacf4c0ccd7553bbabf37633f8e26f8defb74d0c8",
+      "bytes": 171197,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 932
+    },
+    {
+      "ruta": "media/reggia-6/brochure/pagina-08.jpg",
+      "sha256": "416a1b55ad89b83749923761388d4aa64a8db6580a8183d109994e79f6383e29",
+      "bytes": 110964,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 933
+    },
+    {
+      "ruta": "media/reggia-6/fotos/foto-01.jpg",
+      "sha256": "9ccc61d6ec85ea942ddbcbff86b5389e5bf09adb2a97098b5b9dee84b34f1ed7",
+      "bytes": 197667,
+      "formato": "jpeg",
+      "ancho": 647,
+      "alto": 1400
+    },
+    {
+      "ruta": "media/reggia-6/fotos/foto-02.jpg",
+      "sha256": "6eb4706f58489d8ba8acefdfbb33a619d0c7341d1c211247997bf0d383492077",
+      "bytes": 106379,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 647
+    },
+    {
+      "ruta": "media/reggia-6/fotos/foto-03.jpg",
+      "sha256": "c3b32e36c2ef4e315d61523c3e5bde55d1ed233425d94bfe5cd5ccb7a54ed710",
+      "bytes": 82274,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 647
+    },
+    {
+      "ruta": "media/reggia-6/fotos/foto-04.jpg",
+      "sha256": "857cfca36875fce587e2c04360bb3baeefbfcc05eea05e181bb9530ae025c187",
+      "bytes": 160040,
+      "formato": "jpeg",
+      "ancho": 647,
+      "alto": 1400
+    },
+    {
+      "ruta": "media/reggia-6/fotos/foto-05.jpg",
+      "sha256": "08cf60d70c5dc72ca7a21860aea0b60836e67d51c4eae67335b38a5a55e60f75",
+      "bytes": 184557,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 647
+    },
+    {
+      "ruta": "media/reggia-6/fotos/foto-06.jpg",
+      "sha256": "d89a61e01e77569f39a524a63ef83a50374b9f9d53f3a698cc8274fde54d3a8f",
+      "bytes": 134928,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 647
+    },
+    {
+      "ruta": "media/reggia-6/fotos/foto-07.jpg",
+      "sha256": "1bebb335a507f3c02aa7ab21ecdadb153ae9c478b94070e9755919379d8599d9",
+      "bytes": 217640,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 647
+    },
+    {
+      "ruta": "media/reggia-6/fotos/foto-08.jpg",
+      "sha256": "aaad7a2f058daefb2fb8353e3fa17834d3a1f7825ba759ac21101d39f75df8b5",
+      "bytes": 174771,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 647
+    },
+    {
+      "ruta": "media/reggia-6/planos/plano-01.jpg",
+      "sha256": "fbc43e52939d495ffb3905a4323b44912072e98ba2dd823c6322b0e59bb2ec4b",
+      "bytes": 128654,
+      "formato": "jpeg",
+      "ancho": 1600,
+      "alto": 665
+    },
+    {
+      "ruta": "media/reggia-6/planos/plano-02.jpg",
+      "sha256": "f1cecca5252b15992c599dd9b2fcb3d3e74f485561425c3be231dbcbd523d835",
+      "bytes": 216740,
+      "formato": "jpeg",
+      "ancho": 1600,
+      "alto": 1065
+    },
+    {
+      "ruta": "media/reggia-6/planos/plano-03.jpg",
+      "sha256": "764f634a3f95e9a4ede81567779c37b8ad43f0d7f58dde4244d2fd9d06dfdfb1",
+      "bytes": 139305,
+      "formato": "jpeg",
+      "ancho": 1600,
+      "alto": 1066
+    },
+    {
+      "ruta": "media/reggia-6/portada.jpg",
+      "sha256": "8665b19c716b08cfed4ab534183e48139596bf0d0fcedd0d2136cbb04e20e997",
+      "bytes": 168300,
+      "formato": "jpeg",
+      "ancho": 672,
+      "alto": 1200
+    },
+    {
+      "ruta": "media/reggia-6/renders/render-01.jpg",
+      "sha256": "ae84ccc08dee0a800a0e7367b930233398c93bf3b105a0daed53855ae35efe62",
+      "bytes": 173450,
+      "formato": "jpeg",
+      "ancho": 703,
+      "alto": 1256
+    },
+    {
+      "ruta": "media/reggia-6/renders/render-02.jpg",
+      "sha256": "28e875c7d20df0585d6628bdb1c7f77eacb284e3db7e3d9533627b6c270444ba",
+      "bytes": 110139,
+      "formato": "jpeg",
+      "ancho": 935,
+      "alto": 466
+    },
+    {
+      "ruta": "media/reggia-7/brochure/pagina-01.jpg",
+      "sha256": "86f633eca56edb4989e98f95475271e786dbf3a66cfc7239e5fcb8f67087db9f",
+      "bytes": 54515,
+      "formato": "jpeg",
+      "ancho": 1091,
+      "alto": 1400
+    },
+    {
+      "ruta": "media/reggia-7/brochure/pagina-02.jpg",
+      "sha256": "cacb170d16725738a98ebc14c6c923b81c97db40a88769c44c7ab358095e723c",
+      "bytes": 231025,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 934
+    },
+    {
+      "ruta": "media/reggia-7/brochure/pagina-03.jpg",
+      "sha256": "dbd200d5f46446ad209ec4bcdc73c737534ad838e9baec63f97404bcfaa21c7c",
+      "bytes": 231112,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 936
+    },
+    {
+      "ruta": "media/reggia-7/brochure/pagina-04.jpg",
+      "sha256": "3b1c832ca5ed0cb5680bfdb2d3f4d8b695ec3e72423b17039f6f96a97dfdc509",
+      "bytes": 154938,
+      "formato": "jpeg",
+      "ancho": 1302,
+      "alto": 870
+    },
+    {
+      "ruta": "media/reggia-7/brochure/pagina-05.jpg",
+      "sha256": "eb331c644d56e0b2c7c4296a3b1fc4a0c67b8f06c303498999be1bd4fc088842",
+      "bytes": 108179,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 923
+    },
+    {
+      "ruta": "media/reggia-7/fotos/foto-01.jpg",
+      "sha256": "40f0ee38dc4cc3cdb772656ed2581205a5c5902eb5d4825de4f2b01b3229ab44",
+      "bytes": 185381,
+      "formato": "jpeg",
+      "ancho": 591,
+      "alto": 1280
+    },
+    {
+      "ruta": "media/reggia-7/fotos/foto-02.jpg",
+      "sha256": "fd287cbb3633b981955bac6df6cc1879e180ba45623444731fc9ae3f6ee16bd9",
+      "bytes": 186461,
+      "formato": "jpeg",
+      "ancho": 591,
+      "alto": 1280
+    },
+    {
+      "ruta": "media/reggia-7/planos/plano-01.jpg",
+      "sha256": "d36aa3ed16852546fadc117089f0a0f9ac6b26f3face11a5abcaf1fe8ea49d43",
+      "bytes": 159670,
+      "formato": "jpeg",
+      "ancho": 1302,
+      "alto": 870
+    },
+    {
+      "ruta": "media/reggia-7/planos/plano-02.jpg",
+      "sha256": "1d12db83302e2a31efbd1b118cb9c80432600454ba1155f84d88893f5fd8fefd",
+      "bytes": 163969,
+      "formato": "jpeg",
+      "ancho": 1302,
+      "alto": 870
+    },
+    {
+      "ruta": "media/reggia-7/planos/plano-03.jpg",
+      "sha256": "3a78018f580f4381e0f659efd0a334dfc8b7c64f709ffa7a9f2ddc8ba88ca865",
+      "bytes": 161462,
+      "formato": "jpeg",
+      "ancho": 1302,
+      "alto": 870
+    },
+    {
+      "ruta": "media/reggia-7/planos/plano-04.jpg",
+      "sha256": "7d1af82c1292cd4ded33230730795ada5d0c2c6a6e35ca452a92551a6a2a26fa",
+      "bytes": 167486,
+      "formato": "jpeg",
+      "ancho": 1302,
+      "alto": 870
+    },
+    {
+      "ruta": "media/reggia-7/planos/plano-05.jpg",
+      "sha256": "aa39a2f971e583d3bc8159a6a7c0a21e1cdd9ec7e97dd4be19967d2df9610dd9",
+      "bytes": 141943,
+      "formato": "jpeg",
+      "ancho": 782,
+      "alto": 871
+    },
+    {
+      "ruta": "media/reggia-7/portada.jpg",
+      "sha256": "364b427edc00608f6d86e72a1ea12a532112f793f3908616f4103a3a66f754d0",
+      "bytes": 185959,
+      "formato": "jpeg",
+      "ancho": 800,
+      "alto": 1068
+    },
+    {
+      "ruta": "media/reggia-7/renders/render-01.jpg",
+      "sha256": "8b0992265bb866977d417d11337438b55a891697b764dceb9986d810b90eb439",
+      "bytes": 176413,
+      "formato": "jpeg",
+      "ancho": 800,
+      "alto": 1068
+    },
+    {
+      "ruta": "media/reggia-7/renders/render-02.jpg",
+      "sha256": "48adc0a167243ecd3d1dda877d5ceecedc5bbdef78fc6e2950d92bffbe72375b",
+      "bytes": 168542,
+      "formato": "jpeg",
+      "ancho": 1308,
+      "alto": 779
+    },
+    {
+      "ruta": "media/reggia-9/brochure/pagina-01.jpg",
+      "sha256": "5812d702410f588a96f81a5f40f1184c26277153b1373b17db2e0b7c4b49f54a",
+      "bytes": 90181,
+      "formato": "jpeg",
+      "ancho": 1018,
+      "alto": 1400
+    },
+    {
+      "ruta": "media/reggia-9/brochure/pagina-02.jpg",
+      "sha256": "dec2296f571330bfe319e65c78d42aee632b65d75d56f582027fc20279744b66",
+      "bytes": 272104,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 964
+    },
+    {
+      "ruta": "media/reggia-9/brochure/pagina-03.jpg",
+      "sha256": "32df64788680c7dbe541d611bc70280161f6a5608bc4e5a47a5c64f839694386",
+      "bytes": 261289,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 962
+    },
+    {
+      "ruta": "media/reggia-9/brochure/pagina-04.jpg",
+      "sha256": "2eeb5059655a892a1daafdf0b5958eeda8455747d9b6a89dc6b783e8bb3e1fdf",
+      "bytes": 197923,
+      "formato": "jpeg",
+      "ancho": 1400,
+      "alto": 966
+    },
+    {
+      "ruta": "media/reggia-9/brochure/pagina-05.jpg",
+      "sha256": "25e34b961b80c836a575458834f9e038298a0c63d02e1ec9ad85ef1ef138f1aa",
+      "bytes": 191179,
+      "formato": "jpeg",
+      "ancho": 1018,
+      "alto": 1400
+    },
+    {
+      "ruta": "media/reggia-9/planos/plano-01.jpg",
+      "sha256": "f7de3688e1aed288288f382265a85f430dd1c58f673592d70afdea92b49f25ae",
+      "bytes": 252385,
+      "formato": "jpeg",
+      "ancho": 1600,
+      "alto": 1104
+    },
+    {
+      "ruta": "media/reggia-9/portada.jpg",
+      "sha256": "e27a3bbc4912d07587bd4cc1c74ea5d13bb5026135b6fcb75dc96f6b317e68bb",
+      "bytes": 160172,
+      "formato": "jpeg",
+      "ancho": 512,
+      "alto": 1100
+    }
+  ],
+  "referencias": [
+    {
+      "ubicacion": "LOGO",
+      "desarrollo": null,
+      "seccion": "logo",
+      "orden": 0,
+      "ruta": "media/general/logo.png",
+      "sha256": "33b5634644dd5e68bd8070fe1d9a139217b731dd01bb4679a1e7b4824eaf428f",
+      "mime_original": "image/png"
+    },
+    {
+      "ubicacion": "portada",
+      "desarrollo": null,
+      "seccion": "portada-general",
+      "orden": 0,
+      "ruta": "media/general/portada.webp",
+      "sha256": "aa0ea4e1120c5e49f844e84627c920777104b84bd58741e17f7ba693a6936f24",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].imagenes[0]",
+      "desarrollo": "patagonia-15",
+      "seccion": "imagenes",
+      "orden": 1,
+      "ruta": "media/patagonia-15/fotos/foto-01.jpg",
+      "sha256": "557059c124f8c40c9129981ac491ebc56b1ea6c34d124436bec9912408dbd1db",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[0].imagenes[1]",
+      "desarrollo": "patagonia-15",
+      "seccion": "imagenes",
+      "orden": 2,
+      "ruta": "media/patagonia-15/fotos/foto-02.jpg",
+      "sha256": "faa94a6e7c92638e667de4244ca3e598883beb609c1bd901a8db5f84c8c916e9",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[0].imagenes[2]",
+      "desarrollo": "patagonia-15",
+      "seccion": "imagenes",
+      "orden": 3,
+      "ruta": "media/patagonia-15/fotos/foto-03.jpg",
+      "sha256": "7f08df159a7f3810e788b320f68f39f0fde8f789da4eb179a323bb0b2715fdb0",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[0].imagenes[3]",
+      "desarrollo": "patagonia-15",
+      "seccion": "imagenes",
+      "orden": 4,
+      "ruta": "media/patagonia-15/fotos/foto-04.jpg",
+      "sha256": "99132a59f5b65ab35956f379f91d44be35f2de73e66c680598f1fb1d8bfdaa90",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[0].imagenes[4]",
+      "desarrollo": "patagonia-15",
+      "seccion": "imagenes",
+      "orden": 5,
+      "ruta": "media/patagonia-15/fotos/foto-05.jpg",
+      "sha256": "bce653409b82394eef35a452a4f92aee10ed81f049c26cb087062e15d7748c62",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[0].imagenes[5]",
+      "desarrollo": "patagonia-15",
+      "seccion": "imagenes",
+      "orden": 6,
+      "ruta": "media/patagonia-15/fotos/foto-06.jpg",
+      "sha256": "8a2feb877cb46e4db31739849696d7ad75f214532b97e3b9e771a72a6b9a6f56",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[0].imagenes[6]",
+      "desarrollo": "patagonia-15",
+      "seccion": "imagenes",
+      "orden": 7,
+      "ruta": "media/patagonia-15/fotos/foto-07.jpg",
+      "sha256": "3c86d30d9fd70ebc61bdc7c693c4bc379d588a61a17d87ce30adc8c0bd71aeb5",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[0].imagenes[7]",
+      "desarrollo": "patagonia-15",
+      "seccion": "imagenes",
+      "orden": 8,
+      "ruta": "media/patagonia-15/fotos/foto-08.jpg",
+      "sha256": "c29100d4c272036a576235572776ef71b396210f9c7f80e9302bd6c09e40a3d2",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[0].imagenes[8]",
+      "desarrollo": "patagonia-15",
+      "seccion": "imagenes",
+      "orden": 9,
+      "ruta": "media/patagonia-15/fotos/foto-09.jpg",
+      "sha256": "c40f128922da1cbf69e1679536785a89501c8ec8c4b82f9364a4002764d79811",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[0].imagenes[9]",
+      "desarrollo": "patagonia-15",
+      "seccion": "imagenes",
+      "orden": 10,
+      "ruta": "media/patagonia-15/fotos/foto-10.jpg",
+      "sha256": "271c8c63fc98ce9f1138f961d6464e0d21fe83955e017b90e14919ec2c3bd951",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[0].imagenes[10]",
+      "desarrollo": "patagonia-15",
+      "seccion": "imagenes",
+      "orden": 11,
+      "ruta": "media/patagonia-15/fotos/foto-11.jpg",
+      "sha256": "5afdd900909355307d8b6b1d085d67f0cee9334fdd19263e317e8e71dd0554af",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[0].imagenes[11]",
+      "desarrollo": "patagonia-15",
+      "seccion": "imagenes",
+      "orden": 12,
+      "ruta": "media/patagonia-15/fotos/foto-12.jpg",
+      "sha256": "788ddc8d888d7718388ccabf7b2cb6ca4086f7bed51deecb24d39f9b3a24d640",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[0].galeria[0]",
+      "desarrollo": "patagonia-15",
+      "seccion": "galeria",
+      "orden": 1,
+      "ruta": "media/patagonia-15/renders/render-01.webp",
+      "sha256": "d047587f25f2e11d8624fa0bdbb57aaf5c62820056341ad0a6b9e1f2e5e95961",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].galeria[1]",
+      "desarrollo": "patagonia-15",
+      "seccion": "galeria",
+      "orden": 2,
+      "ruta": "media/patagonia-15/renders/render-02.webp",
+      "sha256": "6255cebbcef04191a5545522bc0c2a2915683917fce6da1833016320899fc697",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].galeria[2]",
+      "desarrollo": "patagonia-15",
+      "seccion": "galeria",
+      "orden": 3,
+      "ruta": "media/patagonia-15/renders/render-03.webp",
+      "sha256": "e165ba0ea45a6d8a52360a7ed5fc0cd31e78511aef018ee7801b6c19489fda31",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].galeria[3]",
+      "desarrollo": "patagonia-15",
+      "seccion": "galeria",
+      "orden": 4,
+      "ruta": "media/patagonia-15/renders/render-04.webp",
+      "sha256": "5a08685cabcd973bf53dbe9346869b3c1f97f3d891d7cd9ee1fa0fc8a9a199df",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].galeria[4]",
+      "desarrollo": "patagonia-15",
+      "seccion": "galeria",
+      "orden": 5,
+      "ruta": "media/patagonia-15/renders/render-05.webp",
+      "sha256": "edb16c314e7b265aebd4a0039bc6e2519f715cb1d8d3f2c49be2a6be326fabd5",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].galeria[5]",
+      "desarrollo": "patagonia-15",
+      "seccion": "galeria",
+      "orden": 6,
+      "ruta": "media/patagonia-15/renders/render-06.webp",
+      "sha256": "fad261d9ab37b13392cd1068370d1f3a82bb0b6715b1e66108ea3a8978c9b21c",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].galeria[6]",
+      "desarrollo": "patagonia-15",
+      "seccion": "galeria",
+      "orden": 7,
+      "ruta": "media/patagonia-15/renders/render-07.webp",
+      "sha256": "0a74637fb3260e18580c86f632a901956ec9fb737d0d999b23a9f979124485e2",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].galeria[7]",
+      "desarrollo": "patagonia-15",
+      "seccion": "galeria",
+      "orden": 8,
+      "ruta": "media/patagonia-15/renders/render-08.webp",
+      "sha256": "1607911b09edc1dc265c366cb48766ec6db81367894fc6bf19303a8b4f870136",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].galeria[8]",
+      "desarrollo": "patagonia-15",
+      "seccion": "galeria",
+      "orden": 9,
+      "ruta": "media/patagonia-15/renders/render-09.webp",
+      "sha256": "35839177ab3e1b3aa1f5bf0ac46d6d6ac88b6b254e8f155404beb356bab604e7",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].galeria[9]",
+      "desarrollo": "patagonia-15",
+      "seccion": "galeria",
+      "orden": 10,
+      "ruta": "media/patagonia-15/renders/render-10.webp",
+      "sha256": "3a8f0ee933a5a64b3ecdb06b06483b55e4ae3288f4eb0e474afd29d47fdd93b3",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].galeria[10]",
+      "desarrollo": "patagonia-15",
+      "seccion": "galeria",
+      "orden": 11,
+      "ruta": "media/patagonia-15/renders/render-11.webp",
+      "sha256": "5796f649635f31523a1e64bfd093e77e5fb5dd97729fded784e4683789a8519b",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[0]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 1,
+      "ruta": "media/patagonia-15/planos/plano-01.webp",
+      "sha256": "5b2387e169ea1cbac553498638de1fade9b1afe9ae35cb97fd25e919f72c0114",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[1]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 2,
+      "ruta": "media/patagonia-15/planos/plano-02.webp",
+      "sha256": "7f4dd900e40c80b776e5631ee58f542da6bb8238524a2b0f086daff2a77f130a",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[2]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 3,
+      "ruta": "media/patagonia-15/planos/plano-03.webp",
+      "sha256": "4e0c6a98f21fc4f3cdbea89ddd1d18f474b0a5a3a1971c4930ec672d104d6098",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[3]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 4,
+      "ruta": "media/patagonia-15/planos/plano-04.webp",
+      "sha256": "b7a539cf25f8b85fc41f73e293acd86456589bcccadf4192bca4dfd578c2a300",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[4]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 5,
+      "ruta": "media/patagonia-15/planos/plano-05.webp",
+      "sha256": "d3b5b62a50f7c16dd5a59924e9c159f5e7b0261bec364d8c2231c3183fef48dd",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[5]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 6,
+      "ruta": "media/patagonia-15/planos/plano-06.webp",
+      "sha256": "6019c951c76af86a27df18109ca5580f59998bc467ca0d5972f4b0e77d70e88c",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[6]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 7,
+      "ruta": "media/patagonia-15/planos/plano-07.webp",
+      "sha256": "45ceddc454d1eb4fdb2dfa7b109b5918ef0fc352f6dae58cf4e550923f4684b0",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[7]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 8,
+      "ruta": "media/patagonia-15/planos/plano-08.webp",
+      "sha256": "9c95ebd313843b10224e3a60b12699bad8d737daf12d6dc8ebc6f77d4101a9f1",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[8]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 9,
+      "ruta": "media/patagonia-15/planos/plano-09.webp",
+      "sha256": "b61e5fb5ea9b64706de7da5115ce87963ef272fecece5944ae61faf9addaaae2",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[9]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 10,
+      "ruta": "media/patagonia-15/planos/plano-10.webp",
+      "sha256": "9277a4f79a66ec12f0cef15d687958e5cd50ac3aff43c7a763e4f3cf951fc1e8",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[10]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 11,
+      "ruta": "media/patagonia-15/planos/plano-11.webp",
+      "sha256": "be8e6c365c88c0c346f70812a116d7201f3e226d8b1eb583f5abcef3e32e530b",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[11]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 12,
+      "ruta": "media/patagonia-15/planos/plano-12.webp",
+      "sha256": "02f5ddfc4ed77ce2ae58a2355b999450ef65af826e2c077aacecf3fd1833b298",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[12]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 13,
+      "ruta": "media/patagonia-15/planos/plano-13.webp",
+      "sha256": "7eecd36f483c5e9e7a20686ce750a38792ced32741ae2fadd705a80a028f5009",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[13]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 14,
+      "ruta": "media/patagonia-15/planos/plano-14.webp",
+      "sha256": "7e77fc823bcf74b3a2f6881f7b021c4b43e8aa28cedc3888fbe4a399c7cf134f",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[14]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 15,
+      "ruta": "media/patagonia-15/planos/plano-15.webp",
+      "sha256": "f427234eddd2c7d6b0b2f8a6999dc9f012156c7cf9f288e2c56ad8ba211c8415",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[15]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 16,
+      "ruta": "media/patagonia-15/planos/plano-16.webp",
+      "sha256": "48909889de01926c01e4d13b0bfb3a519e0fc989584c717eeb0fa13f2e64b19d",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[16]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 17,
+      "ruta": "media/patagonia-15/planos/plano-17.webp",
+      "sha256": "f01165f3c2d84ba01edb0845049f146bab6ce1b5d13772bc02709c0fc396356d",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].planos[17]",
+      "desarrollo": "patagonia-15",
+      "seccion": "planos",
+      "orden": 18,
+      "ruta": "media/patagonia-15/planos/plano-18.webp",
+      "sha256": "10e7056c27b0bdcec8559744e5665ce4496cacbb3ff2dc0f84606695e81a016d",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[0]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 1,
+      "ruta": "media/patagonia-15/brochure/pagina-01.webp",
+      "sha256": "75e9aafd3d80c4ffd1b87d74bf8fcf5b090690d32ffb687f68ce9aa5d30e03c4",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[1]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 2,
+      "ruta": "media/patagonia-15/brochure/pagina-02.webp",
+      "sha256": "df91adb89db9e2a4ec8977efe754cd68327f7c9dedbaaccd77cd9b4055eb801c",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[2]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 3,
+      "ruta": "media/patagonia-15/brochure/pagina-03.webp",
+      "sha256": "e4a62c457ae2455a91cdaa66ec184088dd028deee88c664083e706be78d79d06",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[3]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 4,
+      "ruta": "media/patagonia-15/brochure/pagina-04.webp",
+      "sha256": "52eeeddeb9a40236d42119fd47b283c07f587a3784b78ee5b895c62d40d8feff",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[4]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 5,
+      "ruta": "media/patagonia-15/brochure/pagina-05.webp",
+      "sha256": "1195d6c9d009d2fcf7c04aa056a6942c9b8130cf2bc1888a4b45ce563332d6ee",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[5]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 6,
+      "ruta": "media/patagonia-15/brochure/pagina-06.webp",
+      "sha256": "a713bfe43f9a58b437b85d4e7b75c3d5f86b3c28e54c6c9d72b44856d642e9a4",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[6]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 7,
+      "ruta": "media/patagonia-15/brochure/pagina-07.webp",
+      "sha256": "c582e5e9ed2334a8fe9bd2093ee7834c038c437c2181b37612a46507921c8464",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[7]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 8,
+      "ruta": "media/patagonia-15/brochure/pagina-08.webp",
+      "sha256": "de510bb3bde9c674c603eb927b325d8994ed7011921e5ff55a4c1fa28f92f082",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[8]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 9,
+      "ruta": "media/patagonia-15/brochure/pagina-09.webp",
+      "sha256": "5c28ff6ffb1dcf3a0ef7f61fadee01c56c87d164f652d1804ebf267126988d7a",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[9]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 10,
+      "ruta": "media/patagonia-15/brochure/pagina-10.webp",
+      "sha256": "8c5bfdc83bb0f7c25e23b3bec578b643554d04a12451f7e69a1230ebdc8512cc",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[10]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 11,
+      "ruta": "media/patagonia-15/brochure/pagina-11.webp",
+      "sha256": "2272e6b2cc0ff2dbabad4b5ce3c6ee12b2c3741507d1b74a2f77705606c03858",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[11]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 12,
+      "ruta": "media/patagonia-15/brochure/pagina-12.webp",
+      "sha256": "2ab60610c0a8eb813ef311713827b25f87af55265cdde22e273aefb5ad5dcef1",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[12]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 13,
+      "ruta": "media/patagonia-15/brochure/pagina-13.webp",
+      "sha256": "036fbb4c5e5888980b4f1d7dd15f68546139aafbbaae25cac22348573f83a3e3",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[13]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 14,
+      "ruta": "media/patagonia-15/brochure/pagina-14.webp",
+      "sha256": "a75d937e493c3c891269f54c3d73ce5ea0c68edf54724816692b9d6a85ee56d2",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[14]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 15,
+      "ruta": "media/patagonia-15/brochure/pagina-15.webp",
+      "sha256": "c354969a3343a4dfd295a1331932abdf91581b402ef40565d70b6556f7fde3ff",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[15]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 16,
+      "ruta": "media/patagonia-15/brochure/pagina-16.webp",
+      "sha256": "e1a0b933d8923ce1693deb6988c011bd1fb9df0eedc8eb3c8f7b02cc8d6ab17f",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[16]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 17,
+      "ruta": "media/patagonia-15/brochure/pagina-17.webp",
+      "sha256": "e577a23a2ee37ecc098b9dca088d3e8741c375b85e50b97de330de2545735727",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[17]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 18,
+      "ruta": "media/patagonia-15/brochure/pagina-18.webp",
+      "sha256": "329fc783fa3197be739dbf01c7e21d157ee71796d05b5e456efa86af1a2b86b9",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[18]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 19,
+      "ruta": "media/patagonia-15/brochure/pagina-19.webp",
+      "sha256": "361f8454e3e0f6e69776a11e3b7f43b6a315c90cbbbcfd1715b640818e5c312b",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[19]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 20,
+      "ruta": "media/patagonia-15/brochure/pagina-20.webp",
+      "sha256": "b10d5dacf53e184c876aeb15c1bd0e06644f68beefa209f61f38147fb5e9f2c6",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[20]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 21,
+      "ruta": "media/patagonia-15/brochure/pagina-21.webp",
+      "sha256": "d374baab1e84852b1beb63285308b46d98bb4e08fcef81711898859bbc1aad98",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[21]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 22,
+      "ruta": "media/patagonia-15/brochure/pagina-22.webp",
+      "sha256": "7497ac12ea803fdefd000ca43434b51769a5194e1fc44396bbedb4f7b69cf3f2",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[22]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 23,
+      "ruta": "media/patagonia-15/brochure/pagina-23.webp",
+      "sha256": "738d137048bd0219e739d6bc7ea6faca00d5899ecaabbe0c95c94e139da0a251",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[23]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 24,
+      "ruta": "media/patagonia-15/brochure/pagina-24.webp",
+      "sha256": "741ae36460b2a5cc0ff72718c5df2c067068147b8254b1b6b138e2f866a9ef19",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[24]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 25,
+      "ruta": "media/patagonia-15/brochure/pagina-25.webp",
+      "sha256": "3a35f542c2f767c23584e1a0ad8448c872c8b8cac1f32c1bb093470adbbcf1ec",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[25]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 26,
+      "ruta": "media/patagonia-15/brochure/pagina-26.webp",
+      "sha256": "06cacdd916aaee8288e3e405d6c1f8ed12ba91f41fd43aff5d604b3941f1b5c3",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[26]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 27,
+      "ruta": "media/patagonia-15/brochure/pagina-27.webp",
+      "sha256": "fec9bd2781d6da6e582609661d1ce0e1e337cab314a8bd59a35d185911541a40",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[27]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 28,
+      "ruta": "media/patagonia-15/brochure/pagina-28.webp",
+      "sha256": "ec759155d13e03eead13d1023508236c87d781566f016d9da18e430ba3a3d2ad",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[28]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 29,
+      "ruta": "media/patagonia-15/brochure/pagina-29.webp",
+      "sha256": "a4e27cbaefb3253a74921b9d8ee5e93ae1e2def2359714727dd1c8327c09ccc1",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[29]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 30,
+      "ruta": "media/patagonia-15/brochure/pagina-30.webp",
+      "sha256": "eb776e87cf8085cfbe900a320e3819af6f385e751684a325f14bfd45b6d0e5a7",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[30]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 31,
+      "ruta": "media/patagonia-15/brochure/pagina-31.webp",
+      "sha256": "2cbae295638aa2088dfc9d9a55cb987b2d98baad64408511f7ddba05bcdc03b6",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].brochurePags[31]",
+      "desarrollo": "patagonia-15",
+      "seccion": "brochurePags",
+      "orden": 32,
+      "ruta": "media/patagonia-15/brochure/pagina-32.webp",
+      "sha256": "1d69bdd00271a89171b6367e7931397c9b3d50f32f65182d3ee9d08d24a161fa",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[0].portada",
+      "desarrollo": "patagonia-15",
+      "seccion": "portada",
+      "orden": 0,
+      "ruta": "media/patagonia-15/portada.webp",
+      "sha256": "a11a34f4b541c95a4025eb0041d375456a6b656066667caad3e92273851e609a",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[1].portada",
+      "desarrollo": "ignea-15",
+      "seccion": "portada",
+      "orden": 0,
+      "ruta": "media/ignea-15/portada.webp",
+      "sha256": "83359b719c2f47fa657ce5cf947fce98fe83ea62868f2002332a581257c8d20a",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[2].imagenes[0]",
+      "desarrollo": "magna-11",
+      "seccion": "imagenes",
+      "orden": 1,
+      "ruta": "media/magna-11/fotos/foto-01.jpg",
+      "sha256": "c0ef5f7f7f3e4c26089cac46ee4cafdc71131f0ea104ea530742db8c8764e994",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].imagenes[1]",
+      "desarrollo": "magna-11",
+      "seccion": "imagenes",
+      "orden": 2,
+      "ruta": "media/magna-11/fotos/foto-02.jpg",
+      "sha256": "14d40dc0bfe8b9b47c58bd5d12fd54fe096fe21fdd2bf348fec2ccf0e857644f",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].imagenes[2]",
+      "desarrollo": "magna-11",
+      "seccion": "imagenes",
+      "orden": 3,
+      "ruta": "media/magna-11/fotos/foto-03.jpg",
+      "sha256": "3b472d976b0c98ec6279f6f90bdeec2ad60040a27e564eef16091b72462bbaec",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].imagenes[3]",
+      "desarrollo": "magna-11",
+      "seccion": "imagenes",
+      "orden": 4,
+      "ruta": "media/magna-11/fotos/foto-04.jpg",
+      "sha256": "8212bc4ceb1d0844a662fde17745e9cd7c7220bc8df289896425303b2bad218f",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].imagenes[4]",
+      "desarrollo": "magna-11",
+      "seccion": "imagenes",
+      "orden": 5,
+      "ruta": "media/magna-11/fotos/foto-05.jpg",
+      "sha256": "0e859ff0a7e94163cbc26db00a830123e3568b7217c648c1af050574e8b398f3",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].imagenes[5]",
+      "desarrollo": "magna-11",
+      "seccion": "imagenes",
+      "orden": 6,
+      "ruta": "media/magna-11/fotos/foto-06.jpg",
+      "sha256": "51908c042e3895afa1194d79ff8260db4e080246741cbb8633db4042e9b48c7f",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].imagenes[6]",
+      "desarrollo": "magna-11",
+      "seccion": "imagenes",
+      "orden": 7,
+      "ruta": "media/magna-11/fotos/foto-07.jpg",
+      "sha256": "c60db25a02459882435f9bf0119b78af7bce6d222ddecb56e6d5153c9f8ee0cf",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].imagenes[7]",
+      "desarrollo": "magna-11",
+      "seccion": "imagenes",
+      "orden": 8,
+      "ruta": "media/magna-11/fotos/foto-08.jpg",
+      "sha256": "ce3a508eff534c912bd36152638a4cb8c16527f838912403768f3c9d06390b88",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].imagenes[8]",
+      "desarrollo": "magna-11",
+      "seccion": "imagenes",
+      "orden": 9,
+      "ruta": "media/magna-11/fotos/foto-09.jpg",
+      "sha256": "8280469358ec765e20a09c287a2046c1aa7ae3ceefe0ef0e37ea153ec14537a6",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].imagenes[9]",
+      "desarrollo": "magna-11",
+      "seccion": "imagenes",
+      "orden": 10,
+      "ruta": "media/magna-11/fotos/foto-10.jpg",
+      "sha256": "37f794fd5a87814035265285c6c754eb9c401d2b2226ed957ed3791319256cb3",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].imagenes[10]",
+      "desarrollo": "magna-11",
+      "seccion": "imagenes",
+      "orden": 11,
+      "ruta": "media/magna-11/fotos/foto-11.jpg",
+      "sha256": "e6c963deac40e9c5a75d1a22d0843dbbd1aa03f88440289b62e6c67d2fa013e1",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].imagenes[11]",
+      "desarrollo": "magna-11",
+      "seccion": "imagenes",
+      "orden": 12,
+      "ruta": "media/magna-11/fotos/foto-12.jpg",
+      "sha256": "b66fe2beaec3c56a961e7f78537554b0d066fdd3f7f4f3dd26a0afbb2006320d",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].imagenes[12]",
+      "desarrollo": "magna-11",
+      "seccion": "imagenes",
+      "orden": 13,
+      "ruta": "media/magna-11/fotos/foto-13.jpg",
+      "sha256": "95c38a0fe11c6175888240186a0f11781e649a435f68c66dc9316dde4f649a67",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].imagenes[13]",
+      "desarrollo": "magna-11",
+      "seccion": "imagenes",
+      "orden": 14,
+      "ruta": "media/magna-11/fotos/foto-14.jpg",
+      "sha256": "e55c5c85bee5107845d6321d24e4b868dde63038ff58bbe77e5a574f172fee7d",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].imagenes[14]",
+      "desarrollo": "magna-11",
+      "seccion": "imagenes",
+      "orden": 15,
+      "ruta": "media/magna-11/fotos/foto-15.jpg",
+      "sha256": "8525bdbedc3cb8c89cd4943d06844273786f1664329475c464d8b84a30b76d82",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].imagenes[15]",
+      "desarrollo": "magna-11",
+      "seccion": "imagenes",
+      "orden": 16,
+      "ruta": "media/magna-11/fotos/foto-16.jpg",
+      "sha256": "913079507aa051634baeaaf7f24f90117f6e33eb32ea08ef6b342046af968935",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].galeria[0]",
+      "desarrollo": "magna-11",
+      "seccion": "galeria",
+      "orden": 1,
+      "ruta": "media/magna-11/renders/render-01.jpg",
+      "sha256": "760c599186879c03295192c0b24c1772299f3e271e71e300e3bf1aeb7af4e13c",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].galeria[1]",
+      "desarrollo": "magna-11",
+      "seccion": "galeria",
+      "orden": 2,
+      "ruta": "media/magna-11/renders/render-02.jpg",
+      "sha256": "dca6cce7924d2174be5b6cb73a0c7c55d3547b8b38e97d960ac386d97329285b",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].galeria[2]",
+      "desarrollo": "magna-11",
+      "seccion": "galeria",
+      "orden": 3,
+      "ruta": "media/magna-11/renders/render-03.jpg",
+      "sha256": "142b39c149d22b540f2c70a8d9c04015d1602f07dbbe18eef21c72d81061ba34",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].galeria[3]",
+      "desarrollo": "magna-11",
+      "seccion": "galeria",
+      "orden": 4,
+      "ruta": "media/magna-11/renders/render-04.jpg",
+      "sha256": "11b223368c61e68d0f7f4affbed57d8458225f17fcc26cecd468c0b726b2fc53",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].galeria[4]",
+      "desarrollo": "magna-11",
+      "seccion": "galeria",
+      "orden": 5,
+      "ruta": "media/magna-11/renders/render-05.jpg",
+      "sha256": "59decf38f106637e8dc6722f84413b620a5249e35cd881d8b68802368fbae0d2",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].galeria[5]",
+      "desarrollo": "magna-11",
+      "seccion": "galeria",
+      "orden": 6,
+      "ruta": "media/magna-11/renders/render-06.jpg",
+      "sha256": "5f9ac1617c2081b4af97d2347592dd982bde4ad07ea8d24a6db26d99c729b9a6",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].galeria[6]",
+      "desarrollo": "magna-11",
+      "seccion": "galeria",
+      "orden": 7,
+      "ruta": "media/magna-11/renders/render-07.jpg",
+      "sha256": "bc6a336664d513dbce590bef4c6bc86a9a5fbf7fab0211b8795327165f3e4cc0",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].galeria[7]",
+      "desarrollo": "magna-11",
+      "seccion": "galeria",
+      "orden": 8,
+      "ruta": "media/magna-11/renders/render-08.jpg",
+      "sha256": "51e9cda16c11eeca69e4bbc1502a05b50481ea0497f87268ecfad148821fa738",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].planos[0]",
+      "desarrollo": "magna-11",
+      "seccion": "planos",
+      "orden": 1,
+      "ruta": "media/magna-11/planos/plano-01.jpg",
+      "sha256": "80ecde7295bdbd38bc72ab09b4ca83fd754644e624733b7f9f2218eb7e9c456c",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].planos[1]",
+      "desarrollo": "magna-11",
+      "seccion": "planos",
+      "orden": 2,
+      "ruta": "media/magna-11/planos/plano-02.jpg",
+      "sha256": "6d18d8f916943ce5fe52b4130906de360d89b994674229ecff02ec5c3cbf9248",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].planos[2]",
+      "desarrollo": "magna-11",
+      "seccion": "planos",
+      "orden": 3,
+      "ruta": "media/magna-11/planos/plano-03.jpg",
+      "sha256": "1936060435f3e9147e2c2522742115b80c4d0f052be477ca679d6ba95eaec5a2",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].planos[3]",
+      "desarrollo": "magna-11",
+      "seccion": "planos",
+      "orden": 4,
+      "ruta": "media/magna-11/planos/plano-04.jpg",
+      "sha256": "f31f576a51f8c6b9c1a15709c46d23fb8a8a824a16ff92f235d951d7e3a1fa1a",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].planos[4]",
+      "desarrollo": "magna-11",
+      "seccion": "planos",
+      "orden": 5,
+      "ruta": "media/magna-11/planos/plano-05.jpg",
+      "sha256": "2bbab5e27c94a7790115b3e41aac86c3432befd775d33913065407bb52fba56f",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[0]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 1,
+      "ruta": "media/magna-11/brochure/pagina-01.jpg",
+      "sha256": "00fdc79006fe3f5cdf08ee47a54d52a3f8053a92eb1c9afdfc03a50b0c3475c3",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[1]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 2,
+      "ruta": "media/magna-11/brochure/pagina-02.jpg",
+      "sha256": "1ecb4eb5874ad3c876d780fbfcc02fd0c75872b6324f87add7558948d2862375",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[2]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 3,
+      "ruta": "media/magna-11/brochure/pagina-03.jpg",
+      "sha256": "1fc1d132cf7b1e92cc1b8e44eb6746b3d717d45eafa9648dcfb0fa85682ba0d7",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[3]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 4,
+      "ruta": "media/magna-11/brochure/pagina-04.jpg",
+      "sha256": "1c06ae9a602ef1ea1e9ef4c07a86305d897e490b5f7e6598d67d61982e86c342",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[4]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 5,
+      "ruta": "media/magna-11/brochure/pagina-05.jpg",
+      "sha256": "dbf6c6e2b57c37274adcbe39ace25cf8a3a4142e0f9b82bb187da9f52dbb7a1d",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[5]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 6,
+      "ruta": "media/magna-11/brochure/pagina-06.jpg",
+      "sha256": "1ea40a748fcf791b7478e1541e0da33b85916981f96d74e1e481e122217bd316",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[6]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 7,
+      "ruta": "media/magna-11/brochure/pagina-07.jpg",
+      "sha256": "b84c5fde0fec7e8a762477472fad7cccdec1fdb29ea034002218ac8b350d9b05",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[7]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 8,
+      "ruta": "media/magna-11/brochure/pagina-08.jpg",
+      "sha256": "600008e929b9fa7371d3330bf17f6ee1861c542cf05cba824338906cb9bdcfea",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[8]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 9,
+      "ruta": "media/magna-11/brochure/pagina-09.jpg",
+      "sha256": "6fffb7b723f9253493cf9c81a7ea9be0cbbb0e91db9a40839208e2d3cac6e395",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[9]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 10,
+      "ruta": "media/magna-11/brochure/pagina-10.jpg",
+      "sha256": "563ed047884e602f4158bea35710419fb6bfe455c8687a95063b6c765fdeb2a9",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[10]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 11,
+      "ruta": "media/magna-11/brochure/pagina-11.jpg",
+      "sha256": "e04a75a765369d7415bd7c7fc92f2f5daf0253039b85c0382f93da4a9d48facd",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[11]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 12,
+      "ruta": "media/magna-11/brochure/pagina-12.jpg",
+      "sha256": "c9ee188d9f8d1d9beaed9693d3a1421bdb3f6fbadd84ea5ab8a37eb83fcb496a",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[12]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 13,
+      "ruta": "media/magna-11/brochure/pagina-13.jpg",
+      "sha256": "e12d51631f6519721145a6d7e170c1cc1c216c987f55e3952d1605e996237409",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[13]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 14,
+      "ruta": "media/magna-11/brochure/pagina-14.jpg",
+      "sha256": "e7deac91bd6f01b09ded322a41cf030585491e10e78bf4eaa3ae12b28ffeb18c",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[14]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 15,
+      "ruta": "media/magna-11/brochure/pagina-15.jpg",
+      "sha256": "d900435438c0a1ae11247db89ea8a278d28d7cc64f694dc4ff5c15e0a587c4ce",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[15]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 16,
+      "ruta": "media/magna-11/brochure/pagina-16.jpg",
+      "sha256": "33b4c126a9c56081ad028cab2b01c344a87ddc3de5fde8e4c6519e5aab3f0547",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[16]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 17,
+      "ruta": "media/magna-11/brochure/pagina-17.jpg",
+      "sha256": "390cf93a87b167af43d9d4d0b7da5e1f6042a2fe4e8d57b9ccb5b252cbdf9bd1",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[17]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 18,
+      "ruta": "media/magna-11/brochure/pagina-18.jpg",
+      "sha256": "6659cea27fb83aa9375832cc0d65b3f9c0027c752208647d6faf94ce3033a93b",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[18]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 19,
+      "ruta": "media/magna-11/brochure/pagina-19.jpg",
+      "sha256": "4b0edcc7c922843f57c6c91e19a08e46e83d433954844a60a3b70082a5b61a19",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[19]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 20,
+      "ruta": "media/magna-11/brochure/pagina-20.jpg",
+      "sha256": "3599755dc910386c7ebdb0261155e53428d3ff20fda7e412589d22629f45f350",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[20]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 21,
+      "ruta": "media/magna-11/brochure/pagina-21.jpg",
+      "sha256": "a415904e3a3cdcea933b46d230eabd118c8c729624669d1c89887dfc758ca202",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].brochurePags[21]",
+      "desarrollo": "magna-11",
+      "seccion": "brochurePags",
+      "orden": 22,
+      "ruta": "media/magna-11/brochure/pagina-22.jpg",
+      "sha256": "f4fee8b900af24cceff776e281cba01d08a08a8dc0b5610444822f2cdaa53faa",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[2].portada",
+      "desarrollo": "magna-11",
+      "seccion": "portada",
+      "orden": 0,
+      "ruta": "media/magna-11/portada.webp",
+      "sha256": "eda596745c1fb9bcba3d5ab34699473adec74aa62a71106f13dec4a49a0fa138",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[3].portada",
+      "desarrollo": "foresta",
+      "seccion": "portada",
+      "orden": 0,
+      "ruta": "media/foresta/portada.webp",
+      "sha256": "b053dc221bfb930eb367c3a290f01ba1117d030fe1905dd1db2e217476a4e4cb",
+      "mime_original": "image/webp"
+    },
+    {
+      "ubicacion": "emprendimientos[4].imagenes[0]",
+      "desarrollo": "reggia-6",
+      "seccion": "imagenes",
+      "orden": 1,
+      "ruta": "media/reggia-6/fotos/foto-01.jpg",
+      "sha256": "9ccc61d6ec85ea942ddbcbff86b5389e5bf09adb2a97098b5b9dee84b34f1ed7",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].imagenes[1]",
+      "desarrollo": "reggia-6",
+      "seccion": "imagenes",
+      "orden": 2,
+      "ruta": "media/reggia-6/fotos/foto-02.jpg",
+      "sha256": "6eb4706f58489d8ba8acefdfbb33a619d0c7341d1c211247997bf0d383492077",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].imagenes[2]",
+      "desarrollo": "reggia-6",
+      "seccion": "imagenes",
+      "orden": 3,
+      "ruta": "media/reggia-6/fotos/foto-03.jpg",
+      "sha256": "c3b32e36c2ef4e315d61523c3e5bde55d1ed233425d94bfe5cd5ccb7a54ed710",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].imagenes[3]",
+      "desarrollo": "reggia-6",
+      "seccion": "imagenes",
+      "orden": 4,
+      "ruta": "media/reggia-6/fotos/foto-04.jpg",
+      "sha256": "857cfca36875fce587e2c04360bb3baeefbfcc05eea05e181bb9530ae025c187",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].imagenes[4]",
+      "desarrollo": "reggia-6",
+      "seccion": "imagenes",
+      "orden": 5,
+      "ruta": "media/reggia-6/fotos/foto-05.jpg",
+      "sha256": "08cf60d70c5dc72ca7a21860aea0b60836e67d51c4eae67335b38a5a55e60f75",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].imagenes[5]",
+      "desarrollo": "reggia-6",
+      "seccion": "imagenes",
+      "orden": 6,
+      "ruta": "media/reggia-6/fotos/foto-06.jpg",
+      "sha256": "d89a61e01e77569f39a524a63ef83a50374b9f9d53f3a698cc8274fde54d3a8f",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].imagenes[6]",
+      "desarrollo": "reggia-6",
+      "seccion": "imagenes",
+      "orden": 7,
+      "ruta": "media/reggia-6/fotos/foto-07.jpg",
+      "sha256": "1bebb335a507f3c02aa7ab21ecdadb153ae9c478b94070e9755919379d8599d9",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].imagenes[7]",
+      "desarrollo": "reggia-6",
+      "seccion": "imagenes",
+      "orden": 8,
+      "ruta": "media/reggia-6/fotos/foto-08.jpg",
+      "sha256": "aaad7a2f058daefb2fb8353e3fa17834d3a1f7825ba759ac21101d39f75df8b5",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].galeria[0]",
+      "desarrollo": "reggia-6",
+      "seccion": "galeria",
+      "orden": 1,
+      "ruta": "media/reggia-6/renders/render-01.jpg",
+      "sha256": "ae84ccc08dee0a800a0e7367b930233398c93bf3b105a0daed53855ae35efe62",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].galeria[1]",
+      "desarrollo": "reggia-6",
+      "seccion": "galeria",
+      "orden": 2,
+      "ruta": "media/reggia-6/renders/render-02.jpg",
+      "sha256": "28e875c7d20df0585d6628bdb1c7f77eacb284e3db7e3d9533627b6c270444ba",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].planos[0]",
+      "desarrollo": "reggia-6",
+      "seccion": "planos",
+      "orden": 1,
+      "ruta": "media/reggia-6/planos/plano-01.jpg",
+      "sha256": "fbc43e52939d495ffb3905a4323b44912072e98ba2dd823c6322b0e59bb2ec4b",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].planos[1]",
+      "desarrollo": "reggia-6",
+      "seccion": "planos",
+      "orden": 2,
+      "ruta": "media/reggia-6/planos/plano-02.jpg",
+      "sha256": "f1cecca5252b15992c599dd9b2fcb3d3e74f485561425c3be231dbcbd523d835",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].planos[2]",
+      "desarrollo": "reggia-6",
+      "seccion": "planos",
+      "orden": 3,
+      "ruta": "media/reggia-6/planos/plano-03.jpg",
+      "sha256": "764f634a3f95e9a4ede81567779c37b8ad43f0d7f58dde4244d2fd9d06dfdfb1",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].brochurePags[0]",
+      "desarrollo": "reggia-6",
+      "seccion": "brochurePags",
+      "orden": 1,
+      "ruta": "media/reggia-6/brochure/pagina-01.jpg",
+      "sha256": "e7d3100f03b89a8e6ebe80b430bdf1f07e482e40f418ef6c2b44449fafaca9c0",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].brochurePags[1]",
+      "desarrollo": "reggia-6",
+      "seccion": "brochurePags",
+      "orden": 2,
+      "ruta": "media/reggia-6/brochure/pagina-02.jpg",
+      "sha256": "23fe86cd760f786eb9d0e918cec06bfe0e5223312eb3228f0dd5fad5cfd20390",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].brochurePags[2]",
+      "desarrollo": "reggia-6",
+      "seccion": "brochurePags",
+      "orden": 3,
+      "ruta": "media/reggia-6/brochure/pagina-03.jpg",
+      "sha256": "5a1308ffab237f280718903a553dc0d60ce9f439ab58df4647216c2182389099",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].brochurePags[3]",
+      "desarrollo": "reggia-6",
+      "seccion": "brochurePags",
+      "orden": 4,
+      "ruta": "media/reggia-6/brochure/pagina-04.jpg",
+      "sha256": "a004cabbf57176ff0c33165d8eaaa61b2198c84162f49b4664ef0c815bf65759",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].brochurePags[4]",
+      "desarrollo": "reggia-6",
+      "seccion": "brochurePags",
+      "orden": 5,
+      "ruta": "media/reggia-6/brochure/pagina-05.jpg",
+      "sha256": "6b01ce8f2600fcee0b8e1b10480eab57d3fd60480af7b67800e5b7186fa26663",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].brochurePags[5]",
+      "desarrollo": "reggia-6",
+      "seccion": "brochurePags",
+      "orden": 6,
+      "ruta": "media/reggia-6/brochure/pagina-06.jpg",
+      "sha256": "6767cba642d13b5c41973ad6b7c37dc22921452a77122d6d31e488f97c9b304a",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].brochurePags[6]",
+      "desarrollo": "reggia-6",
+      "seccion": "brochurePags",
+      "orden": 7,
+      "ruta": "media/reggia-6/brochure/pagina-07.jpg",
+      "sha256": "3c06e089bf19e8c11d0019bbacf4c0ccd7553bbabf37633f8e26f8defb74d0c8",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].brochurePags[7]",
+      "desarrollo": "reggia-6",
+      "seccion": "brochurePags",
+      "orden": 8,
+      "ruta": "media/reggia-6/brochure/pagina-08.jpg",
+      "sha256": "416a1b55ad89b83749923761388d4aa64a8db6580a8183d109994e79f6383e29",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[4].portada",
+      "desarrollo": "reggia-6",
+      "seccion": "portada",
+      "orden": 0,
+      "ruta": "media/reggia-6/portada.jpg",
+      "sha256": "8665b19c716b08cfed4ab534183e48139596bf0d0fcedd0d2136cbb04e20e997",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[5].imagenes[0]",
+      "desarrollo": "reggia-7",
+      "seccion": "imagenes",
+      "orden": 1,
+      "ruta": "media/reggia-7/fotos/foto-01.jpg",
+      "sha256": "40f0ee38dc4cc3cdb772656ed2581205a5c5902eb5d4825de4f2b01b3229ab44",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[5].imagenes[1]",
+      "desarrollo": "reggia-7",
+      "seccion": "imagenes",
+      "orden": 2,
+      "ruta": "media/reggia-7/fotos/foto-02.jpg",
+      "sha256": "fd287cbb3633b981955bac6df6cc1879e180ba45623444731fc9ae3f6ee16bd9",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[5].galeria[0]",
+      "desarrollo": "reggia-7",
+      "seccion": "galeria",
+      "orden": 1,
+      "ruta": "media/reggia-7/renders/render-01.jpg",
+      "sha256": "8b0992265bb866977d417d11337438b55a891697b764dceb9986d810b90eb439",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[5].galeria[1]",
+      "desarrollo": "reggia-7",
+      "seccion": "galeria",
+      "orden": 2,
+      "ruta": "media/reggia-7/renders/render-02.jpg",
+      "sha256": "48adc0a167243ecd3d1dda877d5ceecedc5bbdef78fc6e2950d92bffbe72375b",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[5].planos[0]",
+      "desarrollo": "reggia-7",
+      "seccion": "planos",
+      "orden": 1,
+      "ruta": "media/reggia-7/planos/plano-01.jpg",
+      "sha256": "d36aa3ed16852546fadc117089f0a0f9ac6b26f3face11a5abcaf1fe8ea49d43",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[5].planos[1]",
+      "desarrollo": "reggia-7",
+      "seccion": "planos",
+      "orden": 2,
+      "ruta": "media/reggia-7/planos/plano-02.jpg",
+      "sha256": "1d12db83302e2a31efbd1b118cb9c80432600454ba1155f84d88893f5fd8fefd",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[5].planos[2]",
+      "desarrollo": "reggia-7",
+      "seccion": "planos",
+      "orden": 3,
+      "ruta": "media/reggia-7/planos/plano-03.jpg",
+      "sha256": "3a78018f580f4381e0f659efd0a334dfc8b7c64f709ffa7a9f2ddc8ba88ca865",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[5].planos[3]",
+      "desarrollo": "reggia-7",
+      "seccion": "planos",
+      "orden": 4,
+      "ruta": "media/reggia-7/planos/plano-04.jpg",
+      "sha256": "7d1af82c1292cd4ded33230730795ada5d0c2c6a6e35ca452a92551a6a2a26fa",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[5].planos[4]",
+      "desarrollo": "reggia-7",
+      "seccion": "planos",
+      "orden": 5,
+      "ruta": "media/reggia-7/planos/plano-05.jpg",
+      "sha256": "aa39a2f971e583d3bc8159a6a7c0a21e1cdd9ec7e97dd4be19967d2df9610dd9",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[5].brochurePags[0]",
+      "desarrollo": "reggia-7",
+      "seccion": "brochurePags",
+      "orden": 1,
+      "ruta": "media/reggia-7/brochure/pagina-01.jpg",
+      "sha256": "86f633eca56edb4989e98f95475271e786dbf3a66cfc7239e5fcb8f67087db9f",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[5].brochurePags[1]",
+      "desarrollo": "reggia-7",
+      "seccion": "brochurePags",
+      "orden": 2,
+      "ruta": "media/reggia-7/brochure/pagina-02.jpg",
+      "sha256": "cacb170d16725738a98ebc14c6c923b81c97db40a88769c44c7ab358095e723c",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[5].brochurePags[2]",
+      "desarrollo": "reggia-7",
+      "seccion": "brochurePags",
+      "orden": 3,
+      "ruta": "media/reggia-7/brochure/pagina-03.jpg",
+      "sha256": "dbd200d5f46446ad209ec4bcdc73c737534ad838e9baec63f97404bcfaa21c7c",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[5].brochurePags[3]",
+      "desarrollo": "reggia-7",
+      "seccion": "brochurePags",
+      "orden": 4,
+      "ruta": "media/reggia-7/brochure/pagina-04.jpg",
+      "sha256": "3b1c832ca5ed0cb5680bfdb2d3f4d8b695ec3e72423b17039f6f96a97dfdc509",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[5].brochurePags[4]",
+      "desarrollo": "reggia-7",
+      "seccion": "brochurePags",
+      "orden": 5,
+      "ruta": "media/reggia-7/brochure/pagina-05.jpg",
+      "sha256": "eb331c644d56e0b2c7c4296a3b1fc4a0c67b8f06c303498999be1bd4fc088842",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[5].portada",
+      "desarrollo": "reggia-7",
+      "seccion": "portada",
+      "orden": 0,
+      "ruta": "media/reggia-7/portada.jpg",
+      "sha256": "364b427edc00608f6d86e72a1ea12a532112f793f3908616f4103a3a66f754d0",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[6].planos[0]",
+      "desarrollo": "reggia-9",
+      "seccion": "planos",
+      "orden": 1,
+      "ruta": "media/reggia-9/planos/plano-01.jpg",
+      "sha256": "f7de3688e1aed288288f382265a85f430dd1c58f673592d70afdea92b49f25ae",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[6].brochurePags[0]",
+      "desarrollo": "reggia-9",
+      "seccion": "brochurePags",
+      "orden": 1,
+      "ruta": "media/reggia-9/brochure/pagina-01.jpg",
+      "sha256": "5812d702410f588a96f81a5f40f1184c26277153b1373b17db2e0b7c4b49f54a",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[6].brochurePags[1]",
+      "desarrollo": "reggia-9",
+      "seccion": "brochurePags",
+      "orden": 2,
+      "ruta": "media/reggia-9/brochure/pagina-02.jpg",
+      "sha256": "dec2296f571330bfe319e65c78d42aee632b65d75d56f582027fc20279744b66",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[6].brochurePags[2]",
+      "desarrollo": "reggia-9",
+      "seccion": "brochurePags",
+      "orden": 3,
+      "ruta": "media/reggia-9/brochure/pagina-03.jpg",
+      "sha256": "32df64788680c7dbe541d611bc70280161f6a5608bc4e5a47a5c64f839694386",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[6].brochurePags[3]",
+      "desarrollo": "reggia-9",
+      "seccion": "brochurePags",
+      "orden": 4,
+      "ruta": "media/reggia-9/brochure/pagina-04.jpg",
+      "sha256": "2eeb5059655a892a1daafdf0b5958eeda8455747d9b6a89dc6b783e8bb3e1fdf",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[6].brochurePags[4]",
+      "desarrollo": "reggia-9",
+      "seccion": "brochurePags",
+      "orden": 5,
+      "ruta": "media/reggia-9/brochure/pagina-05.jpg",
+      "sha256": "25e34b961b80c836a575458834f9e038298a0c63d02e1ec9ad85ef1ef138f1aa",
+      "mime_original": "image/jpeg"
+    },
+    {
+      "ubicacion": "emprendimientos[6].portada",
+      "desarrollo": "reggia-9",
+      "seccion": "portada",
+      "orden": 0,
+      "ruta": "media/reggia-9/portada.jpg",
+      "sha256": "e27a3bbc4912d07587bd4cc1c74ea5d13bb5026135b6fcb75dc96f6b317e68bb",
+      "mime_original": "image/jpeg"
+    }
+  ]
+}
