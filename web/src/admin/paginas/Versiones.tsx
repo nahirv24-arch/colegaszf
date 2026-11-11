@@ -1,47 +1,7 @@
 import { useState } from "react";
-import { historial, mensajeError, recuperarVersion, versiones, type CambioHistorial } from "../servicio";
+import { historial, mensajeError, recuperarVersion, versiones } from "../servicio";
 import { Cargando, ErrorCaja, fechaHora, useAvisos, useCarga, useConfirmar } from "../ui";
-import { quien } from "./Dashboard";
-
-const ACCION: Record<string, string> = { crear: "Creación", editar: "Edición", eliminar: "Enviado a la papelera", restaurar: "Recuperado", borrar_definitivo: "Borrado definitivo" };
-const TABLA: Record<string, string> = { desarrollos: "Datos del desarrollo", unidades: "Unidad", medios: "Archivo", publicaciones: "Publicación" };
-/** Sellos internos que no aportan al leer el historial. En unidades, además, las columnas calculadas
- *  (grupo, piso, precio…) ya se muestran dentro de "campos". */
-const SELLOS = new Set(["modificado_en", "modificado_por", "creado_en", "creado_por", "eliminado_por", "id", "orden_campos", "desarrollo_id", "bucket", "sha256", "metadatos"]);
-const CALCULADAS_UNIDAD = new Set(["grupo", "piso", "unidad", "tipologia", "estado", "precio"]);
-const NOMBRES: Record<string, string> = {
-  nombre: "Nombre", direccion: "Dirección", desarrollista: "Desarrollista", posesion: "Posesión", gastos: "Gastos",
-  nota_tabla: "Nota de la tabla", links: "Enlaces", columnas: "Columnas", visible: "Visible en la página", estado: "Estado",
-  eliminado_en: "En la papelera desde", info_extra: "Información adicional", disponibles_ejemplo: "Aviso «datos de ejemplo»",
-  posicion: "Posición", orden: "Posición", tipo: "Tipo", ruta: "Archivo", nombre_archivo: "Nombre del archivo", ancho: "Ancho",
-  alto: "Alto", bytes: "Tamaño", formato: "Formato", mime: "Tipo de archivo", version: "Versión", vigente: "Es la vigente",
-  nota: "Nota", publicado_en: "Publicado el", publicado_por: "Publicado por",
-};
-/** Los reordenamientos pasan por una posición transitoria (+1.000.000): ese paso no se muestra. */
-const transitorio = (h: CambioHistorial) => {
-  const d = h.despues ?? {};
-  return h.accion === "editar" && ((typeof d.posicion === "number" && d.posicion >= 1000000) || (typeof d.orden === "number" && d.orden >= 1000000));
-};
-
-/** Diferencias legibles entre "antes" y "después" (sin sellos internos ni credenciales: las tablas no tienen). */
-function diferencias(h: CambioHistorial): { campo: string; antes: string; despues: string }[] {
-  const a = h.antes ?? {}, d = h.despues ?? {};
-  const out: { campo: string; antes: string; despues: string }[] = [];
-  const txt = (v: unknown) => (v === null || v === undefined ? "—" : typeof v === "object" ? JSON.stringify(v) : String(v));
-  for (const k of new Set([...Object.keys(a), ...Object.keys(d)])) {
-    if (SELLOS.has(k) || (h.tabla === "unidades" && CALCULADAS_UNIDAD.has(k))) continue;
-    if (k === "campos" && typeof a[k] === "object" && typeof d[k] === "object") {
-      const ca = (a[k] ?? {}) as Record<string, unknown>, cd = (d[k] ?? {}) as Record<string, unknown>;
-      for (const c of new Set([...Object.keys(ca), ...Object.keys(cd)])) if (txt(ca[c]) !== txt(cd[c])) out.push({ campo: c, antes: txt(ca[c]), despues: txt(cd[c]) });
-      continue;
-    }
-    if (k === "contenido") continue;
-    // Posición transitoria de un reordenamiento (+1.000.000) → posición real anterior.
-    const real = (v: unknown) => ((k === "posicion" || k === "orden") && typeof v === "number" && v >= 1000000 ? v - 1000000 : v);
-    if (txt(a[k]) !== txt(d[k])) out.push({ campo: NOMBRES[k] ?? k, antes: h.antes ? txt(real(a[k])) : "", despues: h.despues ? txt(real(d[k])) : "" });
-  }
-  return out.slice(0, 30);
-}
+import { ACCION, diferencias, esTransitorio as transitorio, quien, TABLA } from "../historial";
 
 export function Versiones({ desarrolloId, onCambio }: { readonly desarrolloId: string; readonly onCambio: () => void }) {
   const avisar = useAvisos();

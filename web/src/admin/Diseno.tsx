@@ -14,6 +14,8 @@ const MENU = [
 
 /** Título de la sección según la dirección. */
 function tituloDe(path: string): string {
+  if (path === "/admin" || path === "/admin/") return "Resumen general";
+  if (path.startsWith("/admin/actividad")) return "Historial de actividad";
   if (path.startsWith("/admin/desarrollos/nuevo")) return "Nuevo desarrollo";
   if (path.startsWith("/admin/desarrollos/")) return "Desarrollo";
   const m = [...MENU].reverse().find((x) => path === x.a || path.startsWith(`${x.a}/`));

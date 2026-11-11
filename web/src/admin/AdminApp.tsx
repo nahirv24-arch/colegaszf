@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router";
 import "./admin.css";
+import "./dashboard.css";
 import { Diseno } from "./Diseno";
+import { Actividad } from "./paginas/Actividad";
 import { Configuracion } from "./paginas/Configuracion";
 import { Dashboard } from "./paginas/Dashboard";
 import { EditarDesarrollo } from "./paginas/EditarDesarrollo";
@@ -43,6 +45,7 @@ export default function AdminApp() {
               <Route path="unidades" element={<ElegirDesarrollo destino="unidades" titulo="Unidades disponibles" />} />
               <Route path="multimedia" element={<ElegirDesarrollo destino="multimedia" titulo="Material multimedia" />} />
               <Route path="configuracion" element={<Configuracion />} />
+              <Route path="actividad" element={<Actividad />} />
             </Route>
             <Route path="*" element={<Navigate to="/admin" replace />} />
           </Routes>

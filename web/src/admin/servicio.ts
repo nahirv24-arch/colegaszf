@@ -317,3 +317,52 @@ export async function descargarRespaldo(): Promise<void> {
 }
 
 export type { Desarrollo };
+
+// ---------------------------------------------------------------- dashboard (analíticas)
+export type Pestana = "datos" | "unidades" | "multimedia" | "versiones";
+export interface PuntoCompletitud { clave: string; etiqueta: string; ok: boolean; cantidad?: number | null; pestana: Pestana }
+export interface Completitud {
+  id: string; nombre: string; estado: EstadoPublicacion; visible: boolean; modificado_en: string;
+  cambios_sin_publicar: boolean; cumplidos: number; total: number; porcentaje: number;
+  atencion: "alta" | "media" | "ninguna";
+  esenciales: PuntoCompletitud[]; opcionales: PuntoCompletitud[];
+  conteos: { unidades: number; fotos: number; renders: number; planos: number; paginas_brochure: number; portada: number };
+}
+
+/** Completitud según los 7 puntos esenciales (reglas en la migración 20261111140000). */
+export async function leerCompletitud(): Promise<Completitud[]> {
+  return (revisar(await sb().rpc("completitud_desarrollos")) ?? []) as Completitud[];
+}
+
+/** Estado comercial de cada unidad activa (solo dos columnas: es liviano). */
+export async function leerEstadosUnidades(): Promise<{ desarrollo_id: string; estado: string | null }[]> {
+  return revisar(await sb().from("unidades").select("desarrollo_id, estado").is("eliminado_en", null)) as { desarrollo_id: string; estado: string | null }[];
+}
+
+export type OrigenEvento = "administracion" | "sistema" | "prueba";
+export type TipoEvento = "publicacion" | "edicion" | "alta" | "papelera" | "recuperacion" | "borrado" | "visibilidad" | "orden";
+export interface Evento {
+  id: number; fecha: string; tabla: string; accion: string; tipo: TipoEvento; origen: OrigenEvento;
+  desarrollo_id: string | null; desarrollo_nombre: string | null; usuario_email: string | null;
+}
+export interface ResumenActividad {
+  total: number; por_origen: Partial<Record<OrigenEvento, number>>; por_tipo: Partial<Record<TipoEvento, number>>;
+  dias_con_actividad: number; por_dia: { dia: string; n: number }[]; recientes: Evento[];
+}
+
+/** Conteos agregados + últimos eventos (no descarga el historial completo). */
+export async function leerActividad(incluirPruebas: boolean): Promise<ResumenActividad> {
+  return revisar(await sb().rpc("actividad_resumen", { p_incluir_pruebas: incluirPruebas, p_limite: 80 })) as ResumenActividad;
+}
+
+export interface FiltroHistorial { origen?: OrigenEvento | null; tipo?: TipoEvento | null; desarrollo?: string | null }
+/** Historial completo de a páginas ("cargar más" usa el id del último evento recibido). */
+export async function leerHistorialPaginado(f: FiltroHistorial, antesDe: number | null, limite = 40): Promise<Evento[]> {
+  return (revisar(await sb().rpc("historial_paginado", { p_origen: f.origen ?? null, p_tipo: f.tipo ?? null,
+    p_desarrollo: f.desarrollo ?? null, p_antes_de: antesDe, p_limite: limite })) ?? []) as Evento[];
+}
+
+/** Antes / después de un evento: se pide solo al desplegarlo. */
+export async function leerDetalleEvento(id: number): Promise<{ antes: Record<string, unknown> | null; despues: Record<string, unknown> | null }> {
+  return revisar(await sb().rpc("evento_detalle", { p_id: id })) as { antes: Record<string, unknown> | null; despues: Record<string, unknown> | null };
+}

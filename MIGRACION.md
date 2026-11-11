@@ -574,3 +574,118 @@ Al final: 17 desarrollos, 17 públicos, idénticos al JSON original, fecha 2026-
    que sean totalmente privadas hasta publicar, hace falta moverlas al publicar (cambio futuro).
 4. La portada general y la fecha se aplican enseguida (no tienen borrador).
 5. Conectar la página pública a Supabase (`VITE_FUENTE_DATOS=supabase`) y publicar — fase 6, con autorización.
+
+---
+
+## Fase 6 (en curso) — Integración en el sitio de pruebas (11/11/2026)
+
+Hecho y verificado (detalle completo en el informe de la fase 6):
+- `netlify.toml`: el sitio de pruebas lee las versiones publicadas en Supabase (`VITE_FUENTE_DATOS=supabase`).
+  Netlify publicó `desarrollo@9f57d2c` automáticamente y sin errores.
+- La página conectada a Supabase es idéntica a la original (huella `ee6ce293…`); descargas ZIP/PDF, visor,
+  filtros y links viejos funcionan con los datos de Supabase.
+- **Sincronización sin nuevo despliegue: 10 de 10 pasos** con el desarrollo de prueba
+  `prueba-sincronizacion-zf` (borrador invisible → publicado visible → borrador no cambia lo público →
+  publicado visible → oculto invisible → papelera y borrado solo de la prueba).
+- Producción preparada, sin crear nada: `PRODUCCION.md`, scripts con `--produccion` y confirmación
+  obligatoria, pruebas bloqueadas en producción y `verificar.mjs` (solo lectura, 12 de 12 en prueba).
+- Error propio: se borraron los informes de importación de `respaldos/` (no eran respaldos de datos;
+  las exportaciones completas siguen en `respaldos/` y en `privado/respaldos/`).
+
+**Pendiente de la fase 6:** prueba online en `colegaszf-pruebas.netlify.app` con la sesión de Netlify de
+Nahir (el sitio es privado), cierre de sesión y correo de recuperación de contraseña con ella.
+
+---
+
+## Rediseño del dashboard del panel (11/11/2026)
+
+Solo cambió el **dashboard** del panel (y se agregó la página de historial completo). La página pública,
+las tablas, los datos y las políticas RLS no cambiaron.
+
+### Capturas
+
+`docs/capturas/antes-escritorio.jpg`, `antes-movil.jpg` → `despues-escritorio-1.jpg`,
+`despues-escritorio-2-material.jpg`, `despues-movil.jpg`.
+
+### Organización nueva
+
+1. **Encabezado** «Resumen general»: fecha de la última actualización de la página, hora de los datos,
+   accesos «Actualizar», «Cargar material» y «+ Nuevo desarrollo».
+2. **Indicadores** en una franja (no tarjetas repetidas): desarrollos (publicados · borradores), unidades
+   (disponibles · reservadas), material cargado y **requieren atención** (rojo; lleva a la tabla filtrada).
+3. **Gráficos** (inventario actual / actividad administrativa, rotulados):
+   unidades por estado comercial (filtro por desarrollo), material por categoría (total o por desarrollo
+   para cada categoría, con enlace a la pestaña Multimedia), estado de publicación (al día, con cambios
+   sin publicar, borrador, oculto) y actividad por fecha (muestra «Sin datos suficientes» hasta tener 7
+   días con actividad; hoy hay 1).
+4. **Material de los desarrollos**: tabla con filtros (Todos 17 · Sin material 10 · Parciales 3 ·
+   Completos 4 · Publicados con información pendiente 13), búsqueda, orden por nombre / completitud /
+   atención, checklist desplegable (esenciales y opcionales) y botón «Completar material» que abre la
+   pestaña del primer punto que falta.
+5. **Pendientes de publicar** (borradores y cambios guardados sin publicar) y **actividad reciente**
+   compacta (8 grupos, filtros por tipo, pruebas automatizadas ocultas por defecto, detalle al desplegar,
+   enlace a **Historial de actividad** `/admin/actividad` con filtros por origen, tipo y desarrollo y
+   «Cargar más»).
+6. **Visitantes**: aviso de que no está implementado y qué haría falta (contador sin cookies o
+   estadísticas de Netlify).
+
+### Criterios de completitud (aprobados por Nahir)
+
+7 puntos esenciales, mismo peso: portada · dirección · fecha de posesión · lista de disponibles (≥1) ·
+brochure (≥1 página) · planos (≥1) · fotos **o** renders (≥1). Opcionales (se muestran, no cuentan):
+desarrollista · gastos · nota de la tabla · fotos y renders ambos · planilla en vivo.
+Atención: alta = publicado e incompleto · media = borrador incompleto · al día = 100 %.
+Resultado hoy: 100 % Patagonia 15, Magna 11, Reggia 6, Reggia 7 · 86 % Reggia 9 (faltan fotos o renders) ·
+14 % Ignea 15 y Foresta · 0 % los otros 10.
+
+### Historial: pruebas separadas sin tocar el registro
+
+Cada evento se clasifica **al leerlo**: *prueba automatizada* (desarrollos `prueba-*`/`intruso-*`/
+`verificacion-*`, cuentas temporales que ya no existen, roles temporales, o ediciones de configuración
+hechas con la clave del servidor, que solo hacen los scripts de prueba), *sistema* (importaciones y
+scripts) y *administración* (cuenta administradora). Los pasos internos de los reordenamientos no se
+muestran. El correo solo aparece en eventos de administración.
+
+### Supabase (migraciones nuevas, solo funciones de lectura)
+
+| Migración | Contenido |
+|---|---|
+| `…140000_dashboard_analiticas.sql` | `completitud_desarrollos`, `actividad_resumen` (conteos + últimos 80, sin bajar todo el historial), `historial_paginado` (de a 40), `evento_detalle` (antes/después solo al desplegar). Solo administradora. |
+| `…140100_origen_configuracion.sql` | Ajuste de la clasificación (ediciones de configuración de los scripts de prueba). |
+
+Respaldo previo: `respaldos/exportacion-2026-11-11T07-05-53-025Z.json`.
+
+### Gráficos
+
+Componentes propios (`web/src/admin/graficos.tsx`), **sin librerías nuevas**: son pocas categorías; una
+librería sumaba ~100 KB. Tooltips con mouse y teclado, leyendas con números, estados vacíos y de carga.
+Paleta derivada de la marca y **validada para daltonismo** con el validador de dataviz: azul `#2F78A8`,
+ámbar `#D08A1F`, violeta `#8A6FC0` (todos los controles OK; el ámbar tiene bajo contraste contra blanco,
+por eso todo gráfico lleva números visibles). El azul-gris de la marca no sirve como color de serie
+(demasiado oscuro y gris según el validador). Rojo reservado para «atención».
+El panel creció 6 KB comprimidos; la página pública no cambió de tamaño.
+
+### Pruebas
+
+| Prueba | Resultado |
+|---|---|
+| TypeScript estricto y compilación | OK |
+| Funciones nuevas: valores, paginación sin solapamiento, filtros, detalle | OK; responden en 0,1–0,3 s |
+| Visitante contra las funciones nuevas | 4 de 4 rechazadas |
+| Gráficos: filtro por desarrollo, vista por categoría, enlaces, tooltip (mouse y foco), «< 1 %» | OK |
+| Material: 5 filtros, búsqueda, orden asc/desc (`aria-sort`), checklist, «Completar material» | OK |
+| Actividad: ocultar/mostrar pruebas, filtros por tipo, agrupación, detalle al desplegar | OK |
+| Historial completo: filtros, «Cargar más», cambios rápidos de filtro | OK (se corrigió una carrera de respuestas) |
+| Escritorio, tablet (768) y celular (375): sin desborde horizontal | OK |
+| Otras pantallas del panel (lista, Versiones e historial) | OK |
+| `validar_extraccion.py` · seguridad 9/9 · panel 16/16 · verificador 12/12 | OK |
+| Consola | Sin errores (los vistos durante la edición eran recargas intermedias y cortes de red) |
+
+### Mejoras pendientes
+
+- Gráfico de actividad por fecha: aparece solo cuando haya 7 días con actividad.
+- Analítica de visitantes: no implementada (requiere decidir la herramienta).
+- En pantallas angostas la tabla de material se desplaza dentro de su caja; se podría pasar a tarjetas.
+- Las demás pantallas del panel (desarrollos, unidades, multimedia) pueden recibir el mismo estilo.
+- Las capturas de pantalla automáticas del navegador integrado a veces salen recortadas; conviene una
+  revisión visual de Nahir en su pantalla.
