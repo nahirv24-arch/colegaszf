@@ -1,0 +1,17 @@
+# Configuración de Netlify para el SITIO DE PRUEBAS (colegaszf-pruebas), rama "desarrollo".
+# El sitio de producción (colegaszfpropiedades.netlify.app) NO usa este archivo: se publica a mano.
+#
+# El proyecto (package.json, package-lock.json, vite.config.ts) está en la RAÍZ del repositorio.
+# La carpeta web/ solo tiene el código de la página: no es la carpeta base.
+[build]
+  # Carpeta base: la raíz del repositorio (ahí está package.json, así Netlify instala dependencias).
+  base = ""
+  # Revisa TypeScript y compila con Vite. Vite copia datos/ y media/ dentro de dist/.
+  command = "npm run build"
+  # Resultado de la compilación (relativo a la carpeta base).
+  publish = "dist"
+
+[build.environment]
+  # Node 24 (LTS). Vite 8 y React Router 8 piden Node 22.22 o más nuevo.
+  NODE_VERSION = "24"
+  # Las direcciones /admin y demás las resuelve la aplicación (ver web/public/_redirects).
