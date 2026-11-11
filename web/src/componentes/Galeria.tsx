@@ -1,4 +1,4 @@
-import { urlMedio } from "../servicios/contexto";
+import { useUrlMedio } from "../servicios/contexto";
 import type { RutaMedio } from "../tipos/datos";
 import { bajarZip } from "../utilidades/descargas";
 import { BotonAccion } from "./BotonAccion";
@@ -15,6 +15,7 @@ interface Props {
 
 /** Grilla de imágenes con "Descargar todas" (ZIP) y apertura en el visor. */
 export function Galeria({ lista, nombreZip, plano = false, onAbrir }: Props) {
+  const urlMedio = useUrlMedio();
   return (
     <>
       <div className="vinculos">

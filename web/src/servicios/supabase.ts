@@ -21,8 +21,4 @@ export function obtenerSupabase(): SupabaseClient {
   return cliente;
 }
 
-/** Dirección pública de un archivo del bucket "media" (o null si no corresponde). */
-export function urlPublicaMedia(ruta: string): string {
-  const enBucket = ruta.replace(/^media\//, "");
-  return `${URL_SB.replace(/\/+$/, "")}/storage/v1/object/public/media/${enBucket.split("/").map(encodeURIComponent).join("/")}`;
-}
+export { urlPublicaMedia } from "./urlSupabase";

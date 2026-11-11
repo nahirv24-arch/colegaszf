@@ -59,6 +59,9 @@ function comoJPEG(src: string): Promise<PaginaJPEG | null> {
       res({ dato: c.toDataURL("image/jpeg", 0.85), w: c.width, h: c.height });
     };
     im.onerror = () => res(null);
+    // Las imágenes en Supabase están en otro dominio: sin esto el navegador no deja
+    // pasarlas a JPEG para el PDF.
+    im.crossOrigin = "anonymous";
     im.src = src;
   });
 }

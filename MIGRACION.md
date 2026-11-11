@@ -9,7 +9,7 @@ Netlify (colegaszfpropiedades.netlify.app) **no cambia** hasta que se decida exp
 | 2. Separar datos e imágenes | Completa (11/11/2026) | `desarrollo` |
 | 3. React + TypeScript + Vite | Completa (11/11/2026) | `desarrollo` |
 | 4. Supabase (proyecto de PRUEBA) | Completa (11/11/2026) | `desarrollo` |
-| 5. Panel de administración | No iniciada | — |
+| 5. Panel de administración (entorno de prueba) | Completa (11/11/2026) | `desarrollo` |
 
 ---
 
@@ -447,3 +447,130 @@ y el inicio de sesión desde una pantalla (fase 5).
    contraseña (el correo incluido en Supabase tiene un límite bajo de envíos).
 3. Decidir con Nahir: archivos de borradores en `privado` y pasarlos a `media` al publicar.
 4. El plan gratuito pausa el proyecto tras una semana sin uso (se reactiva desde el panel).
+
+---
+
+## Fase 5 — Panel de administración (11/11/2026)
+
+Panel en `/admin`, conectado al proyecto de **PRUEBA** de Supabase. La página pública sigue leyendo
+`datos/` y `media/` locales (idéntica a la original: misma huella de contenido `ee6ce293…`) y **no**
+descarga el código de Supabase. Netlify, `main` e `index.html` original sin cambios.
+
+### Cómo abrir el panel
+
+1. Doble clic en **`abrir_panel.bat`** (carpeta del proyecto). Se abre Chrome en `http://localhost:5173/admin`.
+2. Iniciar sesión con `marketingzfpropiedades@gmail.com` y su contraseña. La sesión queda guardada en ese
+   navegador y se renueva sola; «Cerrar sesión» (menú izquierdo, abajo) la cierra.
+3. ¿Olvidó la contraseña? «¿Olvidaste tu contraseña?» → llega un correo con un enlace (sirve una vez)
+   que abre «Elegí una contraseña nueva». *Pendiente de probar con su correo real.*
+4. Para cerrar el panel, cerrar la ventana negra.
+
+### Revisión previa (comprobada en Supabase, no supuesta)
+
+17 desarrollos publicados y visibles, 207 unidades, 174 medios; cuenta `marketingzfpropiedades@gmail.com`
+confirmada con rol administrador (nunca había iniciado sesión); registro público desactivado; buckets
+`media` (público) y `privado`. Se reutilizaron `auth.ts`, `supabase.ts`, `contexto`, `Ficha`, RLS y
+funciones de la fase 4.
+
+### Cambios de base de datos (migraciones nuevas, compatibles con los datos)
+
+| Migración | Por qué |
+|---|---|
+| `…130000_publicacion_versiones.sql` | **Borradores y publicación.** Antes había una sola copia de cada desarrollo: si la web la leyera, cualquier cambio a medio hacer se vería al instante. Ahora las tablas son la *copia de trabajo* (solo admin) y `publicaciones` guarda versiones congeladas; la web lee solo la vigente. Los 17 recibieron su versión 1 idéntica a la original. También: papelera de unidades, funciones `publicar_desarrollo`, `restaurar_version`, `reordenar_unidades`, `reordenar_medios`, `historial_reciente`, `resumen_desarrollos`, `versiones_desarrollo`; `contenido_publico` lee versiones publicadas. |
+| `…130100_id_inmutable.sql` | Las pruebas mostraron que el admin podía cambiar el identificador (rompía los links `/#id`). Ahora la base lo impide. |
+| `…130200_reemplazar_medio.sql` | Las pruebas mostraron que reemplazar una imagen perdía la referencia a la anterior y no se podía recuperar una versión vieja. Ahora reemplazar = el anterior a la papelera + nuevo en la misma posición, en una sola operación. |
+
+Respaldo previo: `respaldos/exportacion-2026-11-11T05-42-00-838Z.json` (y copia en `privado/respaldos/`).
+
+### Cómo funciona la publicación
+
+- **Guardar cambios** → se guarda en el borrador. La página pública NO cambia.
+- **Vista previa ↗** → la ficha tal cual se verá, con lo guardado en el borrador.
+- **Publicar / Publicar cambios** → el borrador pasa a ser la versión pública (versión 1, 2, 3…). Opción
+  para actualizar la fecha «la última fue el…».
+- **Ocultar / Mostrar** → saca o vuelve a poner el desarrollo en la página, enseguida, sin borrar nada.
+- **Papelera** → sale de la página y del panel; se recupera desde Desarrollos → Papelera.
+- **Versiones e historial** → «Recuperar» carga una versión anterior en el borrador (no publica);
+  «Descartar cambios sin publicar» vuelve el borrador a la versión vigente.
+- Los archivos de Storage nunca se borran desde el panel: así las versiones anteriores siguen viéndose.
+- Cuando se conecte la web: `VITE_FUENTE_DATOS=supabase` hace que la página lea las versiones publicadas,
+  y cada «Publicar» se ve sin volver a desplegar (no activado todavía).
+
+### Estructura del panel (`web/src/admin/`)
+
+`AdminApp.tsx` (rutas, protección), `Diseno.tsx` (menú lateral + encabezado, responsive), `sesion.tsx`
+(sesión y rol confirmado por la base), `servicio.ts` (todas las operaciones contra Supabase),
+`ui.tsx` (avisos, confirmaciones, ventanas, carga, chips), `admin.css` (identidad ZF), y `paginas/`:
+Acceso (ingresar, recuperar, nueva contraseña), Dashboard, ListaDesarrollos, NuevoDesarrollo,
+EditarDesarrollo (pestañas Datos · Unidades · Multimedia · Versiones e historial), FormDatos,
+TablaUnidades (editor de unidad y de columnas), Multimedia, Versiones, Configuración, VistaPrevia,
+ElegirDesarrollo. Se descarga solo al entrar a `/admin` (la página pública no lo baja).
+
+### Pruebas
+
+**A) Directo contra Supabase** — `npm run sb:pruebas-panel` (cuentas temporales con contraseña al azar
+que se borran al final; desarrollo `prueba-panel-xxxx` que se borra): **16 de 16 OK**.
+Inicio/cierre de sesión y acceso no autorizado · crear (borrador, no público) · editar (id inmutable) ·
+unidades (agregar, precio texto, superficie, estado, torre, reordenar, quitar/recuperar; borrado definitivo
+rechazado) · columnas (agregar, renombrar, reordenar, quitar sin perder datos) · subida de imágenes y
+formatos rechazados; usuarios sin rol no suben · reordenar medios (lista incompleta rechazada) · publicar
+(aparece con unidades y archivos en orden) · borrador no cambia la web · publicar cambios, fecha, ocultar
+y mostrar · reemplazar/quitar sin romper lo publicado y recuperar versión 1 · historial (usuario, antes/
+después, sin contraseñas; cuenta común no lo lee) · dashboard con cifras reales · errores sin datos a medias
+· los 17 reales idénticos antes y después.
+También se volvieron a correr las pruebas de seguridad de la fase 4 (adaptadas a la lectura por versiones):
+**9 de 9 OK**.
+
+**B) En el navegador, con la sesión real de Nahir** (ella inició sesión; Claude no escribió su contraseña),
+con el desarrollo de prueba `prueba-ui-zf` (borrado al final):
+
+| Prueba | Resultado |
+|---|---|
+| Sesión: entrar, sesión recordada al reabrir el navegador | OK |
+| Acceso no autorizado: sin sesión, `/admin/...` lleva a «Iniciar sesión» sin mostrar datos | OK |
+| Dashboard con cifras reales (17/17/0/13 · 207/206/1 · 38/23/32/72), sin «Vendidas» porque no existe | OK |
+| Lista: buscador y filtros (Todos, Publicados, Borradores, Ocultos, Cambios sin publicar, Papelera) | OK |
+| Crear desarrollo (id generado del nombre), queda borrador y no aparece en la web (verificado en Supabase) | OK |
+| Editar datos, nota, información adicional; aviso de cambios sin guardar | OK |
+| Columnas: quitar 4, agregar «Cochera», renombrar, reordenar; datos intactos | OK |
+| Unidades con teclado (Tab/Enter), agrupadas por torre, editar precio, filtrar, reordenar, quitar con confirmación, recuperar | OK (verificado en Supabase) |
+| Multimedia: subir 3 fotos + 3 páginas + portada; un PDF rechazado con mensaje claro | OK |
+| Reordenar arrastrando y con flechas | OK |
+| Reemplazar (misma posición, anterior a «quitados»), quitar con confirmación, recuperar, usar como portada | OK |
+| Vista previa: ficha completa con imágenes de Supabase (8 de 8) y **PDF del brochure de 3 páginas** | OK |
+| Publicar (con nota, sin cambiar la fecha real) → aparece en la web (verificado como visitante) | OK |
+| Cambio sin publicar → la web sigue con lo publicado; chip «Cambios sin publicar» | OK |
+| Ocultar → desaparece de la web; Mostrar → vuelve con la versión publicada | OK |
+| Descartar cambios sin publicar (recuperar versión vigente) | OK |
+| Historial con fecha, correo, antes y después | OK (se mejoró la lectura: nombres en castellano, se ocultan pasos internos de reordenamiento) |
+| Error de conexión simulado: mensaje claro, lo escrito queda en pantalla, al reintentar se guarda | OK |
+| Papelera de desarrollos: mandar y sacar | OK |
+| Celular (375 px): sin desborde, menú hamburguesa que abre y cierra | OK |
+| Configuración: fecha, portada general y logo visibles, respaldo, cuenta | OK (no se cambió nada real) |
+| Desarrollos reales en el panel: Patagonia 15 (8 columnas propias, 2 torres, 73 unidades), Magna 11 (52 imágenes) | OK, sin modificar |
+| Consola | 1 error encontrado y corregido (regla de validación del identificador inválida en navegadores nuevos) |
+| TypeScript estricto y compilación de producción | OK |
+| Página pública después de todo | idéntica a la original; no contacta a Supabase |
+
+**No probado (queda documentado):**
+- Correo de recuperación de contraseña (requiere el correo real de Nahir; el correo incluido en Supabase
+  tiene límite de envíos).
+- Cerrar sesión **desde el botón del panel** (se probó a nivel de Supabase; no se cerró la sesión de Nahir
+  para no obligarla a volver a entrar). Cambiar contraseña y «cerrar en todos los dispositivos» no se
+  probaron para no tocar su cuenta real.
+- La selección de archivos se simuló (el navegador automatizado no puede abrir la ventana de archivos de
+  Windows); la subida, validación y guardado sí son reales.
+- Descarga de respaldo desde Configuración (la exportación se probó con el script).
+
+**Limpieza:** se borraron solo los registros y archivos de prueba (`prueba-panel-*`, `prueba-ui-zf`,
+cuentas temporales). Quedan en el historial las entradas de esas pruebas (creado/borrado), como registro.
+Al final: 17 desarrollos, 17 públicos, idénticos al JSON original, fecha 2026-11-06.
+
+### Pendientes / decisiones antes de producción
+
+1. Probar con Nahir el correo de recuperación de contraseña; configurar un correo propio (SMTP) para producción.
+2. Proyecto de Supabase de **producción** separado (migrar con `sb:migrar`, importar con `sb:importar`).
+3. Las imágenes de un borrador se suben al bucket público con nombres imposibles de adivinar; si se quiere
+   que sean totalmente privadas hasta publicar, hace falta moverlas al publicar (cambio futuro).
+4. La portada general y la fecha se aplican enseguida (no tienen borrador).
+5. Conectar la página pública a Supabase (`VITE_FUENTE_DATOS=supabase`) y publicar — fase 6, con autorización.

@@ -1,7 +1,7 @@
 {
   "name": "zf-material-colegas",
   "private": true,
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Material para colegas — ZF Propiedades (React + TypeScript + Vite)",
   "type": "module",
   "scripts": {
@@ -14,7 +14,8 @@
     "sb:importar": "node scripts/supabase/importar.mjs",
     "sb:admin": "node scripts/supabase/asignar_admin.mjs",
     "sb:exportar": "node scripts/supabase/exportar.mjs",
-    "sb:pruebas": "node scripts/supabase/pruebas_seguridad.mjs"
+    "sb:pruebas": "node scripts/supabase/pruebas_seguridad.mjs",
+    "sb:pruebas-panel": "node scripts/supabase/pruebas_panel.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.119.0",

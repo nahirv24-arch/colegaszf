@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { urlMedio } from "../servicios/contexto";
+import { useUrlMedio } from "../servicios/contexto";
 import type { RutaMedio } from "../tipos/datos";
 import { bajarImagen } from "../utilidades/descargas";
 
@@ -11,6 +11,7 @@ interface Props {
 
 /** Visor a pantalla completa: flechas, teclado (← → Esc), contador y descarga de la imagen. */
 export function Visor({ lista, inicio, onCerrar }: Props) {
+  const urlMedio = useUrlMedio();
   const [n, setN] = useState(inicio);
   const total = lista.length;
   const ver = useCallback((k: number) => setN(((k % total) + total) % total), [total]);

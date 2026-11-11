@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { urlMedio } from "../servicios/contexto";
+import { useUrlMedio } from "../servicios/contexto";
 import type { RutaMedio } from "../tipos/datos";
 import { Imagen } from "./Imagen";
 
@@ -14,6 +14,7 @@ interface Props {
 
 /** Cabecera a sangre con foto, logo, rótulo y titular (inicio y fichas). */
 export function Portada({ foto, logo, rotulo, titular, tinta = false }: Props) {
+  const urlMedio = useUrlMedio();
   const clases = ["portada", foto ? "" : "lisa", tinta ? "tinta" : ""].filter(Boolean).join(" ");
   return (
     <header className={clases}>

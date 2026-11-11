@@ -106,22 +106,26 @@ async function main() {
 
   // 1 · Visitante ve publicados
   {
-    const { data, error } = await anon.from("desarrollos").select("id");
-    const u = await anon.from("unidades").select("*", { count: "exact", head: true });
+    // Desde la fase 5 el visitante lee las VERSIONES PUBLICADAS (contenido_publico / publicaciones),
+    // no la copia de trabajo del panel.
+    const { data, error } = await anon.from("publicaciones").select("desarrollo_id");
     const c = await anon.rpc("contenido_publico");
-    prueba(1, "Un visitante consulta los desarrollos publicados", !error && data.length === 17 && u.count === 207 && c.data?.sitio?.emprendimientos?.length === 17,
-      `${data?.length} desarrollos, ${u.count} unidades visibles`);
+    const lista = c.data?.sitio?.emprendimientos ?? [];
+    const unidades = lista.reduce((t, d) => t + d.disponibles.length, 0);
+    prueba(1, "Un visitante consulta los desarrollos publicados", !error && data.length === 17 && lista.length === 17 && unidades === 207,
+      `${lista.length} desarrollos, ${unidades} unidades visibles`);
   }
   // 2 · Visitante no ve borradores
   {
     const d = await anon.from("desarrollos").select("id").eq("id", ID_PRUEBA);
     const u = await anon.from("unidades").select("id").eq("desarrollo_id", ID_PRUEBA);
+    const p = await anon.from("publicaciones").select("id").eq("desarrollo_id", ID_PRUEBA);
     const c = await anon.rpc("contenido_publico");
     const enContenido = (c.data?.sitio?.emprendimientos ?? []).some((x) => x.id === ID_PRUEBA);
     const h = await anon.from("historial").select("id").limit(1);
     const r = await anon.from("roles_usuario").select("user_id").limit(1);
-    prueba(2, "Un visitante no consulta borradores (ni su tabla, ni sus unidades, ni el historial, ni los roles)",
-      d.data?.length === 0 && u.data?.length === 0 && !enContenido && !(h.data?.length) && !(r.data?.length));
+    prueba(2, "Un visitante no consulta borradores (ni la copia de trabajo, ni sus unidades, ni el historial, ni los roles)",
+      !(d.data?.length) && !(u.data?.length) && !(p.data?.length) && !enContenido && !(h.data?.length) && !(r.data?.length));
   }
   // 3 · Visitante no escribe
   {
@@ -180,7 +184,7 @@ async function main() {
     const nuevo = clienteServidor(e);
     const { data } = await nuevo.from("desarrollos").select("nombre").eq("id", ID_PRUEBA).single();
     const { data: u } = await nuevo.from("unidades").select("precio").eq("desarrollo_id", ID_PRUEBA).single();
-    const otraVez = await anon.from("desarrollos").select("id");
+    const otraVez = await clientePublico(e).from("publicaciones").select("desarrollo_id");
     prueba(9, "Los datos se conservan al cerrar y volver a abrir (conexiones nuevas)", data?.nombre === "Prueba de seguridad (editada)" && u?.precio === "USD 101.000" && otraVez.data?.length === 17);
   }
 

@@ -11,11 +11,17 @@ import { obtenerSupabase } from "./supabase";
 
 export async function iniciarSesion(email: string, contrasena: string): Promise<void> {
   const { error } = await obtenerSupabase().auth.signInWithPassword({ email: email.trim(), password: contrasena });
-  if (error) throw new Error("No se pudo iniciar sesión. Revisá el correo y la contraseña.");
+  if (!error) return;
+  if (error.name === "AuthRetryableFetchError" || /fetch|network/i.test(error.message)) {
+    throw new Error("No hay conexión con Supabase. Revisá internet y probá de nuevo.");
+  }
+  if (error.status === 429) throw new Error("Demasiados intentos. Esperá unos minutos y probá de nuevo.");
+  throw new Error("No se pudo iniciar sesión. Revisá el correo y la contraseña.");
 }
 
-export async function cerrarSesion(): Promise<void> {
-  await obtenerSupabase().auth.signOut({ scope: "global" });
+/** Cierra la sesión en este navegador; con todos=true, en todos los dispositivos. */
+export async function cerrarSesion(todos = false): Promise<void> {
+  await obtenerSupabase().auth.signOut({ scope: todos ? "global" : "local" });
 }
 
 export async function sesionActual(): Promise<Session | null> {

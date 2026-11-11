@@ -6,7 +6,7 @@ import { Pie } from "../componentes/Pie";
 import { Portada } from "../componentes/Portada";
 import { TablaDisponibles } from "../componentes/TablaDisponibles";
 import { Visor } from "../componentes/Visor";
-import { urlMedio } from "../servicios/contexto";
+import { useUrlMedio } from "../servicios/contexto";
 import type { ClaveGaleria, Desarrollo, RutaMedio } from "../tipos/datos";
 import { bajarBrochure } from "../utilidades/descargas";
 
@@ -30,6 +30,7 @@ interface Props {
 
 /** Ficha de un desarrollo: portada, posesión y gastos, y las secciones que se abren. */
 export function Ficha({ e, logo }: Props) {
+  const urlMedio = useUrlMedio();
   const [visor, setVisor] = useState<{ lista: readonly RutaMedio[]; n: number } | null>(null);
   const rotulo = e.direccion ? e.direccion : e.desarrollista ? `Desarrolla ${e.desarrollista}` : "Desarrollo";
   const nombreBase = (e.nombre || "ZF").replace(/\s+/g, "-");
