@@ -14,4 +14,9 @@
 [build.environment]
   # Node 24 (LTS). Vite 8 y React Router 8 piden Node 22.22 o más nuevo.
   NODE_VERSION = "24"
+  # La página pública de PRUEBAS lee las versiones publicadas en Supabase (no los JSON del repositorio):
+  # lo que se publica desde /admin aparece sin volver a desplegar.
+  # La dirección y la clave PÚBLICA de Supabase (VITE_SUPABASE_URL, VITE_SUPABASE_PUBLISHABLE_KEY)
+  # se cargan en Netlify → Environment variables. La clave secreta NUNCA va en Netlify.
+  VITE_FUENTE_DATOS = "supabase"
   # Las direcciones /admin y demás las resuelve la aplicación (ver web/public/_redirects).

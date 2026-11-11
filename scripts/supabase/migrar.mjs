@@ -1,19 +1,20 @@
-// Aplica las migraciones de supabase/migrations/ al proyecto de PRUEBA, en orden.
+// Aplica las migraciones de supabase/migrations/ en orden (prueba por defecto; --produccion --confirmo-produccion para producción).
 // Supabase recuerda cuáles ya se aplicaron: correrlo de nuevo no repite nada.
 // Uso: npm run sb:migrar            (aplica)
 //      npm run sb:migrar -- --ver   (solo muestra qué aplicaría)
 import { spawnSync } from "node:child_process";
 import { join } from "node:path";
-import { cargarEntorno, limpiar, RAIZ, salir } from "./comun.mjs";
+import { cargarEntorno, limpiar, RAIZ, salir, exigirConfirmacionProduccion } from "./comun.mjs";
 
 const e = cargarEntorno();
-if (!e.dbUrl) salir("En .env.local falta SUPABASE_DB_URL (la conexión 'Session pooler').");
+exigirConfirmacionProduccion("aplicar migraciones");
+if (!e.dbUrl) salir("Falta SUPABASE_DB_URL (la conexión 'Session pooler').");
 const soloVer = process.argv.includes("--ver");
 // Se llama al CLI con Node directamente (sin pasar por la consola), así la conexión no se
 // interpreta ni se muestra en pantalla.
 const cli = join(RAIZ, "node_modules", "supabase", "dist", "supabase.js");
 const args = [cli, "db", "push", `--remote=${e.dbUrl}`, "--yes", ...(soloVer ? ["--dry-run"] : [])];
-console.log(soloVer ? "Migraciones pendientes (sin aplicar):" : "Aplicando migraciones al proyecto de prueba…");
+console.log(soloVer ? "Migraciones pendientes (sin aplicar):" : "Aplicando migraciones…");
 const r = spawnSync(process.execPath, args, { cwd: RAIZ, encoding: "utf8" });
 const salida = limpiar(`${r.stdout ?? ""}\n${r.stderr ?? ""}`, e).trim();
 console.log(salida);

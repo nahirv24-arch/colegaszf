@@ -6,9 +6,10 @@
 // Uso: npm run sb:pruebas
 import { createClient } from "@supabase/supabase-js";
 import { createHash, randomBytes } from "node:crypto";
-import { cargarEntorno, clientePublico, clienteServidor, limpiar } from "./comun.mjs";
+import { cargarEntorno, clientePublico, clienteServidor, limpiar, soloEnPrueba } from "./comun.mjs";
 
 const e = cargarEntorno();
+soloEnPrueba("pruebas_seguridad.mjs");
 const srv = clienteServidor(e);
 const anon = clientePublico(e);
 const marca = randomBytes(4).toString("hex");

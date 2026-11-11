@@ -2,12 +2,13 @@
 // La cuenta (email + contraseña) la crea Nahir en el panel de Supabase; este script nunca
 // ve ni guarda contraseñas. Solo se puede ejecutar en esta computadora, con la clave secreta.
 // Uso: npm run sb:admin -- correo@ejemplo.com
-import { cargarEntorno, clienteServidor, limpiar, salir } from "./comun.mjs";
+import { cargarEntorno, clienteServidor, limpiar, salir, exigirConfirmacionProduccion } from "./comun.mjs";
 
-const email = (process.argv[2] ?? "").trim().toLowerCase();
+const email = (process.argv.slice(2).find((a) => !a.startsWith("--")) ?? "").trim().toLowerCase();
 if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) salir("Indicá el correo de la cuenta: npm run sb:admin -- correo@ejemplo.com");
 
 const e = cargarEntorno();
+exigirConfirmacionProduccion("dar el rol de administradora");
 const db = clienteServidor(e);
 
 let usuario = null;

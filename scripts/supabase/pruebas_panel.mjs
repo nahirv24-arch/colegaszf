@@ -9,9 +9,10 @@ import { randomBytes } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { deflateSync } from "node:zlib";
 import { join } from "node:path";
-import { cargarEntorno, clientePublico, clienteServidor, limpiar, mismoContenido, RAIZ } from "./comun.mjs";
+import { cargarEntorno, clientePublico, clienteServidor, limpiar, mismoContenido, RAIZ, soloEnPrueba } from "./comun.mjs";
 
 const e = cargarEntorno();
+soloEnPrueba("pruebas_panel.mjs");
 const srv = clienteServidor(e);
 const anon = clientePublico(e);
 const marca = randomBytes(3).toString("hex");

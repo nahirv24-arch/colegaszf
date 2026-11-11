@@ -13,9 +13,10 @@
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { cargarEntorno, clienteServidor, igualExacto, limpiar, mismoContenido, MIME, RAIZ, rutaBucket, salir, TIPOS } from "./comun.mjs";
+import { cargarEntorno, clienteServidor, igualExacto, limpiar, mismoContenido, MIME, RAIZ, rutaBucket, salir, TIPOS, exigirConfirmacionProduccion } from "./comun.mjs";
 
 const e = cargarEntorno();
+if (!process.argv.includes("--ver")) exigirConfirmacionProduccion("importar datos y archivos");
 const db = clienteServidor(e);
 const soloVer = process.argv.includes("--ver");
 const leer = (r) => JSON.parse(readFileSync(join(RAIZ, r), "utf8"));

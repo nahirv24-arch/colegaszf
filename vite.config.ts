@@ -41,6 +41,12 @@ function contenidoRaiz(): Plugin {
         createReadStream(archivo).pipe(res);
       });
     },
+    // Si la página lee de Supabase, no tiene sentido pedir por adelantado el JSON local.
+    transformIndexHtml(html) {
+      return process.env.VITE_FUENTE_DATOS === "supabase"
+        ? html.replace(/<link rel="preload"[^>]*desarrollos\.json[^>]*>\s*/, "")
+        : html;
+    },
     closeBundle() {
       for (const c of CARPETAS_PUBLICAS) {
         cpSync(resolve(RAIZ, c), resolve(RAIZ, "dist", c), { recursive: true });
