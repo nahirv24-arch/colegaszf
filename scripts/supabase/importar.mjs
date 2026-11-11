@@ -13,7 +13,7 @@
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { cargarEntorno, clienteServidor, igualExacto, limpiar, mismoContenido, MIME, RAIZ, rutaBucket, salir, TIPOS, exigirConfirmacionProduccion } from "./comun.mjs";
+import { cargarEntorno, clienteServidor, igualExacto, limpiar, mismoContenido, MIME, RAIZ, rutaBucket, salir, TIPOS, exigirConfirmacionProduccion, ES_PRODUCCION } from "./comun.mjs";
 
 const e = cargarEntorno();
 if (!process.argv.includes("--ver")) exigirConfirmacionProduccion("importar datos y archivos");
@@ -94,7 +94,7 @@ async function respaldoOriginal() {
 }
 
 async function main() {
-  console.log(`\n${soloVer ? "INFORME PREVIO (no se cambia nada)" : "IMPORTACIÓN al proyecto de prueba"}\n`);
+  console.log(`\n${soloVer ? "INFORME PREVIO (no se cambia nada)" : `IMPORTACIÓN al proyecto de ${ES_PRODUCCION ? "PRODUCCIÓN" : "prueba"}`}\n`);
   informe.origen = { desarrollos: datos.emprendimientos.length, unidades: datos.emprendimientos.reduce((t, d) => t + d.disponibles.length, 0), archivos: inventario.archivos.length };
   try { informe.antes = await contar(); } catch (x) { err("contar antes", x); return terminar(); }
   console.log("Origen (JSON):", informe.origen);

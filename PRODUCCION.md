@@ -43,8 +43,8 @@ ni contraseñas de prueba; el sitio original no se toca hasta el paso 9 y se pue
 node scripts/supabase/migrar.mjs --produccion --ver
 node scripts/supabase/migrar.mjs --produccion --confirmo-produccion
 ```
-Aplica en orden las 8 migraciones de `supabase/migrations/` (tablas, RLS, Storage con buckets `media`
-y `privado`, funciones, versiones publicadas, identificador inmutable, reemplazo de archivos).
+Aplica en orden las 10 migraciones de `supabase/migrations/` (tablas, RLS, Storage con buckets `media`
+y `privado`, funciones, versiones publicadas, identificador inmutable, reemplazo de archivos, funciones del dashboard).
 Supabase recuerda las aplicadas: repetir el comando no duplica nada.
 
 ## Paso 4 — Importar los 17 desarrollos y sus 174 archivos
