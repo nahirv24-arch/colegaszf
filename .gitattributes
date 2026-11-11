@@ -1,0 +1,6 @@
+# Los .bat de Windows necesitan fin de línea CRLF para funcionar con doble clic.
+*.bat text eol=crlf
+# Imágenes: nunca tocar sus bytes.
+*.jpg binary
+*.png binary
+*.webp binary

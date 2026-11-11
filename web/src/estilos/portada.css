@@ -1,0 +1,23 @@
+/* ---------- portada ---------- */
+.portada{position:relative;height:min(84vh,740px);min-height:440px;background:#141D23;overflow:hidden}
+.portada>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.portada.tinta>img{filter:grayscale(1) contrast(1.08) brightness(.55)}
+.portada .tinte{position:absolute;inset:0;background:#1F4A66;mix-blend-mode:color}
+.portada:not(.tinta) .sombra{background:
+    linear-gradient(180deg, rgba(20,29,35,.45) 0%, rgba(20,29,35,.12) 38%, rgba(16,24,29,.86) 100%)}
+.portada .sombra{position:absolute;inset:0;
+  background:
+    radial-gradient(120% 90% at 78% 12%, rgba(47,64,74,.5) 0%, rgba(47,64,74,0) 62%),
+    linear-gradient(180deg, rgba(20,29,35,.62) 0%, rgba(20,29,35,.5) 40%, rgba(16,24,29,.9) 100%)}
+.portada .caja{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;
+               padding-block:28px 40px}
+.portada .caja>*{position:relative}
+.marca{display:flex;align-items:center;gap:11px}
+.marca img{height:40px;width:auto}
+.marca b{font-weight:500;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:#fff}
+.portada .pie-txt{display:flex;flex-direction:column;gap:16px}
+.portada .display{max-width:17ch}
+.portada.tinta .display{font-size:clamp(33px,5.6vw,62px);max-width:18ch;line-height:1.03}
+.portada .display em{font-style:normal;color:#E8404D}
+.portada .display{color:#fff}
+.portada.lisa>img{display:none}

@@ -1,0 +1,28 @@
+/* ---------- galería ---------- */
+.galeria-wrap{margin-top:54px}
+.galeria{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:18px}
+.galeria button{padding:0;border:0;background:var(--crema);cursor:zoom-in;overflow:hidden;display:block}
+.galeria.planos{grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+.galeria.planos button{background:#fff;border:1px solid var(--linea)}
+.galeria.planos img{object-fit:contain;aspect-ratio:4/3;padding:14px}
+.galeria.planos button:hover img{transform:none}
+/* height:auto: las imágenes llevan sus medidas reales (width/height) y la proporción la marca aspect-ratio */
+.galeria img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;transition:transform .5s ease}
+.galeria button:hover img{transform:scale(1.03)}
+
+/* ---------- visor ---------- */
+.visor{position:fixed;inset:0;background:rgba(26,37,44,.94);z-index:50;display:flex;align-items:center;
+       justify-content:center;padding:24px}
+.visor img{max-width:100%;max-height:100%;object-fit:contain;background:#fff}
+.visor .nav{position:absolute;top:50%;transform:translateY(-50%);background:none;border:0;color:#fff;
+            font-size:34px;line-height:1;padding:14px 18px;cursor:pointer;opacity:.75}
+.visor .nav:hover{opacity:1}
+.visor .izq{left:4px}.visor .der{right:4px}
+.visor .cerrar{position:absolute;top:14px;right:18px;background:none;border:0;color:#fff;font-size:28px;
+               cursor:pointer;opacity:.75;line-height:1}
+.visor .cuenta{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#fff;font-size:12.5px;
+               letter-spacing:.18em;opacity:.7}
+.visor .bajar{position:absolute;bottom:46px;left:0;right:0;text-align:center}
+.visor .bajar button{background:none;border:1px solid rgba(255,255,255,.55);color:#fff;
+  font-family:var(--display);font-size:13px;font-weight:300;padding:9px 16px;cursor:pointer}
+.visor .bajar button:hover{background:#fff;color:var(--tinta)}

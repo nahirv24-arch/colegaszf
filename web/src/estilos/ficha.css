@@ -1,0 +1,37 @@
+/* ---------- ficha ---------- */
+.volver{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:var(--humo);
+        text-decoration:none;padding-block:22px}
+.volver:hover{color:var(--rojo)}
+.spec{font-family:var(--mono);font-size:17px;font-weight:400;line-height:1.35;letter-spacing:-.01em;
+      color:var(--tinta);margin:0;padding-block:26px;border-top:1px solid var(--linea);
+      border-bottom:1px solid var(--linea)}
+.spec span{color:var(--humo)}
+.filas{display:flex;flex-direction:column;margin-top:4px}
+.fila{display:flex;align-items:baseline;gap:20px;padding-block:20px;border-bottom:1px solid var(--linea);
+      text-decoration:none;color:inherit}
+.fila .n{font-weight:500;font-size:14px;letter-spacing:.06em;text-transform:uppercase;flex:none;width:12ch}
+.fila .d{color:var(--humo);font-size:15px;flex:1;min-width:0;letter-spacing:-.012em}
+.fila .f{margin-left:auto;color:var(--rojo);font-size:14px;flex:none}
+button.fila{width:100%;background:none;border:0;border-bottom:1px solid var(--linea);font-family:var(--display);text-align:left;cursor:pointer}
+.fila:hover .d{color:var(--tinta)}
+.fila:hover .f{text-decoration:underline;text-underline-offset:3px}
+.fila.falta{color:var(--humo)}
+.fila.falta .n,.fila.falta .d{color:#A8B0B7}
+.fila.falta .f{color:#A8B0B7}
+@media (max-width:560px){.fila{flex-wrap:wrap;gap:4px 16px}.fila .n{width:auto}.fila .d{flex-basis:100%}}
+
+/* ---------- acordeón ---------- */
+.fila .f{transition:none}
+button.fila[aria-expanded="true"]{border-bottom-color:transparent}
+button.fila[aria-expanded="true"] .n{color:var(--rojo)}
+.panel-fila{border-bottom:1px solid var(--linea);padding:4px 0 34px}
+.panel-fila .rot{margin-bottom:14px}
+.vinculo{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;color:var(--tinta);
+         text-decoration:none;border-bottom:1px solid var(--linea);padding-bottom:3px;
+         background:none;border-left:0;border-right:0;border-top:0;font-family:var(--display);
+         font-weight:300;cursor:pointer;letter-spacing:-.012em}
+.vinculo:hover{border-color:var(--rojo);color:var(--rojo)}
+.vinculos{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:20px}
+.marco-pdf{width:100%;height:min(74vh,720px);border:1px solid var(--linea);background:var(--crema)}
+.sin-dato{font-size:14.5px;color:var(--humo);line-height:1.55}
+.pista{font-size:13px;color:var(--humo);align-self:center}

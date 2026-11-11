@@ -1,0 +1,32 @@
+/* ---------- tabla de disponibles ---------- */
+.aviso-ej{display:flex;gap:10px;align-items:baseline;background:var(--crema);
+          border-left:3px solid var(--rojo);padding:12px 15px;margin-bottom:18px;
+          font-size:13.5px;line-height:1.5;color:var(--tinta)}
+.aviso-ej b{font-weight:500;color:var(--rojo)}
+.tabla-wrap{overflow-x:auto;border:1px solid var(--linea)}
+table.disp{border-collapse:collapse;width:100%;min-width:720px;font-size:13.5px}
+table.disp th{text-align:left;font-weight:500;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+              color:var(--humo);padding:12px 14px;border-bottom:1px solid var(--linea);white-space:nowrap}
+table.disp td{padding:12px 14px;border-bottom:1px solid var(--linea);color:var(--tinta);
+              font-weight:300;white-space:nowrap}
+table.disp tr:last-child td{border-bottom:0}
+table.disp tr.corte td{border-top:1px solid var(--linea)}
+table.disp td.piso{font-weight:500;color:var(--tinta);width:1%}
+table.disp tr.banda th{background:var(--tinta);color:#fff;font-size:11px;letter-spacing:.2em;
+  padding:11px 14px;border:0}
+table.disp tr.banda th span{color:#A9B4BC;letter-spacing:.06em;text-transform:none;font-weight:300;
+  margin-left:10px}
+table.disp tbody tr:not(.banda):hover td{background:var(--crema)}
+.filtros{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.et-filtro{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--humo);
+  margin-right:4px}
+.chip-f{font-family:var(--display);font-size:13px;font-weight:300;letter-spacing:-.01em;
+  padding:7px 14px;border:1px solid var(--linea);background:transparent;color:var(--tinta);cursor:pointer}
+.chip-f:hover{border-color:var(--tinta)}
+.chip-f.activo{background:var(--tinta);border-color:var(--tinta);color:#fff}
+table.disp td.num{font-variant-numeric:tabular-nums}
+table.disp td.uni{font-weight:500}
+.chip{display:inline-block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+      padding:3px 8px;border:1px solid var(--linea);color:var(--humo)}
+.chip.libre{border-color:var(--rojo);color:var(--rojo)}
+.pie-tabla{font-size:12.5px;color:var(--humo);margin-top:12px;line-height:1.5}

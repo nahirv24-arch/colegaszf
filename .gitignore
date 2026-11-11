@@ -1,3 +1,7 @@
+# Node / Vite (se regeneran con npm install y npm run build)
+node_modules/
+dist/
+
 # Archivos de Python
 __pycache__/
 *.pyc

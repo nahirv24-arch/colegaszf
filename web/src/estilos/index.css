@@ -1,0 +1,8 @@
+/* Estilos de la página pública, separados por zona. El orden respeta el del original. */
+@import "./base.css";
+@import "./portada.css";
+@import "./inicio.css";
+@import "./ficha.css";
+@import "./tabla.css";
+@import "./galeria.css";
+@import "./pie.css";

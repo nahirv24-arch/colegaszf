@@ -1,0 +1,43 @@
+/* Copiado del index.html original (fase 3: sin rediseño). Colores, letras y medidas de ZF. */
+:root{
+  --tinta:#2F404A; --tinta-prof:#1A252C; --papel:#ffffff;
+  --rojo:#BD1522; --humo:#6B7684; --linea:#DCD6CC; --crema:#F7F2E9;
+  --display:'Poppins','Segoe UI',system-ui,sans-serif;
+  --mono:'Azeret Mono',ui-monospace,Consolas,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--display);font-weight:300;
+     font-size:16px;line-height:1.5;letter-spacing:-.015em;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+[hidden]{display:none!important}
+::selection{background:var(--rojo);color:#fff}
+:focus-visible{outline:2px solid var(--rojo);outline-offset:3px}
+
+.gut{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.col{max-width:1180px;margin:0 auto;width:100%}
+
+/* ---------- rótulo: el único motivo que se repite ---------- */
+.rot{font-size:11.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--rojo)}
+.rot.claro{color:#fff;opacity:.92}
+
+/* ---------- titulares: peso liviano, tracking cerrado ---------- */
+.display{font-weight:400;font-size:clamp(34px,6.6vw,62px);line-height:1.02;letter-spacing:-.042em;
+         text-wrap:balance;margin:0}
+.titulo{font-weight:400;font-size:clamp(26px,4.4vw,40px);line-height:1.06;letter-spacing:-.036em;margin:0}
+.sub{font-weight:400;font-size:21px;line-height:1.15;letter-spacing:-.03em;margin:0}
+
+/* ---------- botón único (lo usará el panel de administración) ---------- */
+.btn{font-family:var(--display);font-size:13.5px;font-weight:500;letter-spacing:-.01em;
+     padding:11px 19px;border:1px solid var(--tinta);background:transparent;color:var(--tinta);
+     border-radius:0;cursor:pointer;text-decoration:none;display:inline-block}
+.btn:hover{background:var(--tinta);color:var(--papel)}
+.btn.rojo{border-color:var(--rojo);color:var(--rojo)}
+.btn.rojo:hover{background:var(--rojo);color:#fff}
+.btn.claro{border-color:rgba(255,255,255,.7);color:#fff}
+.btn.claro:hover{background:#fff;color:var(--tinta)}
+.btn:disabled{opacity:.45;cursor:default}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}

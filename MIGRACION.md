@@ -7,7 +7,7 @@ Netlify (colegaszfpropiedades.netlify.app) **no cambia** hasta que se decida exp
 |---|---|---|
 | 1. Análisis y protección | Completa (11/11/2026) | — |
 | 2. Separar datos e imágenes | Completa (11/11/2026) | `desarrollo` |
-| 3. React | No iniciada | — |
+| 3. React + TypeScript + Vite | Completa (11/11/2026) | `desarrollo` |
 | 4. Supabase | No iniciada | — |
 
 ---
@@ -152,3 +152,154 @@ python scripts/validar_extraccion.py
 - Tapa del brochure de Reggia 6, que muestra un "5".
 - Columna de precio contado en Reggia 6/7 (7% de descuento).
 - Las dos fotos casi iguales de Reggia 7.
+
+---
+
+## Fase 3 — React + TypeScript + Vite (11/11/2026)
+
+`index.html` original **sin cambios** (SHA-256 `2F0EEFA4…42FA`). `main` sin cambios. Nada publicado.
+La página nueva usa los mismos `datos/` y `media/` de la fase 2: no hay imágenes duplicadas ni base64.
+
+### Cómo verla en la computadora
+
+Doble clic en **`abrir_pagina_nueva.bat`** (carpeta del proyecto). Se abre Chrome en
+`http://localhost:5173`. Para cerrarla, cerrar la ventana negra. Es solo una vista local: no publica nada.
+(Requiere Node.js, instalado el 11/11/2026.)
+
+Comandos equivalentes: `npm run dev` (ver), `npm run typecheck` (TypeScript), `npm run build`
+(compilar a `dist/`), `npm run preview` (ver lo compilado), `npm run validar` (datos de la fase 2).
+
+### Estructura
+
+```
+package.json, tsconfig.json, tsconfig.node.json, vite.config.ts
+abrir_pagina_nueva.bat         acceso de doble clic
+web/
+  index.html                   página base de la app (NO es el index.html original)
+  public/_redirects            Netlify: /admin y otras rutas abren la app
+  src/
+    main.tsx                   arranque
+    rutas/Rutas.tsx            rutas: "/", "/index.html", "/admin/*"
+    paginas/
+      PaginaPublica.tsx        elige inicio o ficha según "#id" (links viejos)
+      Inicio.tsx               portada + grilla de desarrollos
+      Ficha.tsx                ficha de un desarrollo
+      admin/AdminRaiz.tsx      lugar reservado para el panel (sin funciones)
+    componentes/
+      Portada, TarjetaDesarrollo, FilaSeccion (acordeón), TablaDisponibles,
+      Galeria, Visor, BotonAccion (ZIP/PDF), Imagen, Pie
+    servicios/
+      fuente.ts                interfaz FuenteDatos (contrato de la capa de datos)
+      fuenteJsonLocal.ts       implementación actual: datos/*.json + media/
+      index.ts                 punto único donde se elige la fuente (Supabase en fase 4)
+      contexto.tsx             ProveedorDatos + hooks para los componentes
+    tipos/datos.ts             tipos de desarrollos, unidades, columnas, medios
+    tipos/admin.ts             tipos reservados: estadísticas, historial, estados
+    utilidades/                orden por material, textos/fechas, descargas, hash, estadísticas
+    estilos/                   CSS original separado por zona (base, portada, inicio, ficha, tabla, galería, pie)
+datos/, media/                 (fase 2) — en desarrollo los sirve Vite; al compilar se copian a dist/
+```
+
+### Funcionalidades migradas (las 22)
+
+Inicio con portada · tarjetas · orden automático por material · fecha de posesión · ficha individual ·
+tabla de disponibles · filtros por torre/grupo · columnas personalizadas · notas al pie · fotos ·
+renders · planos · brochure por páginas · visor a pantalla completa · flechas y teclado (← → Esc) ·
+descarga individual · ZIP por galería · PDF del brochure · secciones que se abren y cierran ·
+"Pendiente" donde falta material · web, Instagram y WhatsApp · diseño para celular.
+
+### Pruebas ejecutadas (todas en esta computadora)
+
+| # | Prueba | Cómo | Resultado |
+|---|---|---|---|
+| 1 | Ejecutar localmente | `npm run dev` y `npm run preview` | OK |
+| 2 | 17 desarrollos | se abrió cada ficha en el navegador | OK, 17 |
+| 3 | Datos vs. original | se extrajo todo el texto visible (inicio, 17 fichas con todas las secciones abiertas, 213 filas de tabla, filtros, notas, etiquetas, pie) de la página original y de la nueva: huella SHA-256 idéntica (`ee6ce293…`) en desarrollo y en producción | OK, idénticos |
+| 4 | `validar_extraccion.py` | script | TODO CORRECTO |
+| 5 | 174 referencias multimedia | se descargó cada archivo desde la app y se comparó su huella con el inventario | 174 de 174 |
+| 6 | Galerías | se forzó la carga de todas las imágenes de las 17 fichas | 189 imágenes dibujadas (165 de galerías + 7 portadas + 17 logos), 0 fallidas |
+| 7 | ZIP | 4 ZIP (fotos y renders de Patagonia 15, planos de Magna 11, brochure de Reggia 9) comparados con los de la original: nombres, tamaños y CRC de los 33 archivos | idénticos |
+| 8 | PDF | los 5 brochures en ambas páginas: cantidad y medidas de páginas | idénticos (32, 22, 8, 5, 5 páginas) |
+| 9 | Filtros y tablas | Patagonia 15: Todas = 73 + 2 bandas, Torre 2 = 47 + banda, Torre 1 = 26 + banda; el filtro se conserva al cerrar y abrir | OK |
+| 10 | Links viejos | `/#patagonia-15`, `/#reggia-6`, `/#REGGIA-7`, `/#reggia-9`, `/index.html#magna-11` abren la ficha correcta; `/#no-existe` y rutas desconocidas → inicio; volver y "atrás" del navegador | OK |
+| 11 | Escritorio y celular | posición, tamaño, letra y color de cada elemento (inicio y 6 fichas) comparados con la original a 1024 px y 375 px | idénticos en ambos tamaños; sin desborde horizontal |
+| 12 | TypeScript estricto | `npm run typecheck` | 0 errores |
+| 13 | Compilación de producción | `npm run build` | OK |
+| 14 | Consola y referencias | consola del navegador en desarrollo y producción | 0 errores, 0 pedidos fallidos |
+| 15 | Comparación visual | capturas lado a lado + comparación de medidas (prueba 11) | sin diferencias |
+
+Visor probado: abre en la imagen tocada, → avanza, ← dos veces da la vuelta (12/12), Esc cierra,
+"Descargar esta imagen" entrega el archivo original.
+
+**Error encontrado y corregido durante las pruebas:** en modo desarrollo, el botón del ZIP/PDF quedaba
+en "Armando…" después de terminar (efecto del modo estricto de React). Se corrigió en `BotonAccion.tsx`
+y se volvió a probar: vuelve a su texto normal.
+
+**No probado automáticamente:** las descargas se interceptaron en el navegador para revisarlas sin
+guardarlas en la computadora; no se abrió el PDF en un lector de PDF. Tampoco se probó en un
+teléfono real (se usó la simulación de celular del navegador) ni en Safari/iPhone.
+
+### Diferencias con la página original
+
+Visuales: ninguna medida o color distinto en las pruebas. Funcionales:
+- **Modo `#editar` eliminado.** `/#editar` ahora abre el inicio sin controles de edición (ver abajo).
+- **Las imágenes se cargan cuando hacen falta:** la ficha arma cada sección al abrirla por primera vez
+  y las imágenes se piden al acercarse a la pantalla. La original traía las 25 MB de una vez.
+- **ZIP y PDF ya no dependen de internet:** JSZip y jsPDF vienen incluidos y se cargan solo al tocar
+  el botón (antes se bajaban de cdnjs). jsPDF pasó de 2.5.1 a 4.2.1 (la 2.5.1 tiene fallas de
+  seguridad conocidas); los PDF resultan iguales en cantidad y medidas de páginas.
+- Se agregó el logo como ícono de la pestaña.
+- `/admin` muestra "todavía no está disponible" (no existía).
+- Se mantuvo a propósito un detalle del original: la imagen bajada desde el visor se llama
+  `imagen-N` (sin el nombre del desarrollo). Cambiarlo es una mejora para decidir.
+- Si se pide una dirección de imagen que no existe, el servidor devuelve la página (comportamiento
+  normal de una app así); no afecta a ninguna imagen real.
+
+### Tamaño de la compilación (`dist/`)
+
+| Parte | Tamaño |
+|---|---|
+| Lo que carga al abrir la página: HTML + código + estilos | 1 KB + 277 KB (88 KB comprimido) + 12 KB (3 KB comprimido) |
+| Datos (`desarrollos.json` + `medios.json`) | 182 KB |
+| JSZip (solo al pedir un ZIP) | 96 KB |
+| jsPDF y sus complementos (solo al pedir un PDF) | ~780 KB |
+| Panel `/admin` (solo al entrar ahí) | 0,7 KB |
+| Imágenes (174, sin cambios) | 18,9 MB |
+| **Total** | **20,2 MB en 187 archivos** (el mayor: 0,53 MB) |
+
+Para comparar: la original obliga a bajar 25,3 MB antes de mostrar nada; la nueva muestra el
+inicio con ~0,5 MB más las fotos de las tarjetas. Todos los archivos están por debajo del límite
+de 25 MB de Cloudflare Pages.
+
+### Preparación para Supabase y el panel de administración (sin implementar)
+
+- **Capa de datos intercambiable:** los componentes solo usan `FuenteDatos` (`cargar()` y `urlMedio()`).
+  Para Supabase se escribe `fuenteSupabase.ts` con la misma interfaz y se cambia una línea en
+  `servicios/index.ts`. Ningún componente cambia.
+- **Rutas:** `/admin/*` ya existe y se carga en un archivo aparte (los colegas no descargan su código).
+  Hoy no muestra datos, no tiene formularios ni inicio de sesión, y pide a los buscadores no indexarla.
+  `_redirects` ya está listo para que Netlify sirva `/admin`.
+- **Estadísticas:** `utilidades/estadisticas.ts` calcula desde los datos reales: desarrollos,
+  publicados/borradores, unidades, fotos, renders, planos, páginas de brochure, portadas.
+- **Publicar/ocultar:** el tipo `Desarrollo` tiene `publicado?` (opcional, no existe en los datos):
+  si falta, el desarrollo se muestra, como hoy. La página pública ya oculta los que tengan `publicado: false`.
+- **Historial y recuperación:** tipo `CambioRegistrado` reservado (`tipos/admin.ts`).
+
+#### Lo que hacía el modo `#editar` (a reproducir en el panel seguro)
+
+Se activaba agregando `#editar` a la dirección (cualquiera podía hacerlo; los cambios quedaban solo
+en ese navegador hasta descargar el archivo). Permitía:
+1. **Agregar desarrollo** y **Editar este desarrollo**: nombre, dirección, desarrollista, posesión,
+   gastos, links (disponibles, brochure, plano general), portada y las cuatro galerías (subir varias
+   imágenes, quitar una, elegir cuál es la portada). El `id` se generaba del nombre sin acentos.
+2. Las imágenes subidas se achicaban a 1600 px (portadas) o 1400 px (galerías) en JPEG 0,82.
+3. **Cambiar portada** general de la página.
+4. **Quitar** un desarrollo (con confirmación de 5 segundos).
+5. Cada cambio actualizaba la fecha `actualizado`.
+6. **Guardar y descargar**: bajaba un `index.html` nuevo para subir a mano a Netlify (con instrucciones).
+7. No permitía editar la tabla de disponibles, columnas ni notas (eso se hacía editando el JSON).
+
+### Git
+
+Todo en la rama `desarrollo`. No se hizo push de esta fase. `node_modules/` y `dist/` no se guardan
+en Git (se regeneran con `npm install` y `npm run build`).
