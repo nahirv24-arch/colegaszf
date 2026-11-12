@@ -34,8 +34,8 @@ export const CATEGORIAS_PANEL: Readonly<Record<ClavePanel, InfoCategoria>> = {
     nuevo: "+ Nueva propiedad", volver: "← Todas las propiedades de terceros", ejemploTitulo: "Casa en Cerro de las Rosas",
   },
   comercios: {
-    clave: "comercios", db: "comercio", titulo: "Comercios", singular: "comercio",
-    nuevo: "+ Nuevo comercio", volver: "← Todos los comercios", ejemploTitulo: "Local sobre Av. Colón",
+    clave: "comercios", db: "comercio", titulo: "Locales comerciales / oficinas", singular: "local u oficina",
+    nuevo: "+ Nuevo local u oficina", volver: "← Todos los locales y oficinas", ejemploTitulo: "Local sobre Av. Colón",
   },
 };
 

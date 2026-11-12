@@ -43,7 +43,7 @@ export function ListaPropiedades({ clave }: { readonly clave: ClavePanel }) {
     return (
       <div className="adm-pagina">
         <section className="adm-panel adm-vacio-cat">
-          <h2 className="adm-subtitulo">Todavía no hay {clave === "terceros" ? "propiedades de terceros" : "comercios"}</h2>
+          <h2 className="adm-subtitulo">Todavía no hay {clave === "terceros" ? "propiedades de terceros" : "locales comerciales ni oficinas"}</h2>
           <p className="adm-ayuda">Mientras no publiques ninguno, la página de colegas muestra «Próximamente» en {cat.titulo}.
             Lo que crees queda como <b>borrador</b> hasta que lo publiques.</p>
           <Link to={`/admin/${clave}/nuevo`} className="adm-btn primario">{cat.nuevo}</Link>

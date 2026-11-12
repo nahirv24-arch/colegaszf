@@ -45,10 +45,10 @@ export const CATEGORIAS: readonly Categoria[] = [
   },
   {
     clave: "comercios",
-    nombre: "Comercios",
-    descripcion: "Accedé a información y material de locales y espacios comerciales.",
-    accion: "Explorar comercios",
-    titular: "Locales y espacios comerciales",
+    nombre: "Locales comerciales / oficinas",
+    descripcion: "Accedé a información y material de locales comerciales y oficinas.",
+    accion: "Explorar locales y oficinas",
+    titular: "Locales, oficinas y espacios comerciales",
     icono: (
       <svg viewBox="0 0 48 48" aria-hidden="true">
         <path {...trazo} d="M8 20 11 8h26l3 12M8 20c0 2.8 2.2 5 5 5s5-2.2 5-5c0 2.8 2.2 5 6 5s6-2.2 6-5c0 2.8 2.2 5 5 5s5-2.2 5-5" />
@@ -83,7 +83,7 @@ export function Categorias() {
     <section className="categorias col gut" id="categorias" aria-labelledby="categorias-titulo">
       <div className="cabecera">
         <h2 className="titulo" id="categorias-titulo">¿Qué material estás buscando?</h2>
-        <p>Explorá nuestros desarrollos, propiedades de terceros y espacios comerciales. Toda la información que
+        <p>Explorá nuestros desarrollos, propiedades de terceros, locales comerciales y oficinas. Toda la información que
           necesitás, en un solo lugar.</p>
       </div>
       <ul className="cats">

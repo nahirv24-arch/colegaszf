@@ -45,7 +45,7 @@ function Contenido({ id }: { readonly id: string }) {
         <span><b>Vista previa del borrador</b> — así se verá al publicar. Los colegas todavía ven la versión publicada (si existe).</span>
         <Link to={`/admin/${clave}/${id}`}>Volver al panel</Link>
       </div>
-      <FichaPropiedad p={p} logo={estado.contenido.logo} volver={clave === "terceros" ? "Todas las propiedades de terceros" : "Todos los comercios"} />
+      <FichaPropiedad p={p} logo={estado.contenido.logo} volver={clave === "terceros" ? "Todas las propiedades de terceros" : "Todos los locales y oficinas"} />
     </>
   );
 }

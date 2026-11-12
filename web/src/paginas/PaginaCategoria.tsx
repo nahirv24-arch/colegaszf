@@ -51,7 +51,7 @@ export function PaginaCategoria({ clave }: { readonly clave: Exclude<ClaveCatego
     return (
       <>
         <FichaPropiedad key={elegida.id} p={elegida} logo={logo}
-                        volver={clave === "terceros" ? "Todas las propiedades de terceros" : "Todos los comercios"} />
+                        volver={clave === "terceros" ? "Todas las propiedades de terceros" : "Todos los locales y oficinas"} />
         <Pie />
       </>
     );

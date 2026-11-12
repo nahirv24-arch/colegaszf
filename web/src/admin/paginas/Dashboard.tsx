@@ -136,19 +136,19 @@ export function Dashboard() {
           <span className="adm-kpi-det">{detCat(terceros)}</span>
         </Link>
         <Link to="/admin/comercios" className="adm-kpi">
-          <span className="adm-kpi-rot">Comercios</span><span className="adm-kpi-num">{n(comercios.length)}</span>
+          <span className="adm-kpi-rot">Locales / oficinas</span><span className="adm-kpi-num">{n(comercios.length)}</span>
           <span className="adm-kpi-det">{detCat(comercios)}</span>
         </Link>
         <div className="adm-kpi estatico">
           <span className="adm-kpi-rot">Publicaciones activas</span><span className="adm-kpi-num">{n(activas)}</span>
-          <span className="adm-kpi-det">lo que ven hoy los colegas: {n(desActivos.length)} desarrollos · {n(terceros.filter(activa).length)} terceros · {n(comercios.filter(activa).length)} comercios</span>
+          <span className="adm-kpi-det">lo que ven hoy los colegas: {n(desActivos.length)} desarrollos · {n(terceros.filter(activa).length)} terceros · {n(comercios.filter(activa).length)} locales u oficinas</span>
         </div>
         <button type="button" className={incompletas ? "adm-kpi alerta" : "adm-kpi"} onClick={irIncompletas}>
           <span className="adm-kpi-rot">Publicaciones incompletas</span><span className="adm-kpi-num">{n(incompletas)}</span>
           <span className="adm-kpi-det">{incompletas ? "publicadas con material esencial pendiente →" : "todo lo publicado tiene su material esencial"}</span>
         </button>
       </section>
-      {d.propiedades.error ? <ErrorCaja texto={`No se pudieron leer Terceros y Comercios: ${d.propiedades.error}`} reintentar={inventario.recargar} /> : null}
+      {d.propiedades.error ? <ErrorCaja texto={`No se pudieron leer Terceros y Locales / oficinas: ${d.propiedades.error}`} reintentar={inventario.recargar} /> : null}
 
       {/* Indicadores de los desarrollos (los que ya existían) */}
       <section className="adm-kpis tres" aria-label="Indicadores de los desarrollos">
@@ -196,14 +196,14 @@ export function Dashboard() {
             <select value={catPublicacion} onChange={(e) => setCatPublicacion(e.target.value as typeof catPublicacion)}>
               <option value="desarrollos">Desarrollos ({n(completitud.length)})</option>
               <option value="tercero">Terceros ({n(terceros.length)})</option>
-              <option value="comercio">Comercios ({n(comercios.length)})</option>
+              <option value="comercio">Locales / oficinas ({n(comercios.length)})</option>
             </select></label>
           {catPublicacion === "desarrollos" ? <>
             <BarraSegmentada segmentos={publicacion} unidad="desarrollos" />
             {s.en_papelera ? <p className="adm-nota">{s.en_papelera} en la papelera (no cuentan). <Link to="/admin/desarrollos?filtro=papelera">Ver papelera</Link></p> : null}
           </> : (catPublicacion === "tercero" ? terceros : comercios).length
-            ? <BarraSegmentada segmentos={publicacionProp(catPublicacion)} unidad={catPublicacion === "tercero" ? "propiedades" : "comercios"} />
-            : <p className="adm-graf-vacio"><b>Sin datos</b><br />Todavía no hay {catPublicacion === "tercero" ? "propiedades de terceros" : "comercios"} cargados.</p>}
+            ? <BarraSegmentada segmentos={publicacionProp(catPublicacion)} unidad={catPublicacion === "tercero" ? "propiedades" : "locales u oficinas"} />
+            : <p className="adm-graf-vacio"><b>Sin datos</b><br />Todavía no hay {catPublicacion === "tercero" ? "propiedades de terceros" : "locales u oficinas"} cargados.</p>}
         </article>
 
         <article className="adm-panel adm-graf-card">
@@ -222,7 +222,7 @@ export function Dashboard() {
       </section>
 
       <section className="adm-panel" ref={refProp} aria-labelledby="t-matp" style={{ scrollMarginTop: 90 }}>
-        <header className="adm-sec-cab"><h2 id="t-matp">Material de Terceros y Comercios</h2>
+        <header className="adm-sec-cab"><h2 id="t-matp">Material de Terceros y Locales / oficinas</h2>
           <span className="adm-fuente">{props.filter((p) => !p.faltan.length).length} de {props.length} completos</span></header>
         {props.length ? (
           <div className="adm-tabla-caja">
@@ -233,7 +233,7 @@ export function Dashboard() {
                   <tr key={p.id}>
                     <td><Link to={rutaProp(p)} className="adm-fuerte">{p.titulo}</Link>
                       <span className="adm-tabla-sec">{[p.barrio, p.direccion].filter(Boolean).join(" · ") || "Sin ubicación"}</span></td>
-                    <td>{p.categoria === "tercero" ? "Terceros" : "Comercios"}</td>
+                    <td>{p.categoria === "tercero" ? "Terceros" : "Locales / oficinas"}</td>
                     <td><EstadoPropiedad p={p} /></td>
                     <td>{p.faltan.length
                       ? <span className={activa(p) ? "adm-chip rojo" : "adm-chip ambar"}>Falta: {p.faltan.join(", ")}</span>
@@ -247,9 +247,9 @@ export function Dashboard() {
             </table>
           </div>
         ) : (
-          <p className="adm-graf-vacio"><b>Todavía no hay propiedades de Terceros ni Comercios</b><br />
+          <p className="adm-graf-vacio"><b>Todavía no hay propiedades de Terceros ni Locales / oficinas</b><br />
             Mientras no publiques ninguna, esas secciones muestran «Próximamente» en la página.<br />
-            <Link to="/admin/terceros/nuevo">+ Nueva propiedad de terceros</Link> · <Link to="/admin/comercios/nuevo">+ Nuevo comercio</Link></p>
+            <Link to="/admin/terceros/nuevo">+ Nueva propiedad de terceros</Link> · <Link to="/admin/comercios/nuevo">+ Nuevo local u oficina</Link></p>
         )}
         <p className="adm-nota">Esencial: portada, ubicación (barrio o dirección), precio, superficie y al menos una foto. En rojo: publicadas con material pendiente.</p>
       </section>
@@ -269,7 +269,7 @@ export function Dashboard() {
               {propPendientes.map((p) => (
                 <li key={`p-${p.id}`}>
                   <span><Link to={rutaProp(p)}><b>{p.titulo}</b></Link>
-                    <span className="adm-lista-sec">{p.categoria === "tercero" ? "Terceros" : "Comercios"} · {p.estado === "borrador" ? "Borrador: todavía no está en la página" : "Tiene cambios guardados que los colegas no ven"} · {fechaHora(p.modificado_en)}</span></span>
+                    <span className="adm-lista-sec">{p.categoria === "tercero" ? "Terceros" : "Locales / oficinas"} · {p.estado === "borrador" ? "Borrador: todavía no está en la página" : "Tiene cambios guardados que los colegas no ven"} · {fechaHora(p.modificado_en)}</span></span>
                   <Link to={`/admin/vista-previa-propiedad/${p.id}`} className="adm-btn chico" target="_blank" rel="noopener">Vista previa ↗</Link>
                 </li>
               ))}

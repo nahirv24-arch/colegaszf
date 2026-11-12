@@ -37,7 +37,7 @@ export function EditarPropiedad({ clave }: { readonly clave: ClavePanel }) {
   if (carga.cargando && !carga.datos) return <Cargando />;
   if (carga.error) return <ErrorCaja texto={carga.error} reintentar={refrescar} />;
   if (!fila || !resumen || !inicial || fila.categoria !== cat.db) {
-    return <ErrorCaja texto={`No existe ${cat.singular === "comercio" ? "un comercio" : "una propiedad de terceros"} con el identificador "${id}".`} />;
+    return <ErrorCaja texto={`No existe ${cat.db === "comercio" ? "un local u oficina" : "una propiedad de terceros"} con el identificador "${id}".`} />;
   }
 
   const enPapelera = !!fila.eliminado_en;
@@ -107,7 +107,7 @@ export function EditarPropiedad({ clave }: { readonly clave: ClavePanel }) {
                          onGuardar={guardarDatos} onCancelar={() => {}} />}
 
       <DialogoPublicar abierto={publicarAbierto} nombre={fila.titulo} primeraVez={!publicada}
-        titulo={clave === "terceros" ? "Publicar propiedad" : "Publicar comercio"} vistaPrevia={vistaPrevia}
+        titulo={clave === "terceros" ? "Publicar propiedad" : "Publicar local u oficina"} vistaPrevia={vistaPrevia}
         onCerrar={() => setPublicarAbierto(false)}
         onPublicar={async (nota, fecha) => {
           try {

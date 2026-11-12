@@ -11,7 +11,7 @@ const AdminApp = lazy(() => import("../admin/AdminApp"));
  * Rutas de la aplicación.
  *   /              página pública (la ficha se elige con "#id", compatible con los links viejos)
  *   /index.html    igual que "/"
- *   /terceros      propiedades de terceros   /comercios   locales y espacios comerciales
+ *   /terceros      propiedades de terceros   /comercios   locales comerciales / oficinas
  *   /desarrollos   lleva a la grilla del inicio ("/#desarrollos")
  *   /admin/*       panel privado (inicio de sesión obligatorio; los permisos los controla Supabase)
  *   cualquier otra → inicio

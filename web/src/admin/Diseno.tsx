@@ -11,7 +11,7 @@ const MENU = [
   { a: "/admin", texto: "Dashboard", icono: "M4 13h6V4H4zm0 7h6v-5H4zm10 0h6v-9h-6zm0-16v5h6V4z", fin: true },
   { a: "/admin/desarrollos", texto: "Desarrollos", icono: "M4 21V8l8-5 8 5v13h-6v-6h-4v6z" },
   { a: "/admin/terceros", texto: "Terceros", icono: "M7.5 16.5a4.5 4.5 0 1 1 4.24-6H22v3h-2v2.5h-3V13.5h-5.26a4.5 4.5 0 0 1-4.24 3zm0-2.4a2.1 2.1 0 1 0 0-4.2 2.1 2.1 0 0 0 0 4.2z" },
-  { a: "/admin/comercios", texto: "Comercios", icono: "M3.5 4h17l1.5 5.5c0 1.7-1.3 3-3 3-1.2 0-2.2-.7-2.7-1.6-.5 1-1.5 1.6-2.6 1.6h-.4c-1.1 0-2.1-.6-2.6-1.6-.5.9-1.5 1.6-2.7 1.6-1.7 0-3-1.3-3-3zM4 14.2c.6.2 1.3.3 2 .3V21h4.5v-4.5h3V21H18v-6.5c.7 0 1.4-.1 2-.3V21h1v1H3v-1h1z" },
+  { a: "/admin/comercios", texto: "Locales / oficinas", icono: "M3.5 4h17l1.5 5.5c0 1.7-1.3 3-3 3-1.2 0-2.2-.7-2.7-1.6-.5 1-1.5 1.6-2.6 1.6h-.4c-1.1 0-2.1-.6-2.6-1.6-.5.9-1.5 1.6-2.7 1.6-1.7 0-3-1.3-3-3zM4 14.2c.6.2 1.3.3 2 .3V21h4.5v-4.5h3V21H18v-6.5c.7 0 1.4-.1 2-.3V21h1v1H3v-1h1z" },
   { a: "/admin/unidades", texto: "Unidades disponibles", icono: "M4 5h16v3H4zm0 5.5h16v3H4zM4 16h16v3H4z" },
   { a: "/admin/multimedia", texto: "Material multimedia", icono: "M4 5h16v14H4zm2 11h12l-4-5-3 4-2-2z" },
   { a: "/admin/configuracion", texto: "Configuración", icono: "M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zM10.6 2h2.8l.5 2.6 1.9.8 2.2-1.5 2 2-1.5 2.2.8 1.9 2.6.5v2.8l-2.6.5-.8 1.9 1.5 2.2-2 2-2.2-1.5-1.9.8-.5 2.6h-2.8l-.5-2.6-1.9-.8-2.2 1.5-2-2 1.5-2.2-.8-1.9L2 13.4v-2.8l2.6-.5.8-1.9-1.5-2.2 2-2 2.2 1.5 1.9-.8z" },
@@ -25,8 +25,8 @@ function tituloDe(path: string): string {
   if (path.startsWith("/admin/desarrollos/")) return "Desarrollo";
   if (path.startsWith("/admin/terceros/nuevo")) return "Nueva propiedad de terceros";
   if (path.startsWith("/admin/terceros/")) return "Propiedad de terceros";
-  if (path.startsWith("/admin/comercios/nuevo")) return "Nuevo comercio";
-  if (path.startsWith("/admin/comercios/")) return "Comercio";
+  if (path.startsWith("/admin/comercios/nuevo")) return "Nuevo local u oficina";
+  if (path.startsWith("/admin/comercios/")) return "Local u oficina";
   const m = [...MENU].reverse().find((x) => path === x.a || path.startsWith(`${x.a}/`));
   return m?.texto ?? "Panel";
 }
