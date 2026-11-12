@@ -2,6 +2,11 @@ import { useState, type ReactNode } from "react";
 import type { Desarrollo, Unidad } from "../tipos/datos";
 import { COLUMNAS_POR_DEFECTO, celda, hayTexto } from "../utilidades/textos";
 
+/** Columnas con montos (precio, contado, anticipo, cuotas…): se muestran tapadas hasta tocar «Ver precio». */
+const MONTO = /precio|contado|anticipo|cuota|financ/i;
+/** Valores que son montos aunque la columna se llame distinto (p. ej. «Entrega: USD 20.000»). */
+const VALOR_MONTO = /USD|U\$S|\$|\d{1,3}(\.\d{3})+/i;
+
 interface Props {
   readonly e: Desarrollo;
 }
@@ -13,8 +18,15 @@ interface Props {
 export function TablaDisponibles({ e }: Props) {
   const filas: readonly Unidad[] = e.disponibles ?? [];
   const [filtro, setFiltro] = useState("");
+  // Fila cuyo precio está a la vista (una sola por vez, para que una captura no muestre la lista entera).
+  const [vista, setVista] = useState<number | null>(null);
   if (!filas.length) return null;
   const COLS = e.columnas && e.columnas.length ? e.columnas : COLUMNAS_POR_DEFECTO;
+  const esMonto = (f: Unidad, k: string, t: string) => {
+    const v = celda(f, k);
+    if (v === "—" || k === "unidad" || k === "estado" || k === "piso") return false;
+    return MONTO.test(k) || MONTO.test(t) || (VALOR_MONTO.test(v) && !/m²|m2/i.test(v));
+  };
 
   const grupos: string[] = [];
   for (const f of filas) if (f.grupo && !grupos.includes(f.grupo)) grupos.push(f.grupo);
@@ -38,9 +50,20 @@ export function TablaDisponibles({ e }: Props) {
     const nuevoPiso = f.piso !== undefined && f.piso !== pisoActual;
     if (nuevoPiso) pisoActual = f.piso;
     cuerpo.push(
-      <tr key={idx} className={nuevoPiso ? "corte" : undefined} data-grupo={f.grupo || undefined}
+      <tr key={idx} className={[nuevoPiso ? "corte" : "", vista === idx ? "con-precio" : ""].join(" ").trim() || undefined} data-grupo={f.grupo || undefined}
           hidden={oculta(f.grupo)}>
-        {COLS.map(([k], j) => {
+        {COLS.map(([k, t], j) => {
+          if (vista !== idx && esMonto(f, k, t)) {
+            // El valor real no se escribe en la página hasta tocar el botón (tampoco borroso).
+            return (
+              <td key={j} className="num">
+                {!COLS.slice(0, j).some(([k2, t2]) => esMonto(f, k2, t2)) ? (
+                  <button type="button" className="ver-precio" onClick={() => setVista(idx)}
+                          aria-label={`Ver precio de la unidad ${celda(f, "unidad")}`}>Ver precio</button>
+                ) : <span className="precio-oculto" aria-hidden="true">••••••</span>}
+              </td>
+            );
+          }
           if (k === "piso") return <td key={j} className="piso">{nuevoPiso ? (f.piso ?? "") : ""}</td>;
           if (k === "estado") {
             const v = f.estado;
@@ -86,6 +109,7 @@ export function TablaDisponibles({ e }: Props) {
         </table>
       </div>
       <p className="pie-tabla">
+        Los precios se ven de a una unidad: tocá «Ver precio» en la que te interese.{" "}
         {e.notaTabla ? `${e.notaTabla} ` : ""}Verificá el precio contra esta tabla cada vez que publiques en un portal.
       </p>
     </>
