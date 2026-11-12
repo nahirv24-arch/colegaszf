@@ -7,11 +7,15 @@ import { Actividad } from "./paginas/Actividad";
 import { Configuracion } from "./paginas/Configuracion";
 import { Dashboard } from "./paginas/Dashboard";
 import { EditarDesarrollo } from "./paginas/EditarDesarrollo";
+import { EditarPropiedad } from "./paginas/EditarPropiedad";
 import { ElegirDesarrollo } from "./paginas/ElegirDesarrollo";
 import { Ingresar, NuevaContrasena, Recuperar } from "./paginas/Acceso";
 import { ListaDesarrollos } from "./paginas/ListaDesarrollos";
+import { ListaPropiedades } from "./paginas/ListaPropiedades";
+import { NuevaPropiedad } from "./paginas/NuevaPropiedad";
 import { NuevoDesarrollo } from "./paginas/NuevoDesarrollo";
 import { VistaPrevia } from "./paginas/VistaPrevia";
+import { VistaPreviaPropiedad } from "./paginas/VistaPreviaPropiedad";
 import { ProveedorSesion, useSesion } from "./sesion";
 import { Cargando, ProveedorAvisos, ProveedorConfirmar } from "./ui";
 
@@ -36,12 +40,21 @@ export default function AdminApp() {
             <Route path="recuperar" element={<Recuperar />} />
             <Route path="nueva-contrasena" element={<NuevaContrasena />} />
             <Route path="vista-previa/:id" element={<Protegido><VistaPrevia /></Protegido>} />
+            <Route path="vista-previa-propiedad/:id" element={<Protegido><VistaPreviaPropiedad /></Protegido>} />
             <Route element={<Protegido><Diseno /></Protegido>}>
               <Route index element={<Dashboard />} />
               <Route path="desarrollos" element={<ListaDesarrollos />} />
               <Route path="desarrollos/nuevo" element={<NuevoDesarrollo />} />
               <Route path="desarrollos/:id" element={<EditarDesarrollo />} />
               <Route path="desarrollos/:id/:pestana" element={<EditarDesarrollo />} />
+              <Route path="terceros" element={<ListaPropiedades key="terceros" clave="terceros" />} />
+              <Route path="terceros/nuevo" element={<NuevaPropiedad key="terceros" clave="terceros" />} />
+              <Route path="terceros/:id" element={<EditarPropiedad key="terceros" clave="terceros" />} />
+              <Route path="terceros/:id/:pestana" element={<EditarPropiedad key="terceros" clave="terceros" />} />
+              <Route path="comercios" element={<ListaPropiedades key="comercios" clave="comercios" />} />
+              <Route path="comercios/nuevo" element={<NuevaPropiedad key="comercios" clave="comercios" />} />
+              <Route path="comercios/:id" element={<EditarPropiedad key="comercios" clave="comercios" />} />
+              <Route path="comercios/:id/:pestana" element={<EditarPropiedad key="comercios" clave="comercios" />} />
               <Route path="unidades" element={<ElegirDesarrollo destino="unidades" titulo="Unidades disponibles" />} />
               <Route path="multimedia" element={<ElegirDesarrollo destino="multimedia" titulo="Material multimedia" />} />
               <Route path="configuracion" element={<Configuracion />} />

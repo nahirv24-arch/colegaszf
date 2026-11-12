@@ -689,3 +689,46 @@ El panel creció 6 KB comprimidos; la página pública no cambió de tamaño.
 - Las demás pantallas del panel (desarrollos, unidades, multimedia) pueden recibir el mismo estilo.
 - Las capturas de pantalla automáticas del navegador integrado a veces salen recortadas; conviene una
   revisión visual de Nahir en su pantalla.
+
+---
+
+## Fase 7 — Producción (11/11/2026)
+
+- **Supabase de producción** `zf-colegas-produccion` (São Paulo): 10 migraciones, importación de los 17 desarrollos
+  y 174 archivos, cuenta administradora de Nahir, registro público desactivado. Verificador 12 de 12.
+- **Netlify:** el plan gratuito agotó los créditos de despliegue hasta el 2/12. El sitio original de Netlify no se tocó.
+- **Cloudflare Pages** `https://colegaszf.pages.dev` (ver `CLOUDFLARE.md`): rama `main`, variables públicas de
+  producción, vistas previas desactivadas. Prueba de sincronización en vivo con la sesión de Nahir: borrador
+  invisible → publicado visible → edición sin publicar no cambia lo público → papelera; se borró solo el registro de prueba.
+- Después del lanzamiento Nahir publicó cambios reales desde el panel (Reggia 9, Ignea 15 y 16, Foresta, Reggia 6;
+  219 unidades publicadas). Por eso el verificador, en producción, informa el contenido en lugar de exigir que sea
+  idéntico al original.
+
+---
+
+## Terceros y Comercios — refactorización en 7 etapas (11/11/2026)
+
+Pedido: presentar tres categorías en la página pública y gestionarlas desde el panel, sin perder nada de lo existente.
+
+| Etapa | Resultado |
+|---|---|
+| 1 · Auditoría | Terceros y Comercios no existían. Arquitectura elegida: Desarrollos **sin cambios**; una estructura nueva compartida por Terceros y Comercios (columna `categoria`). |
+| 2 · Página pública | Debajo del HERO, «¿Qué material estás buscando?» con 3 tarjetas. `/terceros` y `/comercios` con «Próximamente». La grilla de desarrollos sigue en el inicio (`/#desarrollos`). Links viejos intactos. |
+| 3 · Datos | Migración `20261111150000_propiedades.sql` (solo agrega): `propiedades`, `propiedad_medios`, `propiedad_publicaciones`, `propiedades_publicas()`, publicar / papelera. Mismo modelo de borrador → versión publicada. Sin campos para datos de propietarios. |
+| 4 · Panel | Menú con Terceros y Comercios: listado con filtros, alta y edición con validaciones, fotos / planos / PDF, publicar, despublicar, papelera y vista previa. Migración `20261111160000_propiedades_panel.sql`. |
+| 5 · Dashboard | 5 indicadores (Desarrollos, Terceros, Comercios, publicaciones activas, publicaciones incompletas), estado de publicación por categoría, material de Terceros y Comercios, pendientes y actividad. Migración `20261111170000_historial_propiedades.sql` (solo lectura del historial). |
+| 6 · Validación | Versión final compilada contra Supabase de pruebas: rutas, links viejos, descargas, permisos, panel, 320–1280 px, teclado. Seguridad 9/9 · panel 16/16 · propiedades 20/20 · verificador 15/15. |
+| 7 · Producción | Procedimiento en `PRODUCCION.md` → «Lanzamiento de Terceros y Comercios». |
+
+**Estados:** Borrador · Publicado · Despublicado (`visible = false`) · Papelera (recuperable).
+**Material esencial de una propiedad** (marca «incompleta», no impide publicar): portada, ubicación (barrio o
+dirección), precio, superficie y al menos 1 foto.
+**Archivos:** bucket `media`, carpeta `propiedades/<id>/…`. Los PDF son de lectura pública por dirección, igual que las
+imágenes del brochure.
+
+**Archivos principales:** `web/src/componentes/Categorias.tsx`, `web/src/paginas/PaginaCategoria.tsx`,
+`web/src/paginas/FichaPropiedad.tsx`, `web/src/admin/servicioPropiedades.ts`, `web/src/admin/paginas/*Propiedad*.tsx`,
+`scripts/supabase/pruebas_propiedades.mjs`, `scripts/supabase/cuenta_navegador.mjs` (cuenta temporal solo en pruebas).
+
+**Pendientes conocidos:** recuperar versiones anteriores de una propiedad desde el panel (las versiones se guardan,
+falta la pantalla); analítica de visitantes (no implementada).

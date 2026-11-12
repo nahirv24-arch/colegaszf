@@ -86,7 +86,7 @@ export function Ficha({ e, logo }: Props) {
     <>
       <Portada foto={e.portada} logo={logo} rotulo={rotulo} titular={e.nombre} />
       <main className="seccion col gut" style={{ paddingBlock: "34px 64px" }}>
-        <a className="volver" href="#"><span aria-hidden="true">&larr;</span> Todos los desarrollos</a>
+        <a className="volver" href="#desarrollos"><span aria-hidden="true">&larr;</span> Todos los desarrollos</a>
         <p className="spec">
           Posesión: {e.posesion ? e.posesion : "a confirmar"}{"  "}<span>/</span>{"  "}Gastos de posesión: {e.gastos ? e.gastos : "a confirmar"}
         </p>

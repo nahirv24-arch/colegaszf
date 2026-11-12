@@ -1,4 +1,4 @@
-import type { InfoMedio, RutaMedio, Sitio } from "../tipos/datos";
+import type { InfoMedio, ListasPropiedades, RutaMedio, Sitio } from "../tipos/datos";
 
 /**
  * Todo lo que la página pública necesita para mostrarse.
@@ -9,12 +9,16 @@ export interface ContenidoPublico {
   readonly logo: RutaMedio;
   /** Medidas y datos de cada archivo, por ruta. */
   readonly medios: ReadonlyMap<RutaMedio, InfoMedio>;
+  /** Terceros y Comercios publicados (listas vacías si todavía no hay ninguno). */
+  readonly propiedades: ListasPropiedades;
 }
 
+/** Listas vacías: «Próximamente» en las dos categorías. */
+export const SIN_PROPIEDADES: ListasPropiedades = { terceros: [], comercios: [] };
+
 /**
- * Capa de acceso a datos. Hoy hay una sola implementación (JSON local, fuenteJsonLocal.ts).
- * En la fase de Supabase se agrega otra implementación con esta misma interfaz y se elige
- * en servicios/index.ts: los componentes no cambian.
+ * Capa de acceso a datos. Implementaciones: JSON local (fuenteJsonLocal.ts) y Supabase
+ * (fuenteSupabase.ts); se elige en servicios/index.ts. Los componentes no cambian.
  */
 export interface FuenteDatos {
   /** Carga los datos publicados. */

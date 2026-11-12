@@ -111,6 +111,45 @@ revisar que la página sea idéntica a la actual. Luego volver a poner las de pr
 ## Lo que NUNCA se hace
 
 - Copiar usuarios, sesiones o contraseñas de prueba a producción.
-- Poner `SUPABASE_SECRET_KEY` o `SUPABASE_DB_URL` en Netlify o en GitHub.
-- Ejecutar pruebas que crean datos contra producción.
+- Poner `SUPABASE_SECRET_KEY` o `SUPABASE_DB_URL` en Netlify, Cloudflare o GitHub.
+- Ejecutar pruebas que crean datos contra producción (`pruebas_*.mjs` y `cuenta_navegador.mjs` se niegan solos).
 - Tocar el sitio original antes del paso 9.
+
+---
+
+## Lanzamiento de Terceros y Comercios (etapa 7 · preparado el 11/11/2026)
+
+Sitio publicado: **Cloudflare Pages** `https://colegaszf.pages.dev` (publica solo la rama `main`).
+Cada paso requiere autorización expresa de Nahir. Orden obligatorio: **primero la base, después el código**.
+
+| Paso | Qué se hace | Efecto en la página publicada |
+|---|---|---|
+| 0 | Guardar los cambios en Git en la rama `desarrollo` y subirla a GitHub | Ninguno (Cloudflare no publica `desarrollo`) |
+| 1 | Respaldo de producción: `node scripts/supabase/exportar.mjs --produccion` | Ninguno |
+| 2 | Simulación: `migrar.mjs --produccion --confirmo-produccion --ver` → deben figurar **solo** `20261111150000`, `20261111160000` y `20261111170000` | Ninguno |
+| 3 | Aplicar: `migrar.mjs --produccion --confirmo-produccion` | Ninguno visible: solo agrega tablas y funciones; la página actual no las usa |
+| 4 | `verificar.mjs --produccion --confirmo-produccion` → todo OK (los INFO de contenido son esperables) | Ninguno |
+| 5 | Fusionar `desarrollo` → `main` y subir | Cloudflare publica solo (1–2 min): aparecen las tarjetas y «Próximamente» |
+| 6 | Verificación en vivo (abajo) | — |
+
+**Variables de entorno:** no cambian. Cloudflare sigue con `NODE_VERSION`, `VITE_FUENTE_DATOS=supabase`,
+`VITE_SUPABASE_URL` y `VITE_SUPABASE_PUBLISHABLE_KEY` de producción. Sin dependencias nuevas.
+
+**Si el paso 5 llegara antes que el 3** (no debería): la página igual funciona; Terceros y Comercios muestran
+«Próximamente» y los desarrollos se ven normal. Lo único que falla es el panel en Terceros y Comercios.
+
+**Verificación en vivo (paso 6):**
+1. `/` muestra el HERO, «¿Qué material estás buscando?» con 3 tarjetas y debajo los 17 desarrollos.
+2. Links viejos: `/#reggia-6` abre la ficha; ZIP y PDF del brochure se descargan.
+3. `/terceros` y `/comercios`: «Próximamente» (todavía no hay nada publicado).
+4. `/admin` → Dashboard con los 5 indicadores; menú con Terceros y Comercios; ninguna pantalla con error.
+5. Prueba real (la hace Nahir, sin datos ficticios): crear una propiedad verdadera como borrador → no aparece;
+   publicarla → aparece en su categoría y desaparece «Próximamente»; si era solo de prueba, despublicarla.
+
+**Volver atrás:**
+
+| Situación | Qué hacer |
+|---|---|
+| La página nueva falla | Cloudflare → `colegaszf` → *Deployments* → el despliegue anterior → **Rollback** (1 minuto). |
+| Hay que deshacer en Git | Revertir la fusión en `main` (nuevo commit; no se reescribe el historial). |
+| Las migraciones | No hace falta deshacerlas: solo agregan; el código anterior las ignora. No se borran tablas con datos. |

@@ -1,5 +1,5 @@
 import type { InfoMedio, InventarioMedios, RutaMedio, Sitio } from "../tipos/datos";
-import type { ContenidoPublico, FuenteDatos } from "./fuente";
+import { SIN_PROPIEDADES, type ContenidoPublico, type FuenteDatos } from "./fuente";
 
 /**
  * Lee datos/desarrollos.json y datos/medios.json (generados en la fase 2) y las imágenes
@@ -22,7 +22,8 @@ export const fuenteJsonLocal: FuenteDatos = {
     const medios = new Map<RutaMedio, InfoMedio>(inventario.archivos.map((a) => [a.ruta, a]));
     // Igual que el original: si no hay lista de desarrollos, se muestra vacía.
     const lista = Array.isArray(sitio.emprendimientos) ? sitio.emprendimientos : [];
-    return { sitio: { ...sitio, emprendimientos: lista }, logo: inventario.logo, medios };
+    // Terceros y Comercios no existen en el JSON original: quedan en «Próximamente».
+    return { sitio: { ...sitio, emprendimientos: lista }, logo: inventario.logo, medios, propiedades: SIN_PROPIEDADES };
   },
   urlMedio(ruta: RutaMedio): string {
     return BASE + ruta;

@@ -5,6 +5,9 @@ import { idDe } from "../utilidades/orden";
 import { Ficha } from "./Ficha";
 import { Inicio } from "./Inicio";
 
+/** Secciones del inicio a las que se puede ir con "#". Un desarrollo con ese mismo id tendría prioridad. */
+const ANCLAS = new Set(["categorias", "desarrollos"]);
+
 /**
  * La página pública vive en "/" y elige qué mostrar según lo que va después del "#",
  * exactamente como la original: "/#reggia-6" abre Reggia 6; "/" o "/#" abre el inicio;
@@ -29,6 +32,14 @@ export function PaginaPublica() {
   useEffect(() => {
     if (visible) window.scrollTo(0, 0);
   }, [visible]);
+
+  // "/#desarrollos" y "/#categorias" bajan a esa sección del inicio (también al llegar desde otra página,
+  // cuando la sección todavía no existía en el momento en que el navegador quiso bajar).
+  const listo = estado.tipo === "listo";
+  useEffect(() => {
+    if (!listo || visible || !ANCLAS.has(hash)) return;
+    document.getElementById(hash)?.scrollIntoView();
+  }, [listo, visible, hash]);
 
   if (estado.tipo === "cargando") return null;
   if (estado.tipo === "error") {

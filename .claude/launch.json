@@ -8,6 +8,18 @@
       "port": 5173
     },
     {
+      "name": "nueva-supabase-prueba",
+      "runtimeExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+      "runtimeArgs": ["run", "dev", "--", "--mode", "supabase", "--port", "5174", "--strictPort"],
+      "port": 5174
+    },
+    {
+      "name": "final-supabase-prueba",
+      "runtimeExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
+      "runtimeArgs": ["run", "preview", "--", "--port", "4174", "--strictPort"],
+      "port": 4174
+    },
+    {
       "name": "nueva-produccion",
       "runtimeExecutable": "C:\\Program Files\\nodejs\\npm.cmd",
       "runtimeArgs": ["run", "preview"],

@@ -145,3 +145,27 @@
   .adm-dash-acc { width: 100%; }
   .adm-dash-acc .adm-btn { flex: 1 1 auto; }
 }
+
+/* ---------- Etapa 5: franja de 5 indicadores (3 categorías) + franja de 3 (desarrollos) ----------
+   Las divisiones se dibujan con el espacio entre celdas, así sirven para cualquier cantidad de columnas. */
+.adm-kpis.cinco, .adm-kpis.tres { gap: 1px; background: var(--linea); }
+.adm-kpis.cinco { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.adm-kpis.tres { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: -14px; }
+.adm-kpis.cinco .adm-kpi, .adm-kpis.tres .adm-kpi { border: 0; background: #fff; }
+.adm-kpis.cinco .adm-kpi:hover, .adm-kpis.tres .adm-kpi:hover { background: #FBF9F5; }
+.adm-kpis.tres .adm-kpi-num { font-size: 26px; }
+.adm-kpi.estatico { cursor: default; }
+.adm-kpis.cinco .adm-kpi.estatico:hover { background: #fff; }
+@media (max-width: 1200px) {
+  .adm-kpis.cinco { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .adm-kpis.cinco .adm-kpi:nth-child(4) { grid-column: span 1; }
+  .adm-kpis.cinco .adm-kpi:nth-child(5) { grid-column: span 2; }
+}
+@media (max-width: 900px) {
+  .adm-kpis.cinco { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .adm-kpis.cinco .adm-kpi:nth-child(5) { grid-column: 1 / -1; }
+  .adm-kpis.tres { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .adm-kpis.tres { grid-template-columns: minmax(0, 1fr); }
+}

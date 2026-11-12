@@ -23,3 +23,6 @@ respaldos/
 # Restos de instalaciones y copias
 *.zip
 copias_de_seguridad/
+
+# Archivos locales privados (cuentas temporales de prueba, copias): nunca a Git
+privado/

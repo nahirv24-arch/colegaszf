@@ -10,6 +10,7 @@ export const ACCION: Record<string, string> = {
 export const TABLA: Record<string, string> = {
   desarrollos: "Datos del desarrollo", unidades: "Unidad", medios: "Archivo", publicaciones: "Publicación",
   configuracion: "Configuración", roles_usuario: "Rol de usuario",
+  propiedades: "Datos de la propiedad", propiedad_medios: "Archivo", propiedad_publicaciones: "Publicación",
 };
 export const TIPO: Record<TipoEvento, string> = {
   publicacion: "Publicación", edicion: "Edición", alta: "Alta", papelera: "Papelera", recuperacion: "Recuperación",
@@ -20,7 +21,7 @@ export const ORIGEN: Record<OrigenEvento, string> = { administracion: "Administr
 /** Sellos internos que no aportan al leer el historial. En unidades, las columnas calculadas
  *  (grupo, piso, precio…) ya se muestran dentro de "campos". */
 const SELLOS = new Set(["modificado_en", "modificado_por", "creado_en", "creado_por", "eliminado_por", "id", "orden_campos",
-  "desarrollo_id", "bucket", "sha256", "metadatos"]);
+  "desarrollo_id", "propiedad_id", "bucket", "sha256", "metadatos"]);
 const CALCULADAS_UNIDAD = new Set(["grupo", "piso", "unidad", "tipologia", "estado", "precio"]);
 const NOMBRES: Record<string, string> = {
   nombre: "Nombre", direccion: "Dirección", desarrollista: "Desarrollista", posesion: "Posesión", gastos: "Gastos",
@@ -29,6 +30,8 @@ const NOMBRES: Record<string, string> = {
   posicion: "Posición", orden: "Posición", tipo: "Tipo", ruta: "Archivo", ancho: "Ancho", alto: "Alto", bytes: "Tamaño",
   formato: "Formato", mime: "Tipo de archivo", version: "Versión", vigente: "Es la vigente", nota: "Nota",
   publicado_en: "Publicado el", publicado_por: "Publicado por", valor: "Valor", clave: "Clave",
+  titulo: "Título", operacion: "Operación", barrio: "Barrio", precio: "Precio", expensas: "Expensas", superficie: "Superficie",
+  disponibilidad: "Disponibilidad", descripcion: "Descripción", detalles: "Características", categoria: "Categoría",
 };
 
 export interface CambioLegible { tabla: string; accion: string; antes: Record<string, unknown> | null; despues: Record<string, unknown> | null }

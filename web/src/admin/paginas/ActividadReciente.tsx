@@ -18,7 +18,7 @@ export function agrupar(eventos: readonly Evento[]): Evento[][] {
   for (const e of eventos) {
     const g = grupos[grupos.length - 1];
     const ult = g?.[g.length - 1];
-    if (g && ult && ult.tipo === e.tipo && ult.desarrollo_id === e.desarrollo_id && ult.origen === e.origen
+    if (g && ult && ult.tipo === e.tipo && ult.desarrollo_id === e.desarrollo_id && ult.propiedad_id === e.propiedad_id && ult.origen === e.origen
         && ult.usuario_email === e.usuario_email && Math.abs(Date.parse(ult.fecha) - Date.parse(e.fecha)) < 3 * 60 * 1000) g.push(e);
     else grupos.push([e]);
   }
@@ -30,6 +30,10 @@ export function EventoFila({ grupo }: { readonly grupo: readonly Evento[] }) {
   const [abierto, setAbierto] = useState(false);
   const [detalle, setDetalle] = useState<{ cargando: boolean; error: string | null; filas: { campo: string; antes: string; despues: string }[] } | null>(null);
   const tablas = [...new Set(grupo.map((x) => TABLA[x.tabla] ?? x.tabla))].join(", ");
+  // De qué se trata: un desarrollo o una propiedad de Terceros / Comercios.
+  const cat = e.propiedad_categoria === "comercio" ? "comercios" : "terceros";
+  const nombre = e.desarrollo_nombre ?? e.desarrollo_id ?? (e.propiedad_titulo ?? e.propiedad_id ?? null);
+  const etiquetaCat = e.propiedad_id ? (e.propiedad_categoria === "comercio" ? "Comercio" : "Terceros") : "";
   const abrir = async () => {
     const nuevo = !abierto;
     setAbierto(nuevo);
@@ -44,9 +48,9 @@ export function EventoFila({ grupo }: { readonly grupo: readonly Evento[] }) {
       <button type="button" className="adm-ev-cab" aria-expanded={abierto} onClick={() => void abrir()}>
         <span className={`adm-ev-tipo t-${e.tipo}`}>{TIPO[e.tipo] ?? e.tipo}</span>
         <span className="adm-ev-que">
-          {e.desarrollo_nombre ?? e.desarrollo_id ?? tablas}
+          {nombre ?? tablas}
           <span className="adm-tabla-sec">
-            {[e.desarrollo_nombre || e.desarrollo_id ? tablas : "", grupo.length > 1 ? `${grupo.length} cambios` : ""].filter(Boolean).join(" · ") || " "}
+            {[etiquetaCat, nombre ? tablas : "",grupo.length > 1 ? `${grupo.length} cambios` : ""].filter(Boolean).join(" · ") || " "}
           </span>
         </span>
         <span className="adm-ev-meta">{fechaHora(e.fecha)}<br />
@@ -64,6 +68,7 @@ export function EventoFila({ grupo }: { readonly grupo: readonly Evento[] }) {
                 <tbody>{detalle.filas.map((d) => <tr key={d.campo}><td>{d.campo}</td><td>{d.antes}</td><td>{d.despues}</td></tr>)}</tbody></table>
             ) : <p className="adm-nota">Sin datos para comparar.</p>}
           {e.desarrollo_id && e.desarrollo_nombre ? <Link to={`/admin/desarrollos/${e.desarrollo_id}/versiones`}>Ver el historial de {e.desarrollo_nombre}</Link> : null}
+          {e.propiedad_id && e.propiedad_titulo ? <Link to={`/admin/${cat}/${e.propiedad_id}`}>Abrir «{e.propiedad_titulo}»</Link> : null}
         </div>
       ) : null}
     </li>

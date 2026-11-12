@@ -344,6 +344,8 @@ export type TipoEvento = "publicacion" | "edicion" | "alta" | "papelera" | "recu
 export interface Evento {
   id: number; fecha: string; tabla: string; accion: string; tipo: TipoEvento; origen: OrigenEvento;
   desarrollo_id: string | null; desarrollo_nombre: string | null; usuario_email: string | null;
+  /** Terceros y Comercios (etapa 5). */
+  propiedad_id?: string | null; propiedad_titulo?: string | null; propiedad_categoria?: "tercero" | "comercio" | null;
 }
 export interface ResumenActividad {
   total: number; por_origen: Partial<Record<OrigenEvento, number>>; por_tipo: Partial<Record<TipoEvento, number>>;

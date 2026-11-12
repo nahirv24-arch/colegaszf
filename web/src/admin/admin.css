@@ -295,3 +295,16 @@ a.adm-tarjeta:hover { border-top-color: var(--rojo); }
   .adm-columnas code { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .adm-giro { animation-duration: 2s; } .adm-aviso { animation: none; } }
+
+/* ---------- Terceros y Comercios (etapa 4) ---------- */
+.adm-campo select { font-family: var(--display); font-size: 14.5px; font-weight: 300; color: var(--tinta); background: #fff;
+  border: 1px solid #CFC8BC; padding: 10px 12px; border-radius: 0; width: 100%; }
+.adm-campo select:focus { outline: 2px solid var(--rojo); outline-offset: -1px; border-color: var(--rojo); }
+.adm-campo input[aria-invalid="true"], .adm-campo textarea[aria-invalid="true"] { border-color: var(--rojo); background: #FDF7F7; }
+.adm-vacio-cat { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 32px 28px; }
+.adm-vacio-cat .adm-ayuda { max-width: 60ch; margin: 0; }
+.adm-falta { margin: 10px 0 0; }
+.adm-falta b { color: #8A6D1F; font-weight: 500; }
+.adm-papelera summary { list-style: none; cursor: pointer; display: inline-block; }
+.adm-papelera summary::-webkit-details-marker { display: none; }
+@media (max-width: 700px) { .adm-dos { grid-template-columns: 1fr; } }

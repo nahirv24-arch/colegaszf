@@ -1,0 +1,51 @@
+/* ---------- categorías (inicio) y páginas de categoría ---------- */
+.categorias{padding-block:64px 8px}
+#categorias,#desarrollos{scroll-margin-top:16px}
+
+.cats{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.cats>li{display:flex}
+.cat{flex:1;display:flex;flex-direction:column;gap:12px;padding:30px 28px 26px;background:var(--papel);
+     border:1px solid var(--linea);text-decoration:none;color:var(--tinta);position:relative;
+     transition:border-color .25s ease,box-shadow .25s ease,transform .25s ease}
+.cat::before{content:"";position:absolute;left:-1px;right:-1px;top:-1px;height:3px;background:var(--rojo);
+             transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.cat:hover,.cat:focus-visible{border-color:var(--tinta);transform:translateY(-3px);
+     box-shadow:0 18px 36px -24px rgba(26,37,44,.45)}
+.cat:hover::before,.cat:focus-visible::before{transform:scaleX(1)}
+.cat-ico{display:block;width:46px;height:46px;color:var(--tinta);margin-bottom:6px;transition:color .25s ease}
+.cat-ico svg{width:100%;height:100%;display:block}
+.cat:hover .cat-ico,.cat:focus-visible .cat-ico{color:var(--rojo)}
+.cat-nom{font-weight:400;font-size:21px;line-height:1.15;letter-spacing:-.03em}
+.cat-des{font-size:15px;line-height:1.55;color:var(--humo)}
+.cat-ir{margin-top:auto;padding-top:10px;font-size:14px;font-weight:500;color:var(--rojo);
+        display:inline-flex;align-items:center;gap:8px}
+.cat-flecha{transition:transform .25s ease}
+.cat:hover .cat-flecha,.cat:focus-visible .cat-flecha{transform:translateX(4px)}
+
+@media (max-width:760px){
+  .categorias{padding-block:48px 0}
+  .cats{grid-template-columns:1fr;gap:16px}
+  .cat{padding:24px 22px 22px}
+}
+
+/* portada más baja en las páginas de categoría */
+.portada.baja{height:min(58vh,500px);min-height:360px}
+
+/* estado vacío «Próximamente» */
+.vacio.proximamente{display:flex;flex-direction:column;align-items:center;gap:10px}
+.vacio.proximamente .sub{margin-bottom:0}
+.vacio.proximamente p{margin:0 0 14px;max-width:46ch;line-height:1.55}
+
+@media (prefers-reduced-motion:reduce){.cat:hover,.cat:focus-visible{transform:none}}
+
+/* ---------- listado y ficha de Terceros / Comercios ---------- */
+.seccion .volver+.cabecera{margin-top:6px}
+.tarjeta .foto .estado-prop{position:absolute;left:12px;top:12px;background:var(--tinta);color:#fff;
+       font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:6px 10px}
+.prop-info{display:flex;flex-direction:column;gap:22px;padding-block:28px 6px}
+.prop-desc{margin:0;max-width:68ch;font-size:16px;line-height:1.6;white-space:pre-line}
+.prop-datos{margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px 24px}
+.prop-datos div{border-top:1px solid var(--linea);padding-top:10px}
+.prop-datos dt{font-size:11.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--humo)}
+.prop-datos dd{margin:4px 0 0;font-size:15.5px}
+.prop-docs{flex-direction:column;gap:14px;align-items:flex-start}

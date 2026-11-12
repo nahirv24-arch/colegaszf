@@ -92,3 +92,47 @@ export interface InventarioMedios {
 
 /** Las secciones de imágenes de una ficha. */
 export type ClaveGaleria = "imagenes" | "galeria" | "planos" | "brochurePags";
+
+// ---------------------------------------------------------------------------------------------
+// Terceros y Comercios (etapa 3). Forma que devuelve la función propiedades_publicas() de Supabase.
+// Igual que en los desarrollos, precios y superficies son TEXTO y no se convierten.
+// No hay datos de propietarios.
+// ---------------------------------------------------------------------------------------------
+
+export type CategoriaPropiedad = "tercero" | "comercio";
+export type Operacion = "" | "venta" | "alquiler" | "venta_alquiler";
+export type Disponibilidad = "disponible" | "reservada" | "vendida" | "alquilada" | "no_disponible";
+
+export interface Documento {
+  readonly ruta: RutaMedio;
+  /** Nombre visible ("Reglamento", "Planilla de gastos"…). */
+  readonly nombre: string;
+}
+
+export interface Propiedad {
+  readonly id: string;
+  readonly categoria: CategoriaPropiedad;
+  readonly titulo: string;
+  readonly operacion: Operacion;
+  readonly direccion: string;
+  readonly barrio: string;
+  readonly precio: string;
+  readonly expensas: string;
+  readonly superficie: string;
+  readonly disponibilidad: Disponibilidad;
+  readonly descripcion: string;
+  /** Campos propios de cada categoría (dormitorios, frente, rubro…). Valores de texto. */
+  readonly detalles: Readonly<Record<string, string>>;
+  /** video, recorrido, mapa… (direcciones web). */
+  readonly links: Readonly<Record<string, string>>;
+  /** "" si no tiene portada. */
+  readonly portada: RutaMedio;
+  readonly fotos: readonly RutaMedio[];
+  readonly planos: readonly RutaMedio[];
+  readonly documentos: readonly Documento[];
+}
+
+export interface ListasPropiedades {
+  readonly terceros: readonly Propiedad[];
+  readonly comercios: readonly Propiedad[];
+}

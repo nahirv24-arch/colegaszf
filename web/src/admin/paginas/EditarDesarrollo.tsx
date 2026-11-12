@@ -112,18 +112,20 @@ export function EditarDesarrollo() {
   );
 }
 
-function DialogoPublicar({ abierto, nombre, primeraVez, onCerrar, onPublicar }: {
+export function DialogoPublicar({ abierto, nombre, primeraVez, onCerrar, onPublicar, titulo, vistaPrevia }: {
   readonly abierto: boolean; readonly nombre: string; readonly primeraVez: boolean;
   readonly onCerrar: () => void; readonly onPublicar: (nota: string, fecha: boolean) => Promise<void>;
+  /** Terceros y Comercios: título del diálogo y dirección de su vista previa. */
+  readonly titulo?: string; readonly vistaPrevia?: string;
 }) {
   const [nota, setNota] = useState("");
   const [fecha, setFecha] = useState(true);
   const [enviando, setEnviando] = useState(false);
   return (
-    <Modal titulo={primeraVez ? "Publicar desarrollo" : "Publicar cambios"} abierta={abierto} onCerrar={onCerrar} ancho={520}>
+    <Modal titulo={primeraVez ? (titulo ?? "Publicar desarrollo") : "Publicar cambios"} abierta={abierto} onCerrar={onCerrar} ancho={520}>
       <p className="adm-dialogo-texto">Lo que está guardado ahora en el panel para <b>«{nombre}»</b> pasa a ser lo que ven los colegas.
         La versión anterior queda guardada y se puede recuperar.</p>
-      <p className="adm-ayuda">Antes de publicar, conviene revisar la <a href="#" onClick={(e) => { e.preventDefault(); window.open(window.location.pathname.replace(/\/admin\/desarrollos\/([^/]+).*/, "/admin/vista-previa/$1"), "_blank"); }}>vista previa</a>.
+      <p className="adm-ayuda">Antes de publicar, conviene revisar la <a href="#" onClick={(e) => { e.preventDefault(); window.open(vistaPrevia ?? window.location.pathname.replace(/\/admin\/desarrollos\/([^/]+).*/, "/admin/vista-previa/$1"), "_blank"); }}>vista previa</a>.
         Los cambios que no hayas guardado no se publican.</p>
       <label className="adm-campo"><span>Nota (opcional, para el historial)</span>
         <input type="text" value={nota} maxLength={200} onChange={(e) => setNota(e.target.value)} placeholder="Ej.: lista de precios de noviembre" /></label>
