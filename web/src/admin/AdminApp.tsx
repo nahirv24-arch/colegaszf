@@ -31,7 +31,7 @@ export default function AdminApp() {
     // Ícono oscuro en la pestaña, para distinguir el panel de la página de colegas.
     const icono = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
     const iconoAntes = icono?.getAttribute("href") ?? null;
-    icono?.setAttribute("href", "/media/general/logo-panel.png");
+    icono?.setAttribute("href", "/media/general/icono-panel.png");
     return () => {
       meta.remove(); document.title = titulo; document.body.classList.remove("adm-body");
       if (icono && iconoAntes) icono.setAttribute("href", iconoAntes);
