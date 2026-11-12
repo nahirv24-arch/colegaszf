@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import type { Desarrollo, Unidad } from "../tipos/datos";
 import { COLUMNAS_POR_DEFECTO, celda, hayTexto } from "../utilidades/textos";
 
@@ -20,6 +20,26 @@ export function TablaDisponibles({ e }: Props) {
   const [filtro, setFiltro] = useState("");
   // Fila cuyo precio está a la vista (una sola por vez, para que una captura no muestre la lista entera).
   const [vista, setVista] = useState<number | null>(null);
+  // Con un precio a la vista, el siguiente clic (en cualquier lugar) vuelve a la lista. También Escape.
+  useEffect(() => {
+    if (vista === null) return;
+    const volver = (ev: Event) => {
+      if (ev instanceof KeyboardEvent && ev.key !== "Escape") return;
+      ev.preventDefault();
+      ev.stopPropagation();
+      setVista(null);
+    };
+    // Se registra después del clic que abrió el precio, para que ese mismo clic no lo cierre.
+    const id = window.setTimeout(() => {
+      document.addEventListener("click", volver, true);
+      document.addEventListener("keydown", volver);
+    });
+    return () => {
+      window.clearTimeout(id);
+      document.removeEventListener("click", volver, true);
+      document.removeEventListener("keydown", volver);
+    };
+  }, [vista]);
   if (!filas.length) return null;
   const COLS = e.columnas && e.columnas.length ? e.columnas : COLUMNAS_POR_DEFECTO;
   const esMonto = (f: Unidad, k: string, t: string) => {
@@ -96,20 +116,21 @@ export function TablaDisponibles({ e }: Props) {
           <span className="et-filtro">Ver</span>
           {["", ...grupos].map((g) => (
             <button key={g || "todas"} type="button" className={g === filtro ? "chip-f activo" : "chip-f"}
-                    data-filtro={g} onClick={() => setFiltro(g)}>
+                    data-filtro={g} onClick={() => { setFiltro(g); setVista(null); }}>
               {g || "Todas"}
             </button>
           ))}
         </div>
       ) : null}
       <div className="tabla-wrap">
-        <table className="disp">
+        {/* Con un precio a la vista, el resto de la tabla queda borroso; tocándolo se vuelve a la lista. */}
+        <table className={vista !== null ? "disp enfocada" : "disp"}>
           <thead><tr>{COLS.map(([k, t]) => <th key={k}>{t}</th>)}</tr></thead>
           <tbody>{cuerpo}</tbody>
         </table>
       </div>
       <p className="pie-tabla">
-        Los precios se ven de a una unidad: tocá «Ver precio» en la que te interese.{" "}
+        Los precios se ven de a una unidad: tocá «Ver precio» en la que te interese y volvé a tocar para ver la lista.{" "}
         {e.notaTabla ? `${e.notaTabla} ` : ""}Verificá el precio contra esta tabla cada vez que publiques en un portal.
       </p>
     </>

@@ -36,3 +36,8 @@ table.disp td.uni{font-weight:500}
 .ver-precio:hover{background:var(--rojo);color:#fff}
 .precio-oculto{color:var(--linea);letter-spacing:.1em;user-select:none}
 table.disp tr.con-precio td{background:var(--crema)}
+/* Con un precio a la vista, el resto de la tabla se pone borroso */
+table.disp.enfocada tbody tr:not(.con-precio){filter:blur(5px);user-select:none;transition:filter .2s}
+table.disp.enfocada,table.disp.enfocada *{cursor:pointer}
+table.disp.enfocada tbody tr:not(.con-precio) *{pointer-events:none}
+table.disp.enfocada tr.con-precio td{background:var(--crema);box-shadow:inset 0 1px 0 var(--rojo),inset 0 -1px 0 var(--rojo)}
