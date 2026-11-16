@@ -30,7 +30,7 @@ export function TablaComercios({ lista }: { readonly lista: readonly Propiedad[]
           <thead>
             <tr>
               <th>Tipo</th><th>Operación</th><th>Dirección</th><th>Barrio</th>
-              <th>m² cubiertos</th><th>m² totales</th><th>Precio</th><th>Cód. Tokko</th>
+              <th>m² totales</th><th>Precio</th><th>Cód. Tokko</th>
               <th aria-label="Ficha" />
             </tr>
           </thead>
@@ -43,7 +43,6 @@ export function TablaComercios({ lista }: { readonly lista: readonly Propiedad[]
                   <td>{operacion(f.operacion) || "—"}</td>
                   <td className="uni">{f.direccion}</td>
                   <td>{f.barrio || "—"}</td>
-                  <td className="num">{metros(f.m2_cubiertos)}</td>
                   <td className="num">{metros(f.m2_totales)}</td>
                   <td className="num precio">{precioCompleto(f)}</td>
                   <td className="cod">{f.cod_tokko || "—"}</td>

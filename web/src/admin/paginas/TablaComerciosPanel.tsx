@@ -16,7 +16,7 @@ interface Renglon {
 
 const COLUMNAS: readonly (readonly [keyof FilaComercio, string, string])[] = [
   ["tipo", "Tipo", "chico"], ["operacion", "Operación", "chico"], ["direccion", "Dirección", "ancho"],
-  ["barrio", "Barrio", "medio"], ["m2_cubiertos", "m² cubiertos", "num"], ["m2_totales", "m² totales", "num"],
+  ["barrio", "Barrio", "medio"], ["m2_totales", "m² totales", "num"],
   ["moneda", "Moneda", "chico"], ["precio", "Precio", "medio"], ["cod_tokko", "Cód. Tokko", "medio"],
   ["link", "Link para colegas", "ancho"],
 ];

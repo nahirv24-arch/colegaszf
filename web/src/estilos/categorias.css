@@ -51,7 +51,7 @@
 .prop-docs{flex-direction:column;gap:14px;align-items:flex-start}
 
 /* ---------- Locales comerciales / oficinas: tabla ---------- */
-table.disp.comercios{min-width:900px}
+table.disp.comercios{min-width:820px}
 table.disp.comercios td{white-space:nowrap}
 table.disp.comercios td.uni{white-space:normal;min-width:180px}
 table.disp.comercios td.precio{font-weight:500}

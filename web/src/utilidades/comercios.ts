@@ -120,12 +120,12 @@ export function filasDeCsv(texto: string): { filas: FilaComercio[]; faltan: stri
   const faltan: string[] = [];
   for (const k of Object.keys(ENCABEZADOS) as (keyof FilaComercio)[]) {
     pos[k] = cab.findIndex((h) => ENCABEZADOS[k].includes(normal(h)));
-    if (pos[k] < 0 && k !== "link" && k !== "cod_tokko") faltan.push(k);
+    if (pos[k] < 0 && k !== "link" && k !== "cod_tokko" && k !== "m2_cubiertos") faltan.push(k);
   }
   const v = (f: string[], k: keyof FilaComercio) => (pos[k] >= 0 ? (f[pos[k]] ?? "").trim() : "");
   const filas = resto.map((f) => ({
     tipo: v(f, "tipo"), operacion: operacionDe(v(f, "operacion")), direccion: v(f, "direccion"), barrio: v(f, "barrio"),
-    m2_cubiertos: v(f, "m2_cubiertos"), m2_totales: v(f, "m2_totales"), moneda: v(f, "moneda").toUpperCase(),
+    m2_cubiertos: "", m2_totales: v(f, "m2_totales"), moneda: v(f, "moneda").toUpperCase(),
     precio: v(f, "precio"), cod_tokko: v(f, "cod_tokko").toUpperCase(), link: v(f, "link"),
   })).filter((f) => f.direccion);
   return { filas, faltan };
