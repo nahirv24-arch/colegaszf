@@ -21,6 +21,8 @@ const COLUMNAS: readonly (readonly [keyof FilaComercio, string, string])[] = [
   ["moneda", "Moneda", "chico"], ["precio", "Precio", "medio"], ["cod_tokko", "Cód. Tokko", "medio"],
   ["link", "Link para colegas", "ancho"],
 ];
+/** Terceros suma la columna «Llave» (si ZF tiene la llave). */
+const COLUMNAS_TERCEROS: typeof COLUMNAS = [...COLUMNAS.slice(0, 7), ["llave", "Llave", "chico"], ...COLUMNAS.slice(7)];
 
 let contador = 0;
 const nuevaClave = () => `r${++contador}`;
@@ -30,6 +32,7 @@ const firma = (f: FilaComercio) => JSON.stringify(f);
 export function TablaComerciosPanel({ clave }: { readonly clave: ClavePanel }) {
   const cat = CATEGORIAS_PANEL[clave];
   const tipos = TIPOS[cat.db];
+  const columnas = cat.db === "tercero" ? COLUMNAS_TERCEROS : COLUMNAS;
   const { datos, cargando, error, recargar } = useCarga(() => leerTablaComercios(cat.db), [cat.db]);
   const avisar = useAvisos();
   const confirmar = useConfirmar();
@@ -105,7 +108,7 @@ export function TablaComerciosPanel({ clave }: { readonly clave: ClavePanel }) {
     for (const fila of filas) {
       const existe = fila.cod_tokko ? porCodigo.get(fila.cod_tokko) : undefined;
       if (!existe) { nuevas++; agregadas.push({ clave: nuevaClave(), id: null, fila, original: "" }); continue; }
-      const combinada = { ...fila, link: fila.link || existe.fila.link };
+      const combinada = { ...fila, link: fila.link || existe.fila.link, llave: fila.llave || existe.fila.llave };
       if (firma(combinada) === firma(existe.fila)) iguales++;
       else { actualizadas++; actualizar.set(existe.clave, combinada); }
     }
@@ -188,7 +191,7 @@ export function TablaComerciosPanel({ clave }: { readonly clave: ClavePanel }) {
           <thead>
             <tr>
               <th aria-label="Orden" />
-              {COLUMNAS.map(([k, t]) => <th key={k}>{t}</th>)}
+              {columnas.map(([k, t]) => <th key={k}>{t}</th>)}
               <th>Estado</th>
               <th aria-label="Quitar" />
             </tr>
@@ -202,12 +205,16 @@ export function TablaComerciosPanel({ clave }: { readonly clave: ClavePanel }) {
                     <button type="button" onClick={() => mover(i, -1)} disabled={i === 0} aria-label="Subir">↑</button>
                     <button type="button" onClick={() => mover(i, 1)} disabled={i === renglones.length - 1} aria-label="Bajar">↓</button>
                   </td>
-                  {COLUMNAS.map(([k, t, ancho]) => (
+                  {columnas.map(([k, t, ancho]) => (
                     <td key={k} className={`adm-com-${ancho}`}>
                       {k === "operacion" ? (
                         <select aria-label={t} value={r.fila.operacion} onChange={(e) => cambiar(r.clave, k, e.target.value)}>
                           <option value="">—</option>
                           {OPERACIONES.map(([v, et]) => <option key={v} value={v}>{et}</option>)}
+                        </select>
+                      ) : k === "llave" ? (
+                        <select aria-label={t} value={r.fila.llave} onChange={(e) => cambiar(r.clave, k, e.target.value)}>
+                          <option value="">—</option><option value="Sí">Sí</option><option value="No">No</option>
                         </select>
                       ) : k === "moneda" ? (
                         <select aria-label={t} value={r.fila.moneda} onChange={(e) => cambiar(r.clave, k, e.target.value)}>
@@ -231,7 +238,7 @@ export function TablaComerciosPanel({ clave }: { readonly clave: ClavePanel }) {
               );
             })}
             {!renglones.length ? (
-              <tr><td colSpan={COLUMNAS.length + 3} className="adm-vacio">
+              <tr><td colSpan={columnas.length + 3} className="adm-vacio">
                 Todavía no hay filas. Tocá «+ Agregar fila» o «Importar CSV».<br />
                 Mientras no publiques ninguna, la página de colegas muestra «Próximamente».
               </td></tr>

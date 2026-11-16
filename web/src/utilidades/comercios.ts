@@ -17,11 +17,13 @@ export interface FilaComercio {
   precio: string;
   cod_tokko: string;
   link: string;
+  /** Solo Terceros: si ZF tiene la llave ("Sí", "No" o vacío). */
+  llave: string;
 }
 
 export const FILA_VACIA: FilaComercio = {
   tipo: "Local", operacion: "venta", direccion: "", barrio: "", m2_cubiertos: "", m2_totales: "",
-  moneda: "USD", precio: "", cod_tokko: "", link: "",
+  moneda: "USD", precio: "", cod_tokko: "", link: "", llave: "",
 };
 
 /** Tipos sugeridos en el panel (se puede escribir otro). */
@@ -47,6 +49,7 @@ export function filaDePropiedad(p: Pick<Propiedad, "titulo" | "operacion" | "dir
     precio: p.precio,
     cod_tokko: d.cod_tokko ?? "",
     link: p.links?.colegas ?? "",
+    llave: d.llave ?? "",
   };
 }
 
@@ -80,6 +83,7 @@ const ENCABEZADOS: Readonly<Record<keyof FilaComercio, readonly string[]>> = {
   precio: ["precio"],
   cod_tokko: ["codtokko", "codigotokko", "codigo", "cod"],
   link: ["linkparacolegas", "link", "ficha", "linkcolegas"],
+  llave: ["llave", "tenemosllave", "tenemoslallave", "conllave", "llaves"],
 };
 
 /** Separa un CSV respetando comillas ("Corro 303, local 2" queda en una sola celda). Acepta coma o punto y coma. */
@@ -108,6 +112,14 @@ export function leerCsv(texto: string): string[][] {
   return filas.filter((f) => f.some((c) => c.trim()));
 }
 
+/** "si", "Sí", "x", "tenemos" → "Sí"; "no" → "No"; vacío → "". */
+export function siNo(v: string): string {
+  const n = normal(v);
+  if (!n) return "";
+  if (/^(no|n|false|0|notenemos)$/.test(n)) return "No";
+  return "Sí";
+}
+
 function operacionDe(v: string): Operacion {
   const n = normal(v);
   if (!n) return "";
@@ -124,13 +136,14 @@ export function filasDeCsv(texto: string): { filas: FilaComercio[]; faltan: stri
   const faltan: string[] = [];
   for (const k of Object.keys(ENCABEZADOS) as (keyof FilaComercio)[]) {
     pos[k] = cab.findIndex((h) => ENCABEZADOS[k].includes(normal(h)));
-    if (pos[k] < 0 && k !== "link" && k !== "cod_tokko" && k !== "m2_cubiertos") faltan.push(k);
+    if (pos[k] < 0 && k !== "link" && k !== "cod_tokko" && k !== "m2_cubiertos" && k !== "llave") faltan.push(k);
   }
   const v = (f: string[], k: keyof FilaComercio) => (pos[k] >= 0 ? (f[pos[k]] ?? "").trim() : "");
   const filas = resto.map((f) => ({
     tipo: v(f, "tipo"), operacion: operacionDe(v(f, "operacion")), direccion: v(f, "direccion"), barrio: v(f, "barrio"),
     m2_cubiertos: "", m2_totales: v(f, "m2_totales"), moneda: v(f, "moneda").toUpperCase(),
     precio: v(f, "precio"), cod_tokko: v(f, "cod_tokko").toUpperCase(), link: v(f, "link"),
+    llave: siNo(v(f, "llave")),
   })).filter((f) => f.direccion);
   return { filas, faltan };
 }
