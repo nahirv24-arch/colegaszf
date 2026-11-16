@@ -75,7 +75,9 @@ export function Dashboard() {
   const sinCategoria = vistaMaterial === "total" ? 0 : completitud.filter((c) => c.conteos[vistaMaterial] === 0).length;
 
   // ---- Terceros y Comercios (datos reales de Supabase; la papelera no cuenta)
-  const props = d.propiedades.lista.filter((p) => !p.eliminado_en);
+  // Locales / oficinas son filas de una tabla (sin fotos ni portada): no cuentan como «incompletas».
+  const props = d.propiedades.lista.filter((p) => !p.eliminado_en)
+    .map((p) => (p.categoria === "comercio" ? { ...p, faltan: [] } : p));
   const terceros = props.filter((p) => p.categoria === "tercero");
   const comercios = props.filter((p) => p.categoria === "comercio");
   const activa = (p: ResumenPropiedad) => p.estado === "publicado" && p.visible;
@@ -99,9 +101,9 @@ export function Dashboard() {
     ];
   };
   const propPendientes = props.filter((p) => p.estado === "borrador" || p.cambios_sin_publicar);
-  const propOrdenadas = [...props].sort((a, b) => Number(b.faltan.length > 0) - Number(a.faltan.length > 0)
+  const propOrdenadas = [...terceros].sort((a, b) => Number(b.faltan.length > 0) - Number(a.faltan.length > 0)
     || Number(activa(b)) - Number(activa(a)) || a.titulo.localeCompare(b.titulo, "es"));
-  const rutaProp = (p: ResumenPropiedad) => `/admin/${p.categoria === "tercero" ? "terceros" : "comercios"}/${p.id}`;
+  const rutaProp = (p: ResumenPropiedad) => (p.categoria === "tercero" ? `/admin/terceros/${p.id}` : "/admin/comercios");
 
   // «Publicaciones incompletas» lleva a la tabla donde están (desarrollos primero).
   const irIncompletas = () => {
@@ -222,9 +224,9 @@ export function Dashboard() {
       </section>
 
       <section className="adm-panel" ref={refProp} aria-labelledby="t-matp" style={{ scrollMarginTop: 90 }}>
-        <header className="adm-sec-cab"><h2 id="t-matp">Material de Terceros y Locales / oficinas</h2>
-          <span className="adm-fuente">{props.filter((p) => !p.faltan.length).length} de {props.length} completos</span></header>
-        {props.length ? (
+        <header className="adm-sec-cab"><h2 id="t-matp">Material de Terceros</h2>
+          <span className="adm-fuente">{terceros.filter((p) => !p.faltan.length).length} de {terceros.length} completos</span></header>
+        {terceros.length ? (
           <div className="adm-tabla-caja">
             <table className="adm-tabla">
               <thead><tr><th>Propiedad</th><th>Categoría</th><th>Estado</th><th>Material esencial</th><th><span className="adm-sr">Acciones</span></th></tr></thead>
@@ -247,9 +249,9 @@ export function Dashboard() {
             </table>
           </div>
         ) : (
-          <p className="adm-graf-vacio"><b>Todavía no hay propiedades de Terceros ni Locales / oficinas</b><br />
-            Mientras no publiques ninguna, esas secciones muestran «Próximamente» en la página.<br />
-            <Link to="/admin/terceros/nuevo">+ Nueva propiedad de terceros</Link> · <Link to="/admin/comercios/nuevo">+ Nuevo local u oficina</Link></p>
+          <p className="adm-graf-vacio"><b>Todavía no hay propiedades de Terceros</b><br />
+            Mientras no publiques ninguna, esa sección muestra «Próximamente» en la página.<br />
+            <Link to="/admin/terceros/nuevo">+ Nueva propiedad de terceros</Link></p>
         )}
         <p className="adm-nota">Esencial: portada, ubicación (barrio o dirección), precio, superficie y al menos una foto. En rojo: publicadas con material pendiente.</p>
       </section>
@@ -270,7 +272,9 @@ export function Dashboard() {
                 <li key={`p-${p.id}`}>
                   <span><Link to={rutaProp(p)}><b>{p.titulo}</b></Link>
                     <span className="adm-lista-sec">{p.categoria === "tercero" ? "Terceros" : "Locales / oficinas"} · {p.estado === "borrador" ? "Borrador: todavía no está en la página" : "Tiene cambios guardados que los colegas no ven"} · {fechaHora(p.modificado_en)}</span></span>
-                  <Link to={`/admin/vista-previa-propiedad/${p.id}`} className="adm-btn chico" target="_blank" rel="noopener">Vista previa ↗</Link>
+                  {p.categoria === "tercero"
+                    ? <Link to={`/admin/vista-previa-propiedad/${p.id}`} className="adm-btn chico" target="_blank" rel="noopener">Vista previa ↗</Link>
+                    : <Link to="/admin/comercios" className="adm-btn chico">Ir a la tabla</Link>}
                 </li>
               ))}
             </ul>

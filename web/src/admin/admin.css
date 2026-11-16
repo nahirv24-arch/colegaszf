@@ -308,3 +308,23 @@ a.adm-tarjeta:hover { border-top-color: var(--rojo); }
 .adm-papelera summary { list-style: none; cursor: pointer; display: inline-block; }
 .adm-papelera summary::-webkit-details-marker { display: none; }
 @media (max-width: 700px) { .adm-dos { grid-template-columns: 1fr; } }
+
+/* ---------- Locales comerciales / oficinas: tabla editable ---------- */
+.adm-com-barra { justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.adm-com-acc { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.adm-com-aviso { font-size: 13px; color: #8A6A1F; font-weight: 500; }
+.adm-com td { padding: 6px 6px; }
+.adm-com th { padding: 10px 6px; }
+.adm-com input, .adm-com select { width: 100%; box-sizing: border-box; font: inherit; font-size: 13.5px; padding: 7px 8px;
+  border: 1px solid var(--linea); background: #fff; color: var(--tinta); border-radius: 0; }
+.adm-com input:focus, .adm-com select:focus { outline: 2px solid var(--tinta); outline-offset: -1px; }
+.adm-com input.con-error { border-color: var(--rojo); background: #FDF3F4; }
+.adm-com-chico { min-width: 92px; }
+.adm-com-num { min-width: 78px; }
+.adm-com-medio { min-width: 120px; }
+.adm-com-ancho { min-width: 210px; }
+.adm-com-orden { white-space: nowrap; }
+.adm-com-orden button { border: 1px solid var(--linea); background: #fff; width: 26px; height: 26px; cursor: pointer; color: var(--tinta); }
+.adm-com-orden button + button { margin-left: 2px; }
+.adm-com-orden button:disabled { opacity: .3; cursor: default; }
+.adm-com-error { color: var(--rojo); font-size: 13px; margin-top: 10px; }

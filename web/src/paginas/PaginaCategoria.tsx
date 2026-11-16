@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { categoria, type ClaveCategoria } from "../componentes/Categorias";
 import { Pie } from "../componentes/Pie";
 import { Portada } from "../componentes/Portada";
+import { TablaComercios } from "../componentes/TablaComercios";
 import { TarjetaPropiedad } from "../componentes/TarjetaPropiedad";
 import { useEstadoDatos } from "../servicios/contexto";
 import { useHash } from "../utilidades/hash";
@@ -21,7 +22,15 @@ export function PaginaCategoria({ clave }: { readonly clave: Exclude<ClaveCatego
   const hash = useHash();
   const c = categoria(clave);
   const lista = estado.tipo === "listo" ? estado.contenido.propiedades[clave] : [];
-  const elegida = hash ? lista.find((p) => p.id.toLowerCase() === hash) : undefined;
+  // Locales / oficinas no tienen ficha propia: "/comercios#código" baja a esa fila de la tabla.
+  const tabla = clave === "comercios";
+  const elegida = hash && !tabla ? lista.find((p) => p.id.toLowerCase() === hash) : undefined;
+  const listo = estado.tipo === "listo";
+  useEffect(() => {
+    if (!tabla || !listo || !hash) return;
+    const fila = document.getElementById(hash);
+    if (fila) { fila.scrollIntoView({ block: "center" }); fila.classList.add("resaltada"); }
+  }, [tabla, listo, hash]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -67,7 +76,7 @@ export function PaginaCategoria({ clave }: { readonly clave: Exclude<ClaveCatego
           <div className="rot">{c.nombre}</div>
           <p>{c.descripcion}</p>
         </div>
-        {lista.length ? (
+        {lista.length && tabla ? <TablaComercios lista={lista} /> : lista.length ? (
           <div className="grilla">
             {lista.map((p) => <TarjetaPropiedad key={p.id} p={p} />)}
           </div>
