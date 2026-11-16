@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FILA_VACIA, filaDePropiedad, filasDeCsv, MONEDAS, OPERACIONES, TIPOS, type FilaComercio } from "../../utilidades/comercios";
 import { mensajeError } from "../servicio";
+import { CATEGORIAS_PANEL, type ClavePanel } from "../servicioPropiedades";
 import { erroresFila, guardarTablaComercios, leerTablaComercios, publicarTablaComercios } from "../servicioComercios";
 import { Cargando, ErrorCaja, useAvisos, useCarga, useConfirmar } from "../ui";
 
@@ -25,9 +26,11 @@ let contador = 0;
 const nuevaClave = () => `r${++contador}`;
 const firma = (f: FilaComercio) => JSON.stringify(f);
 
-/** Locales comerciales / oficinas: tabla editable, importación del CSV de Tokko y publicación de toda la tabla. */
-export function TablaComerciosPanel() {
-  const { datos, cargando, error, recargar } = useCarga(leerTablaComercios, []);
+/** Terceros o Locales comerciales / oficinas: tabla editable, importación del CSV de Tokko y publicación de toda la tabla. */
+export function TablaComerciosPanel({ clave }: { readonly clave: ClavePanel }) {
+  const cat = CATEGORIAS_PANEL[clave];
+  const tipos = TIPOS[cat.db];
+  const { datos, cargando, error, recargar } = useCarga(() => leerTablaComercios(cat.db), [cat.db]);
   const avisar = useAvisos();
   const confirmar = useConfirmar();
   const [renglones, setRenglones] = useState<Renglon[]>([]);
@@ -75,7 +78,7 @@ export function TablaComerciosPanel() {
     [copia[i], copia[j]] = [copia[j]!, copia[i]!];
     return copia;
   });
-  const agregar = () => setRenglones((rs) => [...rs, { clave: nuevaClave(), id: null, fila: { ...FILA_VACIA }, original: "" }]);
+  const agregar = () => setRenglones((rs) => [...rs, { clave: nuevaClave(), id: null, fila: { ...FILA_VACIA, tipo: tipos[0] ?? "" }, original: "" }]);
   const quitar = async (r: Renglon) => {
     if (r.id) {
       const ok = await confirmar({ titulo: "Quitar fila", confirmar: "Quitar", peligro: true,
@@ -123,7 +126,7 @@ export function TablaComerciosPanel() {
     if (!datos) return;
     setOcupado(true);
     try {
-      await guardarTablaComercios({
+      await guardarTablaComercios(cat.db, {
         filas: renglones.map((r) => ({ id: r.id, fila: r.fila, cambio: !r.id || firma(r.fila) !== r.original })),
         quitadas,
       }, datos.filas, datos.ids);
@@ -136,11 +139,11 @@ export function TablaComerciosPanel() {
   const publicar = async () => {
     const ok = await confirmar({ titulo: "Publicar tabla", confirmar: "Publicar",
       mensaje: <>Se {paraPublicar.length === 1 ? "publica 1 fila nueva o con cambios" : `publican ${paraPublicar.length} filas nuevas o con cambios`}.
-        Los colegas la ven enseguida en <b>Locales comerciales / oficinas</b>.</> });
+        Los colegas la ven enseguida en <b>{cat.titulo}</b>.</> });
     if (!ok) return;
     setOcupado(true);
     try {
-      const n = await publicarTablaComercios(paraPublicar);
+      const n = await publicarTablaComercios(paraPublicar, `Tabla de ${cat.titulo}`);
       avisar("ok", `Tabla publicada (${n} ${n === 1 ? "fila" : "filas"}). Ya se ve en la página de colegas.`);
       recargar();
     } catch (e) { avisar("error", mensajeError(e)); recargar(); }
@@ -213,7 +216,7 @@ export function TablaComerciosPanel() {
                         </select>
                       ) : (
                         <input type={k === "link" ? "url" : "text"} aria-label={t} value={r.fila[k]}
-                               list={k === "tipo" ? "adm-com-tipos" : undefined}
+                               list={k === "tipo" ? `adm-com-tipos-${clave}` : undefined}
                                className={err[k] ? "con-error" : undefined} title={err[k]}
                                placeholder={k === "direccion" ? "Obligatoria" : undefined}
                                onChange={(e) => cambiar(r.clave, k, e.target.value)} />
@@ -235,7 +238,7 @@ export function TablaComerciosPanel() {
             ) : null}
           </tbody>
         </table>
-        <datalist id="adm-com-tipos">{TIPOS.map((t) => <option key={t} value={t} />)}</datalist>
+        <datalist id={`adm-com-tipos-${clave}`}>{tipos.map((t) => <option key={t} value={t} />)}</datalist>
       </div>
       {renglones.some((r) => Object.keys(erroresFila(r.fila)).length)
         ? <p className="adm-com-error">Hay celdas marcadas en rojo: pasá el mouse por encima para ver qué falta.</p> : null}

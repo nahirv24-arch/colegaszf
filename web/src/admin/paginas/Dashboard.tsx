@@ -7,7 +7,6 @@ import {
 import { listarPropiedades, type ResumenPropiedad } from "../servicioPropiedades";
 import { Cargando, ErrorCaja, fechaHora, useCarga } from "../ui";
 import { ActividadReciente } from "./ActividadReciente";
-import { EstadoPropiedad } from "./FormPropiedad";
 import { TablaMaterial, type FiltroMaterial } from "./TablaMaterial";
 
 const CATEGORIAS = [
@@ -43,7 +42,6 @@ export function Dashboard() {
   const [vistaMaterial, setVistaMaterial] = useState<"total" | Categoria>("total");
   const [catPublicacion, setCatPublicacion] = useState<"desarrollos" | "tercero" | "comercio">("desarrollos");
   const refMaterial = useRef<HTMLElement>(null);
-  const refProp = useRef<HTMLElement>(null);
 
   const d = inventario.datos;
   const completitud: readonly Completitud[] = d?.completitud ?? [];
@@ -75,9 +73,8 @@ export function Dashboard() {
   const sinCategoria = vistaMaterial === "total" ? 0 : completitud.filter((c) => c.conteos[vistaMaterial] === 0).length;
 
   // ---- Terceros y Comercios (datos reales de Supabase; la papelera no cuenta)
-  // Locales / oficinas son filas de una tabla (sin fotos ni portada): no cuentan como «incompletas».
-  const props = d.propiedades.lista.filter((p) => !p.eliminado_en)
-    .map((p) => (p.categoria === "comercio" ? { ...p, faltan: [] } : p));
+  // Terceros y Locales / oficinas son filas de una tabla (sin fotos ni portada): no cuentan como «incompletas».
+  const props = d.propiedades.lista.filter((p) => !p.eliminado_en).map((p) => ({ ...p, faltan: [] }));
   const terceros = props.filter((p) => p.categoria === "tercero");
   const comercios = props.filter((p) => p.categoria === "comercio");
   const activa = (p: ResumenPropiedad) => p.estado === "publicado" && p.visible;
@@ -101,14 +98,12 @@ export function Dashboard() {
     ];
   };
   const propPendientes = props.filter((p) => p.estado === "borrador" || p.cambios_sin_publicar);
-  const propOrdenadas = [...terceros].sort((a, b) => Number(b.faltan.length > 0) - Number(a.faltan.length > 0)
-    || Number(activa(b)) - Number(activa(a)) || a.titulo.localeCompare(b.titulo, "es"));
-  const rutaProp = (p: ResumenPropiedad) => (p.categoria === "tercero" ? `/admin/terceros/${p.id}` : "/admin/comercios");
+  const rutaProp = (p: ResumenPropiedad) => (p.categoria === "tercero" ? "/admin/terceros" : "/admin/comercios");
 
   // «Publicaciones incompletas» lleva a la tabla donde están (desarrollos primero).
   const irIncompletas = () => {
     setFiltroMaterial("pendientes");
-    const destino = desActivos.some((c) => c.porcentaje < 100) ? refMaterial.current : refProp.current;
+    const destino = refMaterial.current;
     destino?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
@@ -223,39 +218,6 @@ export function Dashboard() {
         <TablaMaterial datos={completitud} filtro={filtroMaterial} onFiltro={setFiltroMaterial} />
       </section>
 
-      <section className="adm-panel" ref={refProp} aria-labelledby="t-matp" style={{ scrollMarginTop: 90 }}>
-        <header className="adm-sec-cab"><h2 id="t-matp">Material de Terceros</h2>
-          <span className="adm-fuente">{terceros.filter((p) => !p.faltan.length).length} de {terceros.length} completos</span></header>
-        {terceros.length ? (
-          <div className="adm-tabla-caja">
-            <table className="adm-tabla">
-              <thead><tr><th>Propiedad</th><th>Categoría</th><th>Estado</th><th>Material esencial</th><th><span className="adm-sr">Acciones</span></th></tr></thead>
-              <tbody>
-                {propOrdenadas.map((p) => (
-                  <tr key={p.id}>
-                    <td><Link to={rutaProp(p)} className="adm-fuerte">{p.titulo}</Link>
-                      <span className="adm-tabla-sec">{[p.barrio, p.direccion].filter(Boolean).join(" · ") || "Sin ubicación"}</span></td>
-                    <td>{p.categoria === "tercero" ? "Terceros" : "Locales / oficinas"}</td>
-                    <td><EstadoPropiedad p={p} /></td>
-                    <td>{p.faltan.length
-                      ? <span className={activa(p) ? "adm-chip rojo" : "adm-chip ambar"}>Falta: {p.faltan.join(", ")}</span>
-                      : <span className="adm-chip verde">Completo</span>}</td>
-                    <td className="der">{p.faltan.length
-                      ? <Link to={`${rutaProp(p)}/${p.faltan.some((f) => f === "Portada" || f === "Fotos") ? "material" : "datos"}`} className="adm-btn chico">Completar</Link>
-                      : <Link to={rutaProp(p)} className="adm-btn chico">Editar</Link>}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <p className="adm-graf-vacio"><b>Todavía no hay propiedades de Terceros</b><br />
-            Mientras no publiques ninguna, esa sección muestra «Próximamente» en la página.<br />
-            <Link to="/admin/terceros/nuevo">+ Nueva propiedad de terceros</Link></p>
-        )}
-        <p className="adm-nota">Esencial: portada, ubicación (barrio o dirección), precio, superficie y al menos una foto. En rojo: publicadas con material pendiente.</p>
-      </section>
-
       <div className="adm-dos-col">
         <section className="adm-panel" aria-labelledby="t-pend">
           <header className="adm-sec-cab"><h2 id="t-pend">Pendientes de publicar</h2><span className="adm-fuente">Borradores y cambios guardados</span></header>
@@ -272,9 +234,7 @@ export function Dashboard() {
                 <li key={`p-${p.id}`}>
                   <span><Link to={rutaProp(p)}><b>{p.titulo}</b></Link>
                     <span className="adm-lista-sec">{p.categoria === "tercero" ? "Terceros" : "Locales / oficinas"} · {p.estado === "borrador" ? "Borrador: todavía no está en la página" : "Tiene cambios guardados que los colegas no ven"} · {fechaHora(p.modificado_en)}</span></span>
-                  {p.categoria === "tercero"
-                    ? <Link to={`/admin/vista-previa-propiedad/${p.id}`} className="adm-btn chico" target="_blank" rel="noopener">Vista previa ↗</Link>
-                    : <Link to="/admin/comercios" className="adm-btn chico">Ir a la tabla</Link>}
+                  <Link to={rutaProp(p)} className="adm-btn chico">Ir a la tabla</Link>
                 </li>
               ))}
             </ul>

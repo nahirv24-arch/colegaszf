@@ -11,7 +11,6 @@ import { EditarPropiedad } from "./paginas/EditarPropiedad";
 import { ElegirDesarrollo } from "./paginas/ElegirDesarrollo";
 import { Ingresar, NuevaContrasena, Recuperar } from "./paginas/Acceso";
 import { ListaDesarrollos } from "./paginas/ListaDesarrollos";
-import { ListaPropiedades } from "./paginas/ListaPropiedades";
 import { TablaComerciosPanel } from "./paginas/TablaComerciosPanel";
 import { NuevaPropiedad } from "./paginas/NuevaPropiedad";
 import { NuevoDesarrollo } from "./paginas/NuevoDesarrollo";
@@ -55,11 +54,11 @@ export default function AdminApp() {
               <Route path="desarrollos/nuevo" element={<NuevoDesarrollo />} />
               <Route path="desarrollos/:id" element={<EditarDesarrollo />} />
               <Route path="desarrollos/:id/:pestana" element={<EditarDesarrollo />} />
-              <Route path="terceros" element={<ListaPropiedades key="terceros" clave="terceros" />} />
+              <Route path="terceros" element={<TablaComerciosPanel key="terceros" clave="terceros" />} />
               <Route path="terceros/nuevo" element={<NuevaPropiedad key="terceros" clave="terceros" />} />
               <Route path="terceros/:id" element={<EditarPropiedad key="terceros" clave="terceros" />} />
               <Route path="terceros/:id/:pestana" element={<EditarPropiedad key="terceros" clave="terceros" />} />
-              <Route path="comercios" element={<TablaComerciosPanel />} />
+              <Route path="comercios" element={<TablaComerciosPanel key="comercios" clave="comercios" />} />
               <Route path="comercios/nuevo" element={<NuevaPropiedad key="comercios" clave="comercios" />} />
               <Route path="comercios/:id" element={<EditarPropiedad key="comercios" clave="comercios" />} />
               <Route path="comercios/:id/:pestana" element={<EditarPropiedad key="comercios" clave="comercios" />} />

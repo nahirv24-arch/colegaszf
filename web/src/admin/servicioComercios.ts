@@ -4,7 +4,7 @@
  * Guardar escribe la COPIA DE TRABAJO; los colegas ven los cambios recién al publicar la tabla.
  */
 import { obtenerSupabase } from "../servicios/supabase";
-import type { Operacion } from "../tipos/datos";
+import type { CategoriaPropiedad, Operacion } from "../tipos/datos";
 import { idPara, type FilaComercio } from "../utilidades/comercios";
 import { ErrorPanel, mensajeError } from "./servicio";
 import { listarPropiedades, type FilaPropiedad, type ResumenPropiedad } from "./servicioPropiedades";
@@ -25,11 +25,11 @@ export interface DatosTabla {
   ids: string[];
 }
 
-export async function leerTablaComercios(): Promise<DatosTabla> {
+export async function leerTablaComercios(categoria: CategoriaPropiedad): Promise<DatosTabla> {
   const [filas, resumen, ids] = await Promise.all([
-    sb().from("propiedades").select("*").eq("categoria", "comercio").is("eliminado_en", null)
+    sb().from("propiedades").select("*").eq("categoria", categoria).is("eliminado_en", null)
       .order("posicion").order("creado_en", { ascending: false }).order("id"),
-    listarPropiedades("comercio"),
+    listarPropiedades(categoria),
     sb().from("propiedades").select("id"),
   ]);
   return {
@@ -77,7 +77,7 @@ export interface CambiosTabla {
 }
 
 /** Guarda la tabla en la copia de trabajo: crea, actualiza, reordena y manda a la papelera. */
-export async function guardarTablaComercios(c: CambiosTabla, previas: FilaPropiedad[], idsUsados: string[]): Promise<void> {
+export async function guardarTablaComercios(categoria: CategoriaPropiedad, c: CambiosTabla, previas: FilaPropiedad[], idsUsados: string[]): Promise<void> {
   for (const { fila } of c.filas) {
     if (Object.keys(erroresFila(fila)).length) throw new ErrorPanel("Hay filas con datos para revisar (marcadas en rojo).");
   }
@@ -88,7 +88,7 @@ export async function guardarTablaComercios(c: CambiosTabla, previas: FilaPropie
     if (!id) {
       const nuevo = idPara(fila, usados);
       usados.add(nuevo);
-      revisar(await sb().from("propiedades").insert({ id: nuevo, categoria: "comercio", estado: "borrador", visible: true,
+      revisar(await sb().from("propiedades").insert({ id: nuevo, categoria, estado: "borrador", visible: true,
         posicion, ...datosDe(fila) }));
       continue;
     }
@@ -103,10 +103,10 @@ export async function guardarTablaComercios(c: CambiosTabla, previas: FilaPropie
 }
 
 /** Publica las filas nuevas o con cambios. Devuelve cuántas se publicaron. */
-export async function publicarTablaComercios(ids: string[]): Promise<number> {
+export async function publicarTablaComercios(ids: string[], nota: string): Promise<number> {
   let n = 0;
   for (const id of ids) {
-    revisar(await sb().rpc("publicar_propiedad", { p_id: id, p_nota: "Tabla de locales y oficinas", p_actualizar_fecha: n === 0 }));
+    revisar(await sb().rpc("publicar_propiedad", { p_id: id, p_nota: nota, p_actualizar_fecha: n === 0 }));
     n++;
   }
   return n;

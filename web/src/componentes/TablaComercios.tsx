@@ -3,9 +3,9 @@ import type { Propiedad } from "../tipos/datos";
 import { filaDePropiedad, metros, OPERACIONES, precioCompleto } from "../utilidades/comercios";
 import { linkSeguro } from "../utilidades/propiedades";
 
-const plural = (t: string) => (/[aeiou]$/i.test(t) ? `${t}s` : `${t}es`);
+const plural = (t: string) => (/[aeiouáéíóú]$/i.test(t) ? `${t}s` : /[xsh]$/i.test(t) ? t : `${t}es`);
 
-/** Locales comerciales / oficinas: una tabla simple con las columnas de la planilla de Tokko. */
+/** Terceros y Locales comerciales / oficinas: una tabla simple con las columnas de la planilla de Tokko. */
 export function TablaComercios({ lista }: { readonly lista: readonly Propiedad[] }) {
   const filas = lista.map((p) => ({ id: p.id, ...filaDePropiedad(p) }));
   const tipos = [...new Set(filas.map((f) => f.tipo).filter(Boolean))];

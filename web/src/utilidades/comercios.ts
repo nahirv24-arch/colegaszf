@@ -1,8 +1,8 @@
-import type { Operacion, Propiedad } from "../tipos/datos";
+import type { CategoriaPropiedad, Operacion, Propiedad } from "../tipos/datos";
 
 /**
- * Locales comerciales / oficinas en formato tabla (las mismas columnas que la planilla de Tokko).
- * Se guardan en la tabla "propiedades" (categoría "comercio") sin cambiar la base de datos:
+ * Terceros y Locales comerciales / oficinas en formato tabla (las mismas columnas que la planilla de Tokko).
+ * Se guardan en la tabla "propiedades" (categoría "tercero" o "comercio") sin cambiar la base de datos:
  *   título y dirección = Dirección · operacion · barrio · precio (texto, sin la moneda)
  *   detalles: tipo, m2_cubiertos, m2_totales, moneda, cod_tokko · links: colegas (ficha de Tokko)
  */
@@ -24,7 +24,11 @@ export const FILA_VACIA: FilaComercio = {
   moneda: "USD", precio: "", cod_tokko: "", link: "",
 };
 
-export const TIPOS = ["Local", "Oficina"] as const;
+/** Tipos sugeridos en el panel (se puede escribir otro). */
+export const TIPOS: Readonly<Record<CategoriaPropiedad, readonly string[]>> = {
+  comercio: ["Local", "Oficina"],
+  tercero: ["Departamento", "Casa", "Dúplex", "PH", "Lote", "Cochera"],
+};
 export const MONEDAS = ["USD", "ARS"] as const;
 export const OPERACIONES: readonly (readonly [Exclude<Operacion, "">, string])[] = [
   ["venta", "Venta"], ["alquiler", "Alquiler"], ["venta_alquiler", "Venta y alquiler"],

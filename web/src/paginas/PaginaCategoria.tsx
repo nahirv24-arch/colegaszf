@@ -22,8 +22,8 @@ export function PaginaCategoria({ clave }: { readonly clave: Exclude<ClaveCatego
   const hash = useHash();
   const c = categoria(clave);
   const lista = estado.tipo === "listo" ? estado.contenido.propiedades[clave] : [];
-  // Locales / oficinas no tienen ficha propia: "/comercios#código" baja a esa fila de la tabla.
-  const tabla = clave === "comercios";
+  // Terceros y Locales / oficinas se muestran en tabla: "/comercios#código" baja a esa fila.
+  const tabla = true;
   const elegida = hash && !tabla ? lista.find((p) => p.id.toLowerCase() === hash) : undefined;
   const listo = estado.tipo === "listo";
   useEffect(() => {
