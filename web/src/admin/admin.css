@@ -328,3 +328,8 @@ a.adm-tarjeta:hover { border-top-color: var(--rojo); }
 .adm-com-orden button + button { margin-left: 2px; }
 .adm-com-orden button:disabled { opacity: .3; cursor: default; }
 .adm-com-error { color: var(--rojo); font-size: 13px; margin-top: 10px; }
+.adm-com textarea { width: 100%; box-sizing: border-box; font: inherit; font-size: 13.5px; padding: 7px 8px; border: 1px solid var(--linea);
+  background: #fff; color: var(--tinta); border-radius: 0; resize: vertical; min-height: 34px; }
+.adm-com textarea:focus { outline: 2px solid var(--tinta); outline-offset: -1px; }
+.adm-com textarea.con-error { border-color: var(--rojo); background: #FDF3F4; }
+.adm-com .der .adm-btn + .adm-btn { margin-left: 6px; }
