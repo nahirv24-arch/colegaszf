@@ -64,7 +64,7 @@ function datosDe(f: FilaComercio, previa?: FilaPropiedad) {
     barrio: f.barrio.trim(),
     precio: f.precio.trim(),
     detalles: limpio({ ...(previa?.detalles ?? {}), tipo: f.tipo, m2_cubiertos: f.m2_cubiertos, m2_totales: f.m2_totales,
-      moneda: f.moneda, cod_tokko: f.cod_tokko, llave: f.llave }),
+      moneda: f.moneda, cod_tokko: f.cod_tokko, llave: f.llave, escritura: f.escritura }),
     links: limpio({ ...(previa?.links ?? {}), colegas: f.link }),
   };
 }

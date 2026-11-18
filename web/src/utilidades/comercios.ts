@@ -19,11 +19,13 @@ export interface FilaComercio {
   link: string;
   /** Solo Terceros: si ZF tiene la llave ("Sí", "No" o vacío). */
   llave: string;
+  /** Solo Terceros: "Tiene", "No tiene" o vacío. */
+  escritura: string;
 }
 
 export const FILA_VACIA: FilaComercio = {
   tipo: "Local", operacion: "venta", direccion: "", barrio: "", m2_cubiertos: "", m2_totales: "",
-  moneda: "USD", precio: "", cod_tokko: "", link: "", llave: "",
+  moneda: "USD", precio: "", cod_tokko: "", link: "", llave: "", escritura: "",
 };
 
 /** Tipos sugeridos en el panel (se puede escribir otro). */
@@ -50,6 +52,7 @@ export function filaDePropiedad(p: Pick<Propiedad, "titulo" | "operacion" | "dir
     cod_tokko: d.cod_tokko ?? "",
     link: p.links?.colegas ?? "",
     llave: d.llave ?? "",
+    escritura: d.escritura ?? "",
   };
 }
 
@@ -84,6 +87,7 @@ const ENCABEZADOS: Readonly<Record<keyof FilaComercio, readonly string[]>> = {
   cod_tokko: ["codtokko", "codigotokko", "codigo", "cod"],
   link: ["linkparacolegas", "link", "ficha", "linkcolegas"],
   llave: ["llave", "tenemosllave", "tenemoslallave", "conllave", "llaves"],
+  escritura: ["escritura", "tieneescritura", "conescritura", "escriturado"],
 };
 
 /** Separa un CSV respetando comillas ("Corro 303, local 2" queda en una sola celda). Acepta coma o punto y coma. */
@@ -120,6 +124,12 @@ export function siNo(v: string): string {
   return "Sí";
 }
 
+/** "Tiene", "sí", "x" → "Tiene"; "no", "no tiene" → "No tiene"; vacío → "". */
+export function tieneONo(v: string): string {
+  const s = siNo(v.replace(/tiene/i, "").trim() || (normal(v) ? "si" : ""));
+  return s === "Sí" ? "Tiene" : s === "No" ? "No tiene" : "";
+}
+
 function operacionDe(v: string): Operacion {
   const n = normal(v);
   if (!n) return "";
@@ -136,7 +146,7 @@ export function filasDeCsv(texto: string): { filas: FilaComercio[]; faltan: stri
   const faltan: string[] = [];
   for (const k of Object.keys(ENCABEZADOS) as (keyof FilaComercio)[]) {
     pos[k] = cab.findIndex((h) => ENCABEZADOS[k].includes(normal(h)));
-    if (pos[k] < 0 && k !== "link" && k !== "cod_tokko" && k !== "m2_cubiertos" && k !== "llave") faltan.push(k);
+    if (pos[k] < 0 && k !== "link" && k !== "cod_tokko" && k !== "m2_cubiertos" && k !== "llave" && k !== "escritura") faltan.push(k);
   }
   const v = (f: string[], k: keyof FilaComercio) => (pos[k] >= 0 ? (f[pos[k]] ?? "").trim() : "");
   const filas = resto.map((f) => ({
@@ -144,6 +154,7 @@ export function filasDeCsv(texto: string): { filas: FilaComercio[]; faltan: stri
     m2_cubiertos: "", m2_totales: v(f, "m2_totales"), moneda: v(f, "moneda").toUpperCase(),
     precio: v(f, "precio"), cod_tokko: v(f, "cod_tokko").toUpperCase(), link: v(f, "link"),
     llave: siNo(v(f, "llave")),
+    escritura: tieneONo(v(f, "escritura")),
   })).filter((f) => f.direccion);
   return { filas, faltan };
 }

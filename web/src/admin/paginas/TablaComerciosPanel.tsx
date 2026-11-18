@@ -22,7 +22,7 @@ const COLUMNAS: readonly (readonly [keyof FilaComercio, string, string])[] = [
   ["link", "Link para colegas", "ancho"],
 ];
 /** Terceros suma la columna «Llave» (si ZF tiene la llave). */
-const COLUMNAS_TERCEROS: typeof COLUMNAS = [...COLUMNAS.slice(0, 7), ["llave", "Llave", "chico"], ...COLUMNAS.slice(7)];
+const COLUMNAS_TERCEROS: typeof COLUMNAS = [...COLUMNAS.slice(0, 7), ["llave", "Llave", "chico"], ["escritura", "Escritura", "medio"], ...COLUMNAS.slice(7)];
 
 let contador = 0;
 const nuevaClave = () => `r${++contador}`;
@@ -108,7 +108,8 @@ export function TablaComerciosPanel({ clave }: { readonly clave: ClavePanel }) {
     for (const fila of filas) {
       const existe = fila.cod_tokko ? porCodigo.get(fila.cod_tokko) : undefined;
       if (!existe) { nuevas++; agregadas.push({ clave: nuevaClave(), id: null, fila, original: "" }); continue; }
-      const combinada = { ...fila, link: fila.link || existe.fila.link, llave: fila.llave || existe.fila.llave };
+      const combinada = { ...fila, link: fila.link || existe.fila.link, llave: fila.llave || existe.fila.llave,
+        escritura: fila.escritura || existe.fila.escritura };
       if (firma(combinada) === firma(existe.fila)) iguales++;
       else { actualizadas++; actualizar.set(existe.clave, combinada); }
     }
@@ -215,6 +216,10 @@ export function TablaComerciosPanel({ clave }: { readonly clave: ClavePanel }) {
                       ) : k === "llave" ? (
                         <select aria-label={t} value={r.fila.llave} onChange={(e) => cambiar(r.clave, k, e.target.value)}>
                           <option value="">—</option><option value="Sí">Sí</option><option value="No">No</option>
+                        </select>
+                      ) : k === "escritura" ? (
+                        <select aria-label={t} value={r.fila.escritura} onChange={(e) => cambiar(r.clave, k, e.target.value)}>
+                          <option value="">—</option><option value="Tiene">Tiene</option><option value="No tiene">No tiene</option>
                         </select>
                       ) : k === "moneda" ? (
                         <select aria-label={t} value={r.fila.moneda} onChange={(e) => cambiar(r.clave, k, e.target.value)}>
