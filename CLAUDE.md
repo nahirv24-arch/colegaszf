@@ -13,8 +13,8 @@ oficinas. Es un proyecto aparte del Panel de Marketing: no tienen nada que ver.
   `C:\Users\DELL\Downloads\zf-colegas-actualizado-20261120T133242Z-1-001\zf-colegas-actualizado`.
   La computadora anterior usaba `C:\Users\Propietario\Downloads\...`. Las rutas viejas que aparecen en otros `.md`
   ya no existen en esta computadora.
-- **Repositorio:** GitHub `nahirv24-arch/colegaszf`. Ramas `desarrollo` (trabajo) y `main` (publicada). El 20/11 las dos
-  estaban iguales en `efaa442`. La etiqueta `respaldo-2026-11-11` guarda la página original de un solo archivo.
+- **Repositorio:** GitHub `nahirv24-arch/colegaszf`. Ramas `desarrollo` (trabajo) y `main` (publicada). Desde el 20/11 (pase
+  a producción de las etapas 2 a 5) las dos quedaron iguales otra vez. La etiqueta `respaldo-2026-11-11` guarda la página original de un solo archivo.
 - **Página publicada:** Cloudflare Pages, en `https://colegaszf.pages.dev`. Publica solo `main` y se actualiza sola al subir
   a `main`. Ver `CLOUDFLARE.md`.
 - **Netlify:** `colegaszfpropiedades.netlify.app` todavía muestra la página **original** (Netlify Drop). El plan gratis
@@ -59,7 +59,7 @@ oficinas. Es un proyecto aparte del Panel de Marketing: no tienen nada que ver.
   versiones e historial, Terceros, Locales y **Colegas** (registro de a quién se le dio acceso; solo administración).
 - Pie con la web, Instagram (https://www.instagram.com/zfpropiedades/) y WhatsApp comercial (https://wa.me/5493516378970).
 
-## Mejoras en curso (pedido del 20/11/2026, por etapas; cada etapa espera el OK de Nahir)
+## Mejoras del 20/11/2026 (etapas 1 a 5 terminadas y en producción)
 
 Pedido: condiciones de publicación, descripción y escribanía en cada desarrollo; planos en PDF con tipologías y
 descargas (individual y ZIP); descarga de fotos en Terceros. Plan completo presentado en la Etapa 1.
@@ -67,7 +67,7 @@ descargas (individual y ZIP); descarga de fotos en Terceros. Plan completo prese
   `condiciones`, `descripcion` y `escribania` a `desarrollos`. El JSON publicado los incluye **solo si tienen texto**,
   así no aparecen falsos «cambios sin publicar». Panel: grupo «Información para colegas» en `FormDatos.tsx`. Ficha: el
   componente `TextoLibre` (párrafos y listas con «-») va antes de la línea de posesión. Pruebas: `npm run pruebas`.
-  **Falta:** el OK de Nahir, el commit y aplicarla en producción (primero la migración, después el código a `main`).
+  En producción desde el 20/11.
 - **Etapa 3 (hecha en PRUEBA, 20/11):** migración `20261120130000_planos_pdf_tipologias.sql` (formato `pdf` solo para
   planos; datos del plano en `medios.metadatos`: `titulo`, `tipologia`, `variante`, `vista` = miniatura webp aparte;
   funciones `editar_plano`, `vista_plano`, `reemplazar_medio_conservando`; el JSON suma `planosInfo` solo si algún
@@ -75,21 +75,25 @@ descargas (individual y ZIP); descarga de fotos en Terceros. Plan completo prese
   pdf.js (`admin/vistaPdf.ts`, se carga solo en el panel). Ficha: `componentes/Planos.tsx` (etiqueta encima de la
   miniatura, «Descargar PDF», «Descargar todos los planos» = ZIP sin recomprimir). Nombres de archivo en
   `utilidades/planos.ts`. Probado en el navegador (subir, reemplazar, descargas con bytes idénticos, celular).
-  **Falta:** el OK de Nahir y pasar a producción junto con la Etapa 2.
+  En producción desde el 20/11.
 - **Etapa 4 (hecha en PRUEBA, 20/11; sin migración):** panel: columna «Fotos (N)» en la tabla de Terceros / Locales
   (lleva a la pestaña «Fotos y documentos» de esa propiedad; desactivada si hay cambios sin guardar) y «Reemplazar» en
   `MaterialPropiedad` (`reemplazarMedioProp`: el anterior queda en «Ver quitados»). Página: «Ver fotos (N)» por fila en
   `TablaComercios` abre `componentes/FotosPropiedad.tsx` debajo de la fila (miniaturas, visor, «Descargar» y «Descargar
   todas las fotos» = ZIP `Terceros_<Dirección>_Fotos.zip` sin recomprimir). Nombres en `utilidades/fotosPropiedad.ts`.
   Ojo: «Publicar tabla» cambia la fecha «actualizado» (comportamiento de siempre); en PRUEBA se volvió a 18/11.
-  **Falta:** el OK de Nahir y pasar todo a producción con su autorización.
+  En producción desde el 20/11.
 - **Etapa 5 (pruebas finales, hecha en PRUEBA, 20/11):** las 16 verificaciones del pedido OK. Respaldo comparado con el
   de antes de empezar: 17 desarrollos, 207 unidades y 174 archivos activos idénticos. Huellas de lo público idénticas.
   Recorridas 17 pantallas (panel y página) sin errores; celular sin desborde. Se corrigió que la miniatura de un PDF
   quedaba colgada si la pestaña estaba en segundo plano (`intent: "print"` en pdf.js + límite de 60 s; si falla, el PDF
   queda guardado y se usa «Rehacer miniatura»). Cuenta temporal bloqueada
   (`privado/cuenta-navegador-bloqueada-2026-11-20-b.json`).
-- **Pase a producción (pendiente, solo con autorización expresa de Nahir), en este orden:**
+- **PASADO A PRODUCCIÓN el 20/11/2026** con autorización de Nahir: respaldo
+  `respaldos/exportacion-2026-11-20T15-09-28-076Z.json`, migraciones 20261120120000 y 20261120130000 aplicadas,
+  contenido público y borradores idénticos antes y después, `main` = `desarrollo` y Cloudflare publicó en 40 s.
+  Falta que Nahir pruebe el panel real con su cuenta (subir un PDF, cargar textos, fotos de Terceros).
+  Pasos que se siguieron (sirven de modelo para la próxima vez):
   1. Respaldo: `npm run sb:exportar -- --produccion` y anotar la huella de `contenido_publico`.
   2. Ver qué falta: `npm run sb:migrar -- --ver --produccion --confirmo-produccion` (deben ser solo
      `20261120120000_…` y `20261120130000_…`).
