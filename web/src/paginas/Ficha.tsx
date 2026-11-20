@@ -5,6 +5,7 @@ import { Galeria } from "../componentes/Galeria";
 import { Pie } from "../componentes/Pie";
 import { Portada } from "../componentes/Portada";
 import { TablaDisponibles } from "../componentes/TablaDisponibles";
+import { TextoLibre } from "../componentes/TextoLibre";
 import { Visor } from "../componentes/Visor";
 import { useUrlMedio } from "../servicios/contexto";
 import type { ClaveGaleria, Desarrollo, RutaMedio } from "../tipos/datos";
@@ -34,6 +35,10 @@ export function Ficha({ e, logo }: Props) {
   const [visor, setVisor] = useState<{ lista: readonly RutaMedio[]; n: number } | null>(null);
   const rotulo = e.direccion ? e.direccion : e.desarrollista ? `Desarrolla ${e.desarrollista}` : "Desarrollo";
   const nombreBase = (e.nombre || "ZF").replace(/\s+/g, "-");
+  // Opcionales: si faltan o están vacíos no se muestra nada (ni espacio en blanco).
+  const condiciones = e.condiciones?.trim() ?? "";
+  const descripcion = e.descripcion?.trim() ?? "";
+  const escribania = e.escribania?.trim() ?? "";
 
   const galeria = (clave: ClaveGaleria, plano: boolean) => {
     const lista = e[clave] ?? [];
@@ -87,6 +92,18 @@ export function Ficha({ e, logo }: Props) {
       <Portada foto={e.portada} logo={logo} rotulo={rotulo} titular={e.nombre} />
       <main className="seccion col gut" style={{ paddingBlock: "34px 64px" }}>
         <a className="volver" href="#desarrollos"><span aria-hidden="true">&larr;</span> Todos los desarrollos</a>
+        {condiciones || descripcion || escribania ? (
+          <div className="intro-ficha">
+            {condiciones ? (
+              <section className="condiciones" aria-labelledby="titulo-condiciones">
+                <h2 id="titulo-condiciones" className="rot">Condiciones de publicación</h2>
+                <TextoLibre texto={condiciones} />
+              </section>
+            ) : null}
+            {descripcion ? <TextoLibre texto={descripcion} className="descripcion" /> : null}
+            {escribania ? <p className="escribania">Escribanía: <span>{escribania}</span></p> : null}
+          </div>
+        ) : null}
         <p className="spec">
           Posesión: {e.posesion ? e.posesion : "a confirmar"}{"  "}<span>/</span>{"  "}Gastos de posesión: {e.gastos ? e.gastos : "a confirmar"}
         </p>

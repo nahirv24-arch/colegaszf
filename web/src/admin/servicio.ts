@@ -43,6 +43,8 @@ export interface ResumenDesarrollo {
 export interface FilaDesarrollo {
   id: string; posicion: number; nombre: string; direccion: string; desarrollista: string;
   posesion: string; gastos: string; nota_tabla: string;
+  /** Etapa 2 (20/11/2026): textos opcionales que se muestran arriba de las pestañas de la ficha. */
+  condiciones: string; descripcion: string; escribania: string;
   links: Record<string, string>; columnas: Columna[]; disponibles_ejemplo: boolean;
   info_extra: Record<string, string>; estado: EstadoPublicacion; visible: boolean;
   creado_en: string; modificado_en: string; eliminado_en: string | null;
@@ -121,7 +123,7 @@ export function idDesdeNombre(nombre: string): string {
 }
 
 export type DatosEditables = Pick<FilaDesarrollo, "nombre" | "direccion" | "desarrollista" | "posesion" | "gastos"
-  | "nota_tabla" | "links" | "disponibles_ejemplo" | "info_extra">;
+  | "nota_tabla" | "condiciones" | "descripcion" | "escribania" | "links" | "disponibles_ejemplo" | "info_extra">;
 
 export async function crearDesarrollo(id: string, datos: DatosEditables): Promise<void> {
   if (!/^[a-z0-9][a-z0-9-]*$/.test(id)) throw new ErrorPanel("El identificador solo puede tener letras minúsculas, números y guiones.");

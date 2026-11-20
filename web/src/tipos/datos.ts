@@ -49,6 +49,10 @@ export interface Desarrollo {
   readonly disponiblesEjemplo: boolean;
   readonly columnas: readonly Columna[];
   readonly notaTabla: string;
+  /** Opcionales (etapa 2, 20/11/2026): solo vienen en el JSON publicado cuando tienen texto. */
+  readonly condiciones?: string;
+  readonly descripcion?: string;
+  readonly escribania?: string;
   /**
    * Reservado para el futuro panel (publicar / ocultar). Hoy no existe en los datos:
    * si falta, el desarrollo se considera publicado (como en la página original).

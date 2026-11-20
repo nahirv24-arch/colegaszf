@@ -25,7 +25,8 @@ const SELLOS = new Set(["modificado_en", "modificado_por", "creado_en", "creado_
 const CALCULADAS_UNIDAD = new Set(["grupo", "piso", "unidad", "tipologia", "estado", "precio"]);
 const NOMBRES: Record<string, string> = {
   nombre: "Nombre", direccion: "Dirección", desarrollista: "Desarrollista", posesion: "Posesión", gastos: "Gastos",
-  nota_tabla: "Nota de la tabla", links: "Enlaces", columnas: "Columnas", visible: "Visible en la página", estado: "Estado",
+  nota_tabla: "Nota de la tabla", condiciones: "Condiciones de publicación",
+  escribania: "Escribanía", links: "Enlaces", columnas: "Columnas", visible: "Visible en la página", estado: "Estado",
   eliminado_en: "En la papelera desde", info_extra: "Información adicional", disponibles_ejemplo: "Aviso «datos de ejemplo»",
   posicion: "Posición", orden: "Posición", tipo: "Tipo", ruta: "Archivo", ancho: "Ancho", alto: "Alto", bytes: "Tamaño",
   formato: "Formato", mime: "Tipo de archivo", version: "Versión", vigente: "Es la vigente", nota: "Nota",

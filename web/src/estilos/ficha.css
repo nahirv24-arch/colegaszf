@@ -2,6 +2,21 @@
 .volver{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:var(--humo);
         text-decoration:none;padding-block:22px}
 .volver:hover{color:var(--rojo)}
+/* Condiciones, descripción y escribanía (etapa 2): arriba de la línea de posesión. Vacíos = no se muestran. */
+.intro-ficha{display:flex;flex-direction:column;gap:22px;padding-block:6px 30px}
+.texto-libre{max-width:72ch;font-size:16px;line-height:1.62;color:var(--tinta)}
+.texto-libre p{margin:0;white-space:pre-line}
+.texto-libre p+p,.texto-libre p+ul,.texto-libre ul+p,.texto-libre ul+ul{margin-top:12px}
+.texto-libre ul{margin:0;padding-left:1.15em}
+.texto-libre li{padding-left:.2em}
+.texto-libre li+li{margin-top:4px}
+.texto-libre li::marker{color:var(--rojo)}
+.condiciones{background:var(--crema);border-left:2px solid var(--rojo);padding:20px 24px 22px}
+.condiciones .rot{margin:0 0 10px}
+.condiciones .texto-libre{font-size:15px;max-width:none}
+.escribania{margin:0;font-size:14px;color:var(--humo);letter-spacing:-.005em}
+.escribania span{color:var(--tinta)}
+@media (max-width:560px){.condiciones{padding:16px 16px 18px}.texto-libre{font-size:15.5px}}
 .spec{font-family:var(--mono);font-size:17px;font-weight:400;line-height:1.35;letter-spacing:-.01em;
       color:var(--tinta);margin:0;padding-block:26px;border-top:1px solid var(--linea);
       border-bottom:1px solid var(--linea)}

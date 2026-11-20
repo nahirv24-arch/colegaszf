@@ -9,13 +9,17 @@ const LINKS = [
 
 export const VACIO: DatosEditables = {
   nombre: "", direccion: "", desarrollista: "", posesion: "", gastos: "", nota_tabla: "",
+  condiciones: "", descripcion: "", escribania: "",
   links: { disponibles: "", brochure: "", planogeneral: "" }, disponibles_ejemplo: false, info_extra: {},
 };
 
 export function desdeFila(d: FilaDesarrollo): DatosEditables {
   return {
     nombre: d.nombre, direccion: d.direccion, desarrollista: d.desarrollista, posesion: d.posesion, gastos: d.gastos,
-    nota_tabla: d.nota_tabla, links: { ...d.links }, disponibles_ejemplo: d.disponibles_ejemplo, info_extra: { ...d.info_extra },
+    nota_tabla: d.nota_tabla,
+    // "?? ''" por si la base todavía no tiene las columnas nuevas (migración 20261120120000).
+    condiciones: d.condiciones ?? "", descripcion: d.descripcion ?? "", escribania: d.escribania ?? "",
+    links: { ...d.links }, disponibles_ejemplo: d.disponibles_ejemplo, info_extra: { ...d.info_extra },
   };
 }
 
@@ -51,7 +55,12 @@ export function FormDatos({ inicial, guardando, onGuardar, onCancelar, textoGuar
       <input type="text" value={d[k]} required={req} placeholder={ph} onChange={(e) => setD({ ...d, [k]: e.target.value })} /></label>
   );
 
-  const enviar = (e: FormEvent) => { e.preventDefault(); if (!d.nombre.trim()) return; onGuardar({ ...d, nombre: d.nombre.trim() }); };
+  // Los textos largos se guardan sin espacios ni renglones vacíos al principio o al final.
+  const enviar = (e: FormEvent) => {
+    e.preventDefault();
+    if (!d.nombre.trim()) return;
+    onGuardar({ ...d, nombre: d.nombre.trim(), condiciones: d.condiciones.trim(), descripcion: d.descripcion.trim(), escribania: d.escribania.trim() });
+  };
 
   return (
     <form className="adm-form adm-form-ancho" onSubmit={enviar}>
@@ -61,6 +70,21 @@ export function FormDatos({ inicial, guardando, onGuardar, onCancelar, textoGuar
         {campo("direccion", "Dirección", "Av. Vélez Sarsfield 1165, Nueva Córdoba")}
         <div className="adm-dos">{campo("posesion", "Fecha de posesión", "Marzo 2027 · Inmediata")}{campo("gastos", "Gastos de posesión", "USD 2.000")}</div>
         <p className="adm-ayuda">Se escriben tal cual se quieren mostrar. Si quedan vacíos, la página muestra «a confirmar».</p>
+      </fieldset>
+
+      <fieldset className="adm-grupo"><legend>Información para colegas</legend>
+        <p className="adm-ayuda">Se muestra en la ficha del desarrollo, arriba de las pestañas, en este orden. Son opcionales:
+          si un campo queda vacío, no aparece. Se respetan los renglones; para una lista, empezá cada renglón con «-».</p>
+        <label className="adm-campo"><span>Condiciones de publicación</span>
+          <textarea rows={6} maxLength={20000} value={d.condiciones} onChange={(e) => setD({ ...d, condiciones: e.target.value })}
+                    placeholder={"- Comisión compartida 50 %\n- Publicar sin precio\n- Consultar disponibilidad antes de ofrecer"} /></label>
+        <label className="adm-campo"><span>Descripción del desarrollo</span>
+          <textarea rows={8} maxLength={20000} value={d.descripcion} onChange={(e) => setD({ ...d, descripcion: e.target.value })}
+                    placeholder="Características generales del proyecto: ubicación, unidades, amenities, terminaciones…" /></label>
+        <label className="adm-campo"><span>Escribano / Escribanía</span>
+          <input type="text" maxLength={300} value={d.escribania} onChange={(e) => setD({ ...d, escribania: e.target.value })}
+                 placeholder="Escribanía Pérez" />
+          <small>En la página se muestra como «Escribanía: …».</small></label>
       </fieldset>
 
       <fieldset className="adm-grupo"><legend>Tabla de disponibles</legend>
