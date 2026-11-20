@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useUrlMedio } from "../servicios/contexto";
 import type { RutaMedio } from "../tipos/datos";
-import { bajarArchivo, bajarImagen } from "../utilidades/descargas";
+import { bajarArchivo, bajarImagen, bajarPlanoPdf } from "../utilidades/descargas";
 
 /** Qué se descarga desde el visor cuando lo que se ve NO es el archivo original (por ejemplo, la miniatura de un PDF). */
 export interface DescargaVisor {
@@ -11,6 +11,8 @@ export interface DescargaVisor {
   readonly nombre: string;
   /** Texto del botón ("Descargar PDF"). */
   readonly texto: string;
+  /** Si el original es una imagen, se descarga pasado a PDF (planos). */
+  readonly comoPdf?: boolean;
 }
 
 interface Props {
@@ -51,7 +53,9 @@ export function Visor({ lista, inicio, onCerrar, descargas, rotulos }: Props) {
     if (bajando) return;
     setBajando(true);
     // Sin datos propios: mismo nombre que el original ("imagen-<número>").
-    const tarea = descarga ? bajarArchivo(urlMedio(descarga.ruta), descarga.nombre) : bajarImagen(src, `imagen-${n + 1}`);
+    const tarea = !descarga ? bajarImagen(src, `imagen-${n + 1}`)
+      : descarga.comoPdf ? bajarPlanoPdf(urlMedio(descarga.ruta), descarga.nombre, rotulo ?? "")
+      : bajarArchivo(urlMedio(descarga.ruta), descarga.nombre);
     tarea.catch(() => undefined).finally(() => setBajando(false));
   };
 

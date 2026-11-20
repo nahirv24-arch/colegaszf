@@ -55,6 +55,13 @@ test("nombres de archivo: claros, con la extensión correcta y SIN repetidos", (
   assert.equal(new Set(n.map((x) => x.toLowerCase())).size, n.length);
 });
 
+test("siemprePdf: los planos en imagen se nombran .pdf (se descargan como PDF)", () => {
+  const n = nombresArchivosPlanos("Reggia 6", [
+    { ruta: "media/reggia-6/planos/plano-01.jpg" }, { ruta: "b.webp" }, { ruta: "c.pdf", formato: "pdf", tipologia: "Monoambiente" },
+  ], { siemprePdf: true });
+  assert.deepEqual(n, ["Reggia-6_Plano_01.pdf", "Reggia-6_Plano_02.pdf", "Reggia-6_Plano_Monoambiente.pdf"]);
+});
+
 test("sin nombre de desarrollo usa «ZF»", () => {
   assert.deepEqual(nombresArchivosPlanos("", [{ ruta: "a.pdf" }]), ["ZF_Plano_01.pdf"]);
 });

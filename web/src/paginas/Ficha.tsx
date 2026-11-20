@@ -84,7 +84,7 @@ export function Ficha({ e, logo }: Props) {
           contenido: () => (
             <Planos e={e} onAbrir={(vis, k, nombres) => setVisor({
               lista: vis.map(rutaVisible), n: k,
-              descargas: vis.map((p, j) => ({ ruta: p.ruta, nombre: nombres[j] ?? "plano", texto: esPdfPlano(p) ? "Descargar PDF" : "Descargar imagen" })),
+              descargas: vis.map((p, j) => ({ ruta: p.ruta, nombre: nombres[j] ?? "plano.pdf", texto: "Descargar PDF", comoPdf: !esPdfPlano(p) })),
               rotulos: vis.map((p) => [tituloPlano(p, (e.planos ?? []).indexOf(p.ruta)), etiquetaPlano(p)]
                 .filter((t, j, a) => t && a.indexOf(t) === j).join(" — ")),
             })} />

@@ -50,13 +50,14 @@ export function paraArchivo(texto: string): string {
  * Nombres de archivo para descargar los planos de un desarrollo, en el mismo orden, sin repetidos.
  *   Reggia-6_Plano_2-dormitorios-Tipo-C.pdf · Reggia-6_Plano_03.jpg · Reggia-6_Plano_Tipo-A-2.pdf
  */
-export function nombresArchivosPlanos(desarrollo: string, planos: readonly DatosPlano[]): string[] {
+export function nombresArchivosPlanos(desarrollo: string, planos: readonly DatosPlano[], opciones: { siemprePdf?: boolean } = {}): string[] {
   const base = paraArchivo(desarrollo) || "ZF";
   const usados = new Set<string>();
   return planos.map((p, i) => {
     const num = String(i + 1).padStart(2, "0");
     const detalle = paraArchivo(etiquetaPlano(p)) || paraArchivo(p.nombre ?? "") || num;
-    const ext = extensionPlano(p);
+    // siemprePdf: los planos en imagen también se descargan como PDF.
+    const ext = opciones.siemprePdf ? "pdf" : extensionPlano(p);
     let nombre = `${base}_Plano_${detalle}.${ext}`;
     for (let k = 2; usados.has(nombre.toLowerCase()); k++) nombre = `${base}_Plano_${detalle}-${k}.${ext}`;
     usados.add(nombre.toLowerCase());

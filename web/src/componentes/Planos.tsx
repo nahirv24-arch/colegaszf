@@ -1,6 +1,6 @@
 import { useMedio, useUrlMedio } from "../servicios/contexto";
 import type { Desarrollo, PlanoInfo, RutaMedio } from "../tipos/datos";
-import { bajarArchivo, bajarZipConNombres } from "../utilidades/descargas";
+import { bajarPlanoPdf, bajarZipConNombres, planoEnPdf } from "../utilidades/descargas";
 import { esPdfPlano, etiquetaPlano, nombresArchivosPlanos, paraArchivo, tituloPlano } from "../utilidades/planos";
 import { BotonAccion } from "./BotonAccion";
 
@@ -28,20 +28,22 @@ export function Planos({ e, onAbrir }: Props) {
   const urlMedio = useUrlMedio();
   const medio = useMedio();
   const planos = infoPlanos(e);
-  const nombres = nombresArchivosPlanos(e.nombre, planos);
+  // Todos los planos se descargan en PDF: los PDF originales tal cual; los que están en imagen, pasados a PDF sin perder calidad.
+  const nombres = nombresArchivosPlanos(e.nombre, planos, { siemprePdf: true });
   const visibles = planos.filter((p) => rutaVisible(p));
   const nombresVisibles = planos.map((p, i) => (rutaVisible(p) ? nombres[i]! : null)).filter((n): n is string => n !== null);
-  const hayPdf = planos.some(esPdfPlano);
 
   return (
     <>
       <div className="vinculos">
         <BotonAccion trabajando="Preparando los planos…" error="No se pudo armar el archivo — probá con internet"
-                     accion={() => bajarZipConNombres(planos.map((p, i) => ({ url: urlMedio(p.ruta), nombre: nombres[i]! })),
-                                                      `${paraArchivo(e.nombre) || "ZF"}_Planos.zip`)}>
+                     accion={() => bajarZipConNombres(planos.map((p, i) => ({
+                       url: urlMedio(p.ruta), nombre: nombres[i]!,
+                       armar: () => planoEnPdf(urlMedio(p.ruta), tituloPlano(p, i)),
+                     })), `${paraArchivo(e.nombre) || "ZF"}_Planos.zip`)}>
           Descargar todos los planos <span aria-hidden="true">&darr;</span>
         </BotonAccion>
-        <span className="pista">{hayPdf ? "Archivos originales, en máxima calidad" : "o descargá cada plano por separado"}</span>
+        <span className="pista">En PDF, en máxima calidad</span>
       </div>
       <ul className="galeria planos lista-planos">
         {planos.map((p, i) => {
@@ -66,9 +68,9 @@ export function Planos({ e, onAbrir }: Props) {
               )}
               <div className="plano-pie">
                 <span className="plano-titulo">{titulo}</span>
-                <BotonAccion trabajando="Descargando…" error="No se pudo descargar — probá de nuevo"
-                             accion={() => bajarArchivo(urlMedio(p.ruta), nombres[i]!)}>
-                  {pdf ? "Descargar PDF" : "Descargar imagen"} <span aria-hidden="true">&darr;</span>
+                <BotonAccion trabajando={pdf ? "Descargando…" : "Preparando el PDF…"} error="No se pudo descargar — probá de nuevo"
+                             accion={() => bajarPlanoPdf(urlMedio(p.ruta), nombres[i]!, titulo)}>
+                  Descargar PDF <span aria-hidden="true">&darr;</span>
                 </BotonAccion>
               </div>
             </li>
