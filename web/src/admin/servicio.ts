@@ -62,8 +62,17 @@ export type TipoMedio = "portada" | "foto" | "render" | "plano" | "pagina_brochu
 export interface FilaMedio {
   id: string; desarrollo_id: string | null; tipo: TipoMedio; orden: number; bucket: "media" | "privado";
   ruta: string; nombre: string; ancho: number | null; alto: number | null; bytes: number | null;
-  sha256: string | null; formato: "jpeg" | "png" | "webp" | null; mime: string | null;
+  sha256: string | null; formato: FormatoArchivo | null; mime: string | null;
+  /** Planos: titulo, tipologia, variante y vista (miniatura) — ver migración 20261120130000. */
+  metadatos: MetadatosPlano & Record<string, unknown>;
   eliminado_en: string | null; creado_en: string;
+}
+
+export type FormatoArchivo = "jpeg" | "png" | "webp" | "pdf";
+
+export interface MetadatosPlano {
+  titulo?: string; tipologia?: string; variante?: string;
+  vista?: { ruta: string; ancho: number | null; alto: number | null };
 }
 
 export interface Version {
@@ -208,15 +217,35 @@ export const AVISO_BYTES = 5 * 1024 * 1024;
 
 export const urlMedio = (m: Pick<FilaMedio, "ruta" | "bucket">) => urlPublicaMedia(`media/${m.ruta}`);
 
+/** Lo que se muestra como imagen: la miniatura de un PDF, o el archivo mismo si es imagen ("" = PDF sin miniatura). */
+export function urlMiniatura(m: Pick<FilaMedio, "ruta" | "bucket" | "formato" | "metadatos">): string {
+  const vista = m.metadatos?.vista?.ruta;
+  if (vista) return urlPublicaMedia(`media/${vista}`);
+  return m.formato === "pdf" ? "" : urlMedio(m);
+}
+
 export async function listarMedios(desarrolloId: string | null): Promise<FilaMedio[]> {
   const q = sb().from("medios").select("*").order("tipo").order("orden");
   return revisar(await (desarrolloId === null ? q.is("desarrollo_id", null) : q.eq("desarrollo_id", desarrolloId))) as FilaMedio[];
 }
 
+/** ¿El archivo elegido es un PDF? (por tipo o, si el navegador no lo informa, por la extensión) */
+export const esArchivoPdf = (f: File) => f.type === "application/pdf" || (!f.type && /\.pdf$/i.test(f.name));
+
+/** Revisa un PDF ANTES de subirlo (solo planos): tamaño y que realmente sea un PDF. */
+async function revisarPdf(f: File): Promise<{ formato: "pdf"; ancho: null; alto: null; aviso: string | null; bytes: ArrayBuffer }> {
+  if (f.size > LIMITE_BYTES) throw new ErrorPanel(`"${f.name}": pesa ${(f.size / 1048576).toFixed(1)} MB; el máximo es 20 MB.`);
+  if (f.size === 0) throw new ErrorPanel(`"${f.name}": el archivo está vacío.`);
+  const bytes = await f.arrayBuffer();
+  const { esPdf } = await import("./vistaPdf");
+  if (!esPdf(bytes)) throw new ErrorPanel(`"${f.name}": no es un PDF válido (¿archivo dañado o con otra extensión?).`);
+  return { formato: "pdf", ancho: null, alto: null, aviso: null, bytes };
+}
+
 /** Revisa un archivo ANTES de subirlo: tipo, tamaño y que se pueda abrir como imagen. */
 export async function revisarArchivo(f: File): Promise<{ formato: "jpeg" | "png" | "webp"; ancho: number; alto: number; aviso: string | null }> {
   const formato = FORMATOS_PERMITIDOS[f.type];
-  if (!formato) throw new ErrorPanel(`"${f.name}": formato no permitido (${f.type || "desconocido"}). Usá JPG, PNG o WEBP.`);
+  if (!formato) throw new ErrorPanel(`"${f.name}": formato no permitido (${f.type || "desconocido"}). Usá JPG, PNG o WEBP${esArchivoPdf(f) ? " (los PDF solo se aceptan en «Planos»)" : ""}.`);
   if (f.size > LIMITE_BYTES) throw new ErrorPanel(`"${f.name}": pesa ${(f.size / 1048576).toFixed(1)} MB; el máximo es 20 MB.`);
   if (f.size === 0) throw new ErrorPanel(`"${f.name}": el archivo está vacío.`);
   let bmp: ImageBitmap;
@@ -231,16 +260,54 @@ async function huella(f: File): Promise<string> {
   return Array.from(new Uint8Array(h)).map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-/** Sube el archivo con un nombre nuevo y único (nunca pisa archivos existentes). */
+const nombreUnico = (ext: string) => `${Date.now().toString(36)}-${crypto.getRandomValues(new Uint32Array(1))[0]!.toString(36)}.${ext}`;
+
+/** Sube el archivo con un nombre nuevo y único (nunca pisa archivos existentes). Los PDF solo se aceptan en planos
+ *  y se suben TAL CUAL (sin convertir ni comprimir). */
 async function subirArchivo(desarrolloId: string | null, tipo: TipoMedio, f: File) {
-  const info = await revisarArchivo(f);
+  const pdf = tipo === "plano" && esArchivoPdf(f);
+  const info = pdf ? await revisarPdf(f) : await revisarArchivo(f);
   const ext = info.formato === "jpeg" ? "jpg" : info.formato;
-  const nombre = `${Date.now().toString(36)}-${crypto.getRandomValues(new Uint32Array(1))[0]!.toString(36)}.${ext}`;
+  const nombre = nombreUnico(ext);
   const ruta = desarrolloId === null ? `general/${tipo}-${nombre}` : tipo === "portada" ? `${desarrolloId}/portada-${nombre}` : `${desarrolloId}/${CARPETA[tipo]}/${nombre}`;
   const sha = await huella(f);
-  const r = await sb().storage.from("media").upload(ruta, f, { contentType: f.type, upsert: false, cacheControl: "31536000" });
+  const mime = pdf ? "application/pdf" : f.type;
+  const r = await sb().storage.from("media").upload(ruta, f, { contentType: mime, upsert: false, cacheControl: "31536000" });
   if (r.error) throw new ErrorPanel(`"${f.name}": no se pudo subir. ${mensajeError(r.error)}`);
-  return { ruta, nombre: f.name, ancho: info.ancho, alto: info.alto, bytes: f.size, sha256: sha, formato: info.formato, mime: f.type, aviso: info.aviso };
+  return { ruta, nombre: f.name, ancho: info.ancho, alto: info.alto, bytes: f.size, sha256: sha, formato: info.formato, mime, aviso: info.aviso,
+           pdf: pdf ? (info as { bytes: ArrayBuffer }).bytes : null };
+}
+
+/**
+ * Arma y sube la miniatura de un plano en PDF y la asocia al plano. Si no se puede (PDF raro o protegido),
+ * el plano queda igual de válido: en la web se muestra como «PDF» y se descarga normalmente.
+ * Devuelve un aviso para mostrar, o null si salió bien.
+ */
+async function ponerVistaPdf(medioId: string, desarrolloId: string | null, pdf: ArrayBuffer, nombreArchivo: string): Promise<string | null> {
+  try {
+    const { generarVistaPdf } = await import("./vistaPdf");
+    const v = await generarVistaPdf(pdf);
+    const ruta = `${desarrolloId ?? "general"}/planos/vistas/${nombreUnico("webp")}`;
+    const r = await sb().storage.from("media").upload(ruta, v.blob, { contentType: "image/webp", upsert: false, cacheControl: "31536000" });
+    if (r.error) throw r.error;
+    revisar(await sb().rpc("vista_plano", { p_id: medioId, p_ruta: ruta, p_ancho: v.ancho, p_alto: v.alto }));
+    return null;
+  } catch (e) {
+    return `"${nombreArchivo}": el PDF se subió bien, pero no se pudo armar la miniatura (${mensajeError(e)}). Podés reintentar con «Rehacer miniatura».`;
+  }
+}
+
+/** Vuelve a armar la miniatura de un plano en PDF a partir del archivo original. */
+export async function rehacerVista(m: FilaMedio): Promise<string | null> {
+  if (m.formato !== "pdf") return null;
+  const r = await fetch(urlMedio(m));
+  if (!r.ok) throw new ErrorPanel("No se pudo leer el PDF original.");
+  return ponerVistaPdf(m.id, m.desarrollo_id, await r.arrayBuffer(), m.nombre || "plano");
+}
+
+/** Nombre, tipología y variante de un plano (sin volver a subir el archivo). */
+export async function editarPlano(id: string, datos: { titulo: string; tipologia: string; variante: string }): Promise<void> {
+  revisar(await sb().rpc("editar_plano", { p_id: id, p_titulo: datos.titulo, p_tipologia: datos.tipologia, p_variante: datos.variante }));
 }
 
 async function siguienteOrden(desarrolloId: string | null, tipo: TipoMedio): Promise<number> {
@@ -261,17 +328,26 @@ export async function subirMedio(desarrolloId: string | null, tipo: TipoMedio, f
   const a = await subirArchivo(desarrolloId, tipo, f);
   await liberarUnico(desarrolloId, tipo);
   const orden = await siguienteOrden(desarrolloId, tipo);
-  const { aviso, ...fila } = a;
-  revisar(await sb().from("medios").insert({ desarrollo_id: desarrolloId, tipo, orden, bucket: "media", ...fila }));
+  const { aviso, pdf, ...fila } = a;
+  const nuevo = revisar(await sb().from("medios").insert({ desarrollo_id: desarrolloId, tipo, orden, bucket: "media", ...fila })
+    .select("id").single()) as { id: string };
+  if (pdf) return (await ponerVistaPdf(nuevo.id, desarrolloId, pdf, f.name)) ?? aviso;
   return aviso;
 }
 
 /** Reemplazar: sube un archivo NUEVO; en una sola operación el anterior va a la papelera y el
- *  nuevo ocupa su lugar. El anterior sigue en Storage (lo usan las versiones ya publicadas). */
+ *  nuevo ocupa su lugar. El anterior sigue en Storage (lo usan las versiones ya publicadas).
+ *  Los planos conservan su nombre, tipología y variante (por ejemplo, al cambiar una imagen por su PDF). */
 export async function reemplazarMedio(m: FilaMedio, f: File): Promise<string | null> {
   const a = await subirArchivo(m.desarrollo_id, m.tipo, f);
-  revisar(await sb().rpc("reemplazar_medio", { p_id: m.id, p_ruta: a.ruta, p_nombre: a.nombre, p_ancho: a.ancho, p_alto: a.alto,
-    p_bytes: a.bytes, p_sha256: a.sha256, p_formato: a.formato, p_mime: a.mime }));
+  const args = { p_id: m.id, p_ruta: a.ruta, p_nombre: a.nombre, p_ancho: a.ancho, p_alto: a.alto,
+    p_bytes: a.bytes, p_sha256: a.sha256, p_formato: a.formato, p_mime: a.mime };
+  if (m.tipo !== "plano") {
+    revisar(await sb().rpc("reemplazar_medio", args));
+    return a.aviso;
+  }
+  const nuevoId = revisar(await sb().rpc("reemplazar_medio_conservando", { ...args, p_metadatos: {} })) as string;
+  if (a.pdf) return (await ponerVistaPdf(nuevoId, m.desarrollo_id, a.pdf, f.name)) ?? a.aviso;
   return a.aviso;
 }
 

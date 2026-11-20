@@ -178,7 +178,7 @@ async function main() {
       const r = await fetch(`${e.url}/storage/v1/object/public/media/${m.ruta}`);
       if (r.ok && createHash("sha256").update(Buffer.from(await r.arrayBuffer())).digest("hex") === m.sha256) bien++;
     }
-    prueba(8, "Los archivos públicos funcionan (descarga por dirección directa y bytes idénticos)", bien === 174 && medios.length === 174, `${bien} de ${medios?.length}`);
+    prueba(8, "Los archivos públicos funcionan (descarga por dirección directa y bytes idénticos)", medios.length >= 174 && bien === medios.length, `${bien} de ${medios?.length}`);
   }
   // 9 · Persistencia: clientes nuevos (como cerrar y volver a abrir) ven los cambios del admin
   {

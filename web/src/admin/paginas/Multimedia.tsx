@@ -1,17 +1,28 @@
-import { useRef, useState, type DragEvent } from "react";
+import { useEffect, useRef, useState, type DragEvent, type FormEvent } from "react";
 import {
-  listarMedios, mensajeError, quitarMedio, reemplazarMedio, reordenarMedios, restaurarMedio, subirMedio, urlMedio,
-  usarComoPortada, type FilaMedio, type TipoMedio,
+  editarPlano, listarMedios, mensajeError, quitarMedio, reemplazarMedio, rehacerVista, reordenarMedios, restaurarMedio,
+  subirMedio, urlMedio, urlMiniatura, usarComoPortada, type FilaMedio, type TipoMedio,
 } from "../servicio";
 import { Cargando, ErrorCaja, Modal, pesoLegible, useAvisos, useCarga, useConfirmar } from "../ui";
+import { etiquetaPlano, TIPOLOGIAS } from "../../utilidades/planos";
 
 const SECCIONES: { tipo: TipoMedio; titulo: string; ayuda: string }[] = [
   { tipo: "foto", titulo: "Fotografías reales", ayuda: "Obra, unidades y entorno. Se muestran en la pestaña «Imágenes»." },
   { tipo: "render", titulo: "Renders", ayuda: "Imágenes en alta del proyecto." },
-  { tipo: "plano", titulo: "Planos", ayuda: "Planos por tipología, con medidas." },
+  { tipo: "plano", titulo: "Planos", ayuda: "Mejor en PDF original (máxima calidad para descargar). También JPG, PNG o WEBP. Cargá la tipología con «Datos»." },
   { tipo: "pagina_brochure", titulo: "Páginas del brochure", ayuda: "Una imagen por página, EN ORDEN. Con estas páginas la página pública arma el PDF del brochure." },
 ];
 const ACEPTA = "image/jpeg,image/png,image/webp";
+/** Los planos aceptan además PDF (se guarda el original tal cual). */
+const aceptaDe = (tipo: TipoMedio) => (tipo === "plano" ? `${ACEPTA},application/pdf,.pdf` : ACEPTA);
+
+/** Miniatura del panel: imagen, miniatura del PDF o un recuadro «PDF» si todavía no tiene. */
+function Miniatura({ m }: { readonly m: FilaMedio }) {
+  const src = urlMiniatura(m);
+  if (!src) return <span className="adm-mini-pdf" aria-label="PDF sin miniatura">PDF</span>;
+  const v = m.metadatos?.vista;
+  return <img src={src} alt="" loading="lazy" width={(v?.ancho ?? m.ancho) ?? undefined} height={(v?.alto ?? m.alto) ?? undefined} />;
+}
 
 type Progreso = { nombre: string; estado: "esperando" | "subiendo" | "ok" | "error"; mensaje?: string };
 
@@ -20,6 +31,7 @@ export function Multimedia({ desarrolloId, onCambio }: { readonly desarrolloId: 
   const avisar = useAvisos();
   const confirmar = useConfirmar();
   const [viendo, setViendo] = useState<FilaMedio | null>(null);
+  const [editando, setEditando] = useState<FilaMedio | null>(null);
   const [eligiendoPortada, setEligiendoPortada] = useState(false);
   const [trabajando, setTrabajando] = useState(false);
 
@@ -74,12 +86,23 @@ export function Multimedia({ desarrolloId, onCambio }: { readonly desarrolloId: 
             }
           }}
           onPortada={s.tipo === "foto" || s.tipo === "render" ? (m) => void hacer(() => usarComoPortada(m), "Portada cambiada.") : undefined}
+          onDatos={s.tipo === "plano" ? setEditando : undefined}
+          onRehacerVista={s.tipo === "plano" ? (m) => void hacer(async () => { const aviso = await rehacerVista(m); if (aviso) throw new Error(aviso); }, "Miniatura rehecha.") : undefined}
           onRecuperar={(m) => void hacer(() => restaurarMedio(m), "Archivo recuperado (quedó al final).")} />
       ))}
 
       <Modal titulo={viendo?.nombre || "Vista de la imagen"} abierta={!!viendo} onCerrar={() => setViendo(null)} ancho={1100}>
-        {viendo ? <><img className="adm-vista-grande" src={urlMedio(viendo)} alt="" /><InfoArchivo m={viendo} /></> : null}
+        {viendo ? (
+          <>
+            {urlMiniatura(viendo) ? <img className="adm-vista-grande" src={urlMiniatura(viendo)} alt="" /> : <p className="adm-nota">Este PDF todavía no tiene miniatura.</p>}
+            <InfoArchivo m={viendo} />
+            {viendo.formato === "pdf" ? <p><a className="adm-btn chico" href={urlMedio(viendo)} target="_blank" rel="noopener">Abrir el PDF original ↗</a></p> : null}
+          </>
+        ) : null}
       </Modal>
+
+      <EditarPlano m={editando} onCerrar={() => setEditando(null)}
+        onGuardar={(m, datos) => { setEditando(null); void hacer(() => editarPlano(m.id, datos), "Datos del plano guardados."); }} />
 
       <Modal titulo="Elegir portada" abierta={eligiendoPortada} onCerrar={() => setEligiendoPortada(false)} ancho={900}>
         <p className="adm-ayuda">Tocá una imagen para usarla como portada (se usa el mismo archivo, no se vuelve a subir).</p>
@@ -96,6 +119,62 @@ export function Multimedia({ desarrolloId, onCambio }: { readonly desarrolloId: 
   );
 }
 
+const OTRA = "__otra__";
+
+/** Nombre, tipología (desplegable + «Otra») y variante de un plano. No vuelve a subir el archivo. */
+function EditarPlano({ m, onCerrar, onGuardar }: {
+  readonly m: FilaMedio | null; readonly onCerrar: () => void;
+  readonly onGuardar: (m: FilaMedio, datos: { titulo: string; tipologia: string; variante: string }) => void;
+}) {
+  const [titulo, setTitulo] = useState("");
+  const [opcion, setOpcion] = useState("");
+  const [otra, setOtra] = useState("");
+  const [variante, setVariante] = useState("");
+  useEffect(() => {
+    if (!m) return;
+    const t = (m.metadatos?.tipologia ?? "").trim();
+    const conocida = (TIPOLOGIAS as readonly string[]).includes(t);
+    setTitulo(m.metadatos?.titulo ?? "");
+    setOpcion(!t ? "" : conocida ? t : OTRA);
+    setOtra(conocida ? "" : t);
+    setVariante(m.metadatos?.variante ?? "");
+  }, [m]);
+  const tipologia = opcion === OTRA ? otra.trim() : opcion;
+  const enviar = (e: FormEvent) => { e.preventDefault(); if (m) onGuardar(m, { titulo: titulo.trim(), tipologia, variante: variante.trim() }); };
+
+  return (
+    <Modal titulo="Datos del plano" abierta={!!m} onCerrar={onCerrar} ancho={560}>
+      {m ? (
+        <form className="adm-form" onSubmit={enviar}>
+          <p className="adm-ayuda">Archivo: {m.nombre || "(sin nombre)"} · {(m.formato ?? "").toUpperCase().replace("JPEG", "JPG")}. Cambiar estos datos no toca el archivo.</p>
+          <label className="adm-campo"><span>Nombre del plano</span>
+            <input type="text" maxLength={200} value={titulo} onChange={(e) => setTitulo(e.target.value)} placeholder="Departamento frente, piso 2 al 8" />
+            <small>Opcional. Si queda vacío, se muestra la tipología.</small></label>
+          <div className="adm-dos">
+            <label className="adm-campo"><span>Tipología</span>
+              <select value={opcion} onChange={(e) => setOpcion(e.target.value)}>
+                <option value="">Sin tipología</option>
+                {TIPOLOGIAS.map((t) => <option key={t} value={t}>{t}</option>)}
+                <option value={OTRA}>Otra…</option>
+              </select></label>
+            <label className="adm-campo"><span>Identificador / variante</span>
+              <input type="text" maxLength={80} value={variante} onChange={(e) => setVariante(e.target.value)} placeholder="Tipo A" /></label>
+          </div>
+          {opcion === OTRA ? (
+            <label className="adm-campo"><span>Otra tipología</span>
+              <input type="text" maxLength={80} value={otra} onChange={(e) => setOtra(e.target.value)} placeholder="Dúplex · Local · Cochera" required /></label>
+          ) : null}
+          <p className="adm-ayuda">En la página se ve así sobre el plano: <b>{[tipologia, variante.trim()].filter(Boolean).join(" · ") || "(sin etiqueta)"}</b></p>
+          <div className="adm-acciones">
+            <button type="button" className="adm-btn" onClick={onCerrar}>Cancelar</button>
+            <button type="submit" className="adm-btn primario">Guardar</button>
+          </div>
+        </form>
+      ) : null}
+    </Modal>
+  );
+}
+
 function InfoArchivo({ m }: { readonly m: FilaMedio }) {
   return <span className="adm-info-archivo">{(m.formato ?? "").toUpperCase().replace("JPEG", "JPG")} · {pesoLegible(m.bytes)}{m.ancho ? ` · ${m.ancho}×${m.alto}` : ""}</span>;
 }
@@ -109,7 +188,7 @@ function Quitados({ lista, trabajando, onRecuperar }: { readonly lista: FilaMedi
         <div className="adm-miniaturas chicas">
           {lista.map((m) => (
             <div key={m.id} className="adm-mini quitado">
-              <img src={urlMedio(m)} alt="" loading="lazy" />
+              <Miniatura m={m} />
               <button type="button" className="adm-btn chico" disabled={trabajando} onClick={() => onRecuperar(m)}>Recuperar</button>
             </div>
           ))}
@@ -119,12 +198,14 @@ function Quitados({ lista, trabajando, onRecuperar }: { readonly lista: FilaMedi
   );
 }
 
-function SeccionMedios({ tipo, titulo, ayuda, desarrolloId, lista, quitados, trabajando, onVer, onListo, onReordenar, onReemplazar, onQuitar, onPortada, onRecuperar }: {
+function SeccionMedios({ tipo, titulo, ayuda, desarrolloId, lista, quitados, trabajando, onVer, onListo, onReordenar, onReemplazar, onQuitar, onPortada, onDatos, onRehacerVista, onRecuperar }: {
   readonly tipo: TipoMedio; readonly titulo: string; readonly ayuda: string; readonly desarrolloId: string;
   readonly lista: FilaMedio[]; readonly quitados: FilaMedio[]; readonly trabajando: boolean;
   readonly onVer: (m: FilaMedio) => void; readonly onListo: () => void; readonly onReordenar: (ids: string[]) => void;
   readonly onReemplazar: (m: FilaMedio, f: File) => void; readonly onQuitar: (m: FilaMedio) => void;
   readonly onPortada?: (m: FilaMedio) => void; readonly onRecuperar: (m: FilaMedio) => void;
+  /** Solo planos: editar nombre / tipología / variante y rehacer la miniatura de un PDF. */
+  readonly onDatos?: (m: FilaMedio) => void; readonly onRehacerVista?: (m: FilaMedio) => void;
 }) {
   const arrastrando = useRef<number | null>(null);
   const [sobre, setSobre] = useState<number | null>(null);
@@ -151,15 +232,21 @@ function SeccionMedios({ tipo, titulo, ayuda, desarrolloId, lista, quitados, tra
                   onDragStart={(e) => { arrastrando.current = i; e.dataTransfer.effectAllowed = "move"; }}
                   onDragOver={(e) => { e.preventDefault(); setSobre(i); }} onDragLeave={() => setSobre(null)} onDrop={(e) => soltar(e, i)}>
                 <button type="button" className="adm-mini-img" onClick={() => onVer(m)} aria-label={`Ver ${titulo.toLowerCase()} ${i + 1}`}>
-                  <img src={urlMedio(m)} alt="" loading="lazy" width={m.ancho ?? undefined} height={m.alto ?? undefined} />
+                  <Miniatura m={m} />
                   <span className="adm-mini-n">{i + 1}</span>
+                  {tipo === "plano" && etiquetaPlano(m.metadatos ?? {}) ? <span className="adm-mini-etiqueta">{etiquetaPlano(m.metadatos ?? {})}</span> : null}
                 </button>
+                {tipo === "plano" ? (
+                  <span className="adm-mini-titulo">{m.metadatos?.titulo?.trim() || (etiquetaPlano(m.metadatos ?? {}) ? "" : "Sin tipología cargada")}</span>
+                ) : null}
                 <InfoArchivo m={m} />
                 <div className="adm-mini-acc">
                   <button type="button" aria-label="Mover antes" disabled={trabajando || i === 0} onClick={() => mover(i, i - 1)}>←</button>
                   <button type="button" aria-label="Mover después" disabled={trabajando || i === lista.length - 1} onClick={() => mover(i, i + 1)}>→</button>
+                  {onDatos ? <button type="button" disabled={trabajando} onClick={() => onDatos(m)}>Datos</button> : null}
                   <label className="adm-mini-reemplazar">Reemplazar
-                    <input type="file" accept={ACEPTA} disabled={trabajando} onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) onReemplazar(m, f); }} /></label>
+                    <input type="file" accept={aceptaDe(tipo)} disabled={trabajando} onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) onReemplazar(m, f); }} /></label>
+                  {onRehacerVista && m.formato === "pdf" ? <button type="button" disabled={trabajando} onClick={() => onRehacerVista(m)}>Rehacer miniatura</button> : null}
                   {onPortada ? <button type="button" disabled={trabajando} onClick={() => onPortada(m)}>Portada</button> : null}
                   <button type="button" className="texto-peligro" disabled={trabajando} onClick={() => onQuitar(m)}>Quitar</button>
                 </div>
@@ -206,9 +293,10 @@ function SubirArchivos({ tipo, desarrolloId, multiple, texto, onListo }: {
          onDragLeave={() => setEncima(false)}
          onDrop={(e) => { if (!e.dataTransfer.files.length) return; e.preventDefault(); setEncima(false); void subir([...e.dataTransfer.files]); }}>
       <label className={ocupado ? "adm-btn primario desactivado" : "adm-btn primario"}>{ocupado ? "Subiendo…" : texto}
-        <input type="file" accept={ACEPTA} multiple={multiple} disabled={ocupado} className="adm-sr"
+        <input type="file" accept={aceptaDe(tipo)} multiple={multiple} disabled={ocupado} className="adm-sr"
                onChange={(e) => { const fs = [...(e.target.files ?? [])]; e.target.value = ""; void subir(fs); }} /></label>
-      <span className="adm-ayuda">{multiple ? "o arrastrá varias imágenes acá. Se agregan al final, en el orden en que las elegiste." : "o arrastrá la imagen acá."}</span>
+      <span className="adm-ayuda">{tipo === "plano" ? "o arrastrá los PDF o imágenes acá. Los PDF se guardan originales; la miniatura se arma sola."
+        : multiple ? "o arrastrá varias imágenes acá. Se agregan al final, en el orden en que las elegiste." : "o arrastrá la imagen acá."}</span>
       {progreso.length ? (
         <ul className="adm-progreso" aria-live="polite">
           {progreso.map((p, i) => (

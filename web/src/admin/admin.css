@@ -216,6 +216,13 @@ a.adm-tarjeta:hover { border-top-color: var(--rojo); }
 .adm-mini-reemplazar input { display: none; }
 .adm-mini-elegir { padding: 6px; border: 1px solid var(--linea); background: #fff; cursor: pointer; }
 .adm-mini-elegir:hover { border-color: var(--rojo); }
+/* Planos (etapa 3): PDF sin miniatura, etiqueta de tipología y nombre */
+.adm-mini-pdf { width: 100%; aspect-ratio: 4/3; display: grid; place-items: center; background: #fff; border: 1px dashed var(--linea);
+  font-family: var(--mono); font-size: 15px; letter-spacing: .12em; color: var(--humo); }
+.adm-mini-etiqueta { position: absolute; left: 6px; bottom: 6px; max-width: calc(100% - 12px); background: rgba(26,37,44,.86); color: #fff;
+  font-size: 11.5px; padding: 3px 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.adm-mini-titulo { font-size: 12.5px; line-height: 1.3; color: var(--tinta); min-height: 1em; }
+.adm-mini-titulo:empty { display: none; }
 .adm-vista-grande { max-width: 100%; max-height: 70vh; margin: 0 auto 10px; display: block; background: #fff; }
 .adm-subir { border: 1px dashed #CFC8BC; padding: 14px 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; background: #FBFAF7; }
 .adm-subir.encima { border-color: var(--rojo); background: #FDF2F3; }

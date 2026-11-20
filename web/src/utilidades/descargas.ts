@@ -42,6 +42,25 @@ export async function bajarZip(urls: readonly string[], nombre: string): Promise
   guardar(await zip.generateAsync({ type: "blob" }), `${nombre}.zip`);
 }
 
+/** Descarga un archivo con el nombre indicado, con sus bytes originales (PDF o imagen, sin convertir). */
+export async function bajarArchivo(url: string, nombre: string): Promise<void> {
+  guardar(await traer(url), nombre);
+}
+
+/**
+ * ZIP con nombres propios. Los archivos van SIN comprimir ("STORE"): los PDF y las imágenes ya vienen
+ * comprimidos, así que no se pierde nada y cada archivo sale idéntico al original.
+ * Los nombres tienen que llegar sin repetir (ver nombresArchivosPlanos).
+ */
+export async function bajarZipConNombres(archivos: readonly { url: string; nombre: string }[], nombreZip: string): Promise<void> {
+  if (!archivos.length) return;
+  const { default: JSZip } = await import("jszip");
+  const zip = new JSZip();
+  const blobs = await Promise.all(archivos.map((a) => traer(a.url)));
+  archivos.forEach((a, i) => zip.file(a.nombre, blobs[i] as Blob, { binary: true, compression: "STORE" }));
+  guardar(await zip.generateAsync({ type: "blob", compression: "STORE" }), nombreZip);
+}
+
 interface PaginaJPEG { dato: string; w: number; h: number }
 
 function comoJPEG(src: string): Promise<PaginaJPEG | null> {

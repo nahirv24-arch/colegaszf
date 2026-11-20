@@ -10,6 +10,21 @@
 .galeria img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;transition:transform .5s ease}
 .galeria button:hover img{transform:scale(1.03)}
 
+/* ---------- planos (etapa 3): etiqueta de tipología y descarga del original ---------- */
+.lista-planos{list-style:none;padding:0;margin:18px 0 0}
+.plano{display:flex;flex-direction:column;min-width:0}
+.plano>button,.plano-sin-vista{position:relative;width:100%}
+.etiqueta-plano{position:absolute;left:10px;bottom:10px;max-width:calc(100% - 20px);background:rgba(26,37,44,.88);
+  color:#fff;font-size:12px;font-weight:500;letter-spacing:.01em;line-height:1.3;padding:5px 10px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+.plano-sin-vista{display:grid;place-items:center;aspect-ratio:4/3;background:#fff;border:1px solid var(--linea);
+  text-decoration:none;color:var(--humo);font-family:var(--mono);font-size:15px;letter-spacing:.14em}
+.plano-sin-vista:hover{border-color:var(--rojo);color:var(--rojo)}
+.plano-pie{display:flex;justify-content:space-between;align-items:baseline;gap:6px 14px;flex-wrap:wrap;padding:11px 1px 2px}
+.plano-titulo{font-size:14px;line-height:1.35;color:var(--tinta);min-width:0}
+.plano-pie .vinculo{font-size:13.5px;white-space:nowrap}
+@media (max-width:420px){.galeria.planos{grid-template-columns:1fr}}
+
 /* ---------- visor ---------- */
 .visor{position:fixed;inset:0;background:rgba(26,37,44,.94);z-index:50;display:flex;align-items:center;
        justify-content:center;padding:24px}
@@ -26,3 +41,5 @@
 .visor .bajar button{background:none;border:1px solid rgba(255,255,255,.55);color:#fff;
   font-family:var(--display);font-size:13px;font-weight:300;padding:9px 16px;cursor:pointer}
 .visor .bajar button:hover{background:#fff;color:var(--tinta)}
+.visor .bajar button:disabled{opacity:.6;cursor:default}
+.visor .rotulo-visor{display:block;color:#fff;font-size:13.5px;margin:0 16px 10px;opacity:.92}

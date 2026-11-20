@@ -10,7 +10,7 @@
     "build": "npm run typecheck && vite build",
     "preview": "vite preview",
     "pruebas": "node --test scripts/pruebas/",
-    "validar":"python scripts/validar_extraccion.py",
+    "validar": "python scripts/validar_extraccion.py",
     "sb:migrar": "node scripts/supabase/migrar.mjs",
     "sb:importar": "node scripts/supabase/importar.mjs",
     "sb:admin": "node scripts/supabase/asignar_admin.mjs",
@@ -23,6 +23,7 @@
     "@supabase/supabase-js": "^2.119.0",
     "jspdf": "^4.2.1",
     "jszip": "^3.10.2",
+    "pdfjs-dist": "6.4.299",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "react-router": "^8.5.1"

@@ -123,7 +123,7 @@ export function fechaHora(iso: string | null | undefined): string {
 
 export function pesoLegible(b: number | null | undefined): string {
   if (!b) return "—";
-  return b > 1048576 ? `${(b / 1048576).toFixed(1)} MB` : `${Math.round(b / 1024)} KB`;
+  return b > 1048576 ? `${(b / 1048576).toFixed(1)} MB` : `${Math.max(1, Math.round(b / 1024))} KB`;
 }
 
 /** Hook para cargar datos con estado de carga/error y recarga. */

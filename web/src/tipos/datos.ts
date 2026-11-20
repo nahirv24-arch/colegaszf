@@ -54,10 +54,30 @@ export interface Desarrollo {
   readonly descripcion?: string;
   readonly escribania?: string;
   /**
+   * Etapa 3: datos de cada plano, en el mismo orden que `planos`. Solo viene cuando algún plano
+   * tiene PDF o datos cargados; si falta, los planos son imágenes sin tipología (como antes).
+   */
+  readonly planosInfo?: readonly PlanoInfo[];
+  /**
    * Reservado para el futuro panel (publicar / ocultar). Hoy no existe en los datos:
    * si falta, el desarrollo se considera publicado (como en la página original).
    */
   readonly publicado?: boolean;
+}
+
+export interface PlanoInfo {
+  /** Archivo ORIGINAL (PDF o imagen): es lo que se descarga. */
+  readonly ruta: RutaMedio;
+  /** Miniatura para mostrar ("" = no tiene: si el original es imagen, se muestra el original). */
+  readonly vista: RutaMedio;
+  readonly vistaAncho: number;
+  readonly vistaAlto: number;
+  readonly nombre: string;
+  readonly tipologia: string;
+  readonly variante: string;
+  /** "pdf", "jpeg", "png", "webp" o "". */
+  readonly formato: string;
+  readonly bytes: number;
 }
 
 export interface Sitio {

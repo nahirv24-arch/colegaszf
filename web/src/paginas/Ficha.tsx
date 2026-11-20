@@ -2,14 +2,16 @@ import { useState, type ReactNode } from "react";
 import { BotonAccion } from "../componentes/BotonAccion";
 import { FilaSeccion } from "../componentes/FilaSeccion";
 import { Galeria } from "../componentes/Galeria";
+import { Planos, rutaVisible } from "../componentes/Planos";
 import { Pie } from "../componentes/Pie";
 import { Portada } from "../componentes/Portada";
 import { TablaDisponibles } from "../componentes/TablaDisponibles";
 import { TextoLibre } from "../componentes/TextoLibre";
-import { Visor } from "../componentes/Visor";
+import { Visor, type DescargaVisor } from "../componentes/Visor";
 import { useUrlMedio } from "../servicios/contexto";
 import type { ClaveGaleria, Desarrollo, RutaMedio } from "../tipos/datos";
 import { bajarBrochure } from "../utilidades/descargas";
+import { esPdfPlano, etiquetaPlano, tituloPlano } from "../utilidades/planos";
 
 /** Las filas de la ficha, en el orden del original. */
 const PUNTOS = [
@@ -32,7 +34,9 @@ interface Props {
 /** Ficha de un desarrollo: portada, posesión y gastos, y las secciones que se abren. */
 export function Ficha({ e, logo }: Props) {
   const urlMedio = useUrlMedio();
-  const [visor, setVisor] = useState<{ lista: readonly RutaMedio[]; n: number } | null>(null);
+  const [visor, setVisor] = useState<{
+    lista: readonly RutaMedio[]; n: number; descargas?: readonly DescargaVisor[]; rotulos?: readonly string[];
+  } | null>(null);
   const rotulo = e.direccion ? e.direccion : e.desarrollista ? `Desarrolla ${e.desarrollista}` : "Desarrollo";
   const nombreBase = (e.nombre || "ZF").replace(/\s+/g, "-");
   // Opcionales: si faltan o están vacíos no se muestra nada (ni espacio en blanco).
@@ -74,7 +78,18 @@ export function Ficha({ e, logo }: Props) {
       }
       case "planos": {
         const n = (e.planos ?? []).length;
-        return n ? { etiqueta: plural(n, " plano", " planos"), contenido: () => galeria("planos", true) } : { etiqueta: "", contenido: null };
+        if (!n) return { etiqueta: "", contenido: null };
+        return {
+          etiqueta: plural(n, " plano", " planos"),
+          contenido: () => (
+            <Planos e={e} onAbrir={(vis, k, nombres) => setVisor({
+              lista: vis.map(rutaVisible), n: k,
+              descargas: vis.map((p, j) => ({ ruta: p.ruta, nombre: nombres[j] ?? "plano", texto: esPdfPlano(p) ? "Descargar PDF" : "Descargar imagen" })),
+              rotulos: vis.map((p) => [tituloPlano(p, (e.planos ?? []).indexOf(p.ruta)), etiquetaPlano(p)]
+                .filter((t, j, a) => t && a.indexOf(t) === j).join(" — ")),
+            })} />
+          ),
+        };
       }
       case "imagenes": {
         const n = (e.imagenes ?? []).length;
@@ -116,7 +131,7 @@ export function Ficha({ e, logo }: Props) {
         </div>
       </main>
       <Pie />
-      {visor ? <Visor lista={visor.lista} inicio={visor.n} onCerrar={() => setVisor(null)} /> : null}
+      {visor ? <Visor lista={visor.lista} inicio={visor.n} descargas={visor.descargas} rotulos={visor.rotulos} onCerrar={() => setVisor(null)} /> : null}
     </>
   );
 }

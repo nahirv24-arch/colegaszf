@@ -68,9 +68,19 @@ descargas (individual y ZIP); descarga de fotos en Terceros. Plan completo prese
   así no aparecen falsos «cambios sin publicar». Panel: grupo «Información para colegas» en `FormDatos.tsx`. Ficha: el
   componente `TextoLibre` (párrafos y listas con «-») va antes de la línea de posesión. Pruebas: `npm run pruebas`.
   **Falta:** el OK de Nahir, el commit y aplicarla en producción (primero la migración, después el código a `main`).
-- **Etapa 3 (planos PDF + tipologías) y Etapa 4 (fotos de Terceros):** esperan dos decisiones de Nahir. Una: si la
-  vista previa de los PDF se genera sola (pdf.js, solo en el panel) o la sube ella. La otra: confirmar que las fotos de
-  Terceros se cargan desde el panel (hoy están solo en Tokko, y la tabla pública solo tiene el link «Ver ficha»).
+- **Etapa 3 (hecha en PRUEBA, 20/11):** migración `20261120130000_planos_pdf_tipologias.sql` (formato `pdf` solo para
+  planos; datos del plano en `medios.metadatos`: `titulo`, `tipologia`, `variante`, `vista` = miniatura webp aparte;
+  funciones `editar_plano`, `vista_plano`, `reemplazar_medio_conservando`; el JSON suma `planosInfo` solo si algún
+  plano es PDF o tiene datos; `restaurar_version` devuelve los datos de cada plano). La miniatura la arma el panel con
+  pdf.js (`admin/vistaPdf.ts`, se carga solo en el panel). Ficha: `componentes/Planos.tsx` (etiqueta encima de la
+  miniatura, «Descargar PDF», «Descargar todos los planos» = ZIP sin recomprimir). Nombres de archivo en
+  `utilidades/planos.ts`. Probado en el navegador (subir, reemplazar, descargas con bytes idénticos, celular).
+  **Falta:** el OK de Nahir y pasar a producción junto con la Etapa 2.
+- **Etapa 4 (fotos de Terceros):** Nahir confirmó que las carga ella desde el panel. Plan: botón «Fotos» por fila en la
+  tabla de Terceros del panel (va a `MaterialPropiedad`, sumar «Reemplazar») y «Ver fotos» por fila en la tabla
+  pública, con descarga individual y ZIP `Terceros_<Propiedad>_Fotos.zip` con los originales.
+- La cuenta temporal de navegador (`privado/cuenta-navegador.json`, solo PRUEBA) sigue activa para probar la Etapa 4;
+  al terminar, quitarle el rol y bloquearla (no se puede borrar porque publicó versiones).
 - Ojo: una cuenta temporal (`cuenta_navegador.mjs`) que **publicó** versiones no se puede borrar («Database error
   deleting user»). Se le quitó el rol y se la bloqueó (`privado/cuenta-navegador-bloqueada-2026-11-20.json`).
 - `verificar.mjs` en PRUEBA da 14/15: la fecha «actualizado» de la base de pruebas (18/11) difiere de la del JSON

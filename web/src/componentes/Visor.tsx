@@ -1,18 +1,33 @@
 import { useCallback, useEffect, useState } from "react";
 import { useUrlMedio } from "../servicios/contexto";
 import type { RutaMedio } from "../tipos/datos";
-import { bajarImagen } from "../utilidades/descargas";
+import { bajarArchivo, bajarImagen } from "../utilidades/descargas";
+
+/** Qué se descarga desde el visor cuando lo que se ve NO es el archivo original (por ejemplo, la miniatura de un PDF). */
+export interface DescargaVisor {
+  /** Archivo original. */
+  readonly ruta: RutaMedio;
+  /** Nombre con extensión ("Reggia-6_Plano_2-dormitorios-Tipo-C.pdf"). */
+  readonly nombre: string;
+  /** Texto del botón ("Descargar PDF"). */
+  readonly texto: string;
+}
 
 interface Props {
   readonly lista: readonly RutaMedio[];
   readonly inicio: number;
   readonly onCerrar: () => void;
+  /** Opcional, alineado con `lista`: descarga del original en lugar de la imagen que se ve. */
+  readonly descargas?: readonly DescargaVisor[];
+  /** Opcional, alineado con `lista`: rótulo que se muestra abajo (por ejemplo, la tipología del plano). */
+  readonly rotulos?: readonly string[];
 }
 
 /** Visor a pantalla completa: flechas, teclado (← → Esc), contador y descarga de la imagen. */
-export function Visor({ lista, inicio, onCerrar }: Props) {
+export function Visor({ lista, inicio, onCerrar, descargas, rotulos }: Props) {
   const urlMedio = useUrlMedio();
   const [n, setN] = useState(inicio);
+  const [bajando, setBajando] = useState(false);
   const total = lista.length;
   const ver = useCallback((k: number) => setN(((k % total) + total) % total), [total]);
 
@@ -29,6 +44,16 @@ export function Visor({ lista, inicio, onCerrar }: Props) {
   const ruta = lista[n];
   if (ruta === undefined) return null;
   const src = urlMedio(ruta);
+  const descarga = descargas?.[n];
+  const rotulo = rotulos?.[n];
+
+  const bajar = () => {
+    if (bajando) return;
+    setBajando(true);
+    // Sin datos propios: mismo nombre que el original ("imagen-<número>").
+    const tarea = descarga ? bajarArchivo(urlMedio(descarga.ruta), descarga.nombre) : bajarImagen(src, `imagen-${n + 1}`);
+    tarea.catch(() => undefined).finally(() => setBajando(false));
+  };
 
   return (
     <div className="visor" onClick={(ev) => {
@@ -42,11 +67,10 @@ export function Visor({ lista, inicio, onCerrar }: Props) {
       <button className="nav der" type="button" aria-label="Siguiente"
               onClick={(ev) => { ev.stopPropagation(); ver(n + 1); }}>&rsaquo;</button>
       <div className="bajar">
-        <button type="button" onClick={(ev) => {
-          ev.stopPropagation();
-          // Mismo nombre que el original: "imagen-<número>".
-          void bajarImagen(src, `imagen-${n + 1}`);
-        }}>Descargar esta imagen</button>
+        {rotulo ? <span className="rotulo-visor">{rotulo}</span> : null}
+        <button type="button" disabled={bajando} onClick={(ev) => { ev.stopPropagation(); bajar(); }}>
+          {bajando ? "Descargando…" : descarga ? descarga.texto : "Descargar esta imagen"}
+        </button>
       </div>
       <div className="cuenta">{n + 1} / {total}</div>
     </div>
