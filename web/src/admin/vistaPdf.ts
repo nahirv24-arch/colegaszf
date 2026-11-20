@@ -7,7 +7,7 @@
 /** Lado mayor de la miniatura, en píxeles (alcanza para verla nítida a pantalla completa). */
 const LADO_MAYOR = 2000;
 
-export interface VistaGenerada { blob: Blob; ancho: number; alto: number }
+export interface VistaGenerada { blob: Blob; ancho: number; alto: number; extension: "webp" | "jpg" }
 
 export async function generarVistaPdf(datos: ArrayBuffer): Promise<VistaGenerada> {
   const pdfjs = await import("pdfjs-dist");
@@ -28,10 +28,15 @@ export async function generarVistaPdf(datos: ArrayBuffer): Promise<VistaGenerada
     if (!cx) throw new Error("El navegador no pudo preparar la miniatura.");
     cx.fillStyle = "#fff";
     cx.fillRect(0, 0, canvas.width, canvas.height);
-    await pagina.render({ canvas, canvasContext: cx, viewport: vista, background: "#ffffff" }).promise;
-    const blob = await new Promise<Blob | null>((res) => canvas.toBlob(res, "image/webp", 0.9));
+    // intent "print": dibuja todo de una vez, sin esperar a que el navegador pinte la pantalla.
+    // Con el modo normal, si la pestaña queda en segundo plano durante la subida, la miniatura no termina nunca.
+    await pagina.render({ canvas, canvasContext: cx, viewport: vista, background: "#ffffff", intent: "print" }).promise;
+    const comoBlob = (tipo: string) => new Promise<Blob | null>((res) => canvas.toBlob(res, tipo, 0.9));
+    let blob = await comoBlob("image/webp");
+    // Algunos navegadores (Safari) no generan WEBP y devuelven PNG: en ese caso, JPG (más liviano).
+    if (blob && blob.type !== "image/webp") blob = await comoBlob("image/jpeg");
     if (!blob) throw new Error("El navegador no pudo guardar la miniatura.");
-    return { blob, ancho: canvas.width, alto: canvas.height };
+    return { blob, ancho: canvas.width, alto: canvas.height, extension: blob.type === "image/webp" ? "webp" : "jpg" };
   } finally {
     void tarea.destroy();
   }

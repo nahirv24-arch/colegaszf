@@ -82,7 +82,22 @@ descargas (individual y ZIP); descarga de fotos en Terceros. Plan completo prese
   `TablaComercios` abre `componentes/FotosPropiedad.tsx` debajo de la fila (miniaturas, visor, «Descargar» y «Descargar
   todas las fotos» = ZIP `Terceros_<Dirección>_Fotos.zip` sin recomprimir). Nombres en `utilidades/fotosPropiedad.ts`.
   Ojo: «Publicar tabla» cambia la fecha «actualizado» (comportamiento de siempre); en PRUEBA se volvió a 18/11.
-  **Falta:** el OK de Nahir, la Etapa 5 (pruebas finales) y pasar todo a producción con su autorización.
+  **Falta:** el OK de Nahir y pasar todo a producción con su autorización.
+- **Etapa 5 (pruebas finales, hecha en PRUEBA, 20/11):** las 16 verificaciones del pedido OK. Respaldo comparado con el
+  de antes de empezar: 17 desarrollos, 207 unidades y 174 archivos activos idénticos. Huellas de lo público idénticas.
+  Recorridas 17 pantallas (panel y página) sin errores; celular sin desborde. Se corrigió que la miniatura de un PDF
+  quedaba colgada si la pestaña estaba en segundo plano (`intent: "print"` en pdf.js + límite de 60 s; si falla, el PDF
+  queda guardado y se usa «Rehacer miniatura»). Cuenta temporal bloqueada
+  (`privado/cuenta-navegador-bloqueada-2026-11-20-b.json`).
+- **Pase a producción (pendiente, solo con autorización expresa de Nahir), en este orden:**
+  1. Respaldo: `npm run sb:exportar -- --produccion` y anotar la huella de `contenido_publico`.
+  2. Ver qué falta: `npm run sb:migrar -- --ver --produccion --confirmo-produccion` (deben ser solo
+     `20261120120000_…` y `20261120130000_…`).
+  3. Aplicar: `npm run sb:migrar -- --produccion --confirmo-produccion`. Comprobar que lo público no cambió y que no
+     aparecen «cambios sin publicar» falsos.
+  4. Recién después, pasar `desarrollo` → `main` y subir (Cloudflare publica solo). Si el código llegara antes que
+     las migraciones, el panel fallaría al guardar los campos nuevos o subir PDF (la página pública no se rompe).
+  5. Revisar `colegaszf.pages.dev` y el panel con la cuenta de Nahir.
 - La cuenta temporal de navegador (`privado/cuenta-navegador.json`, solo PRUEBA) sigue activa para probar la Etapa 4;
   al terminar, quitarle el rol y bloquearla (no se puede borrar porque publicó versiones).
 - Ojo: una cuenta temporal (`cuenta_navegador.mjs`) que **publicó** versiones no se puede borrar («Database error

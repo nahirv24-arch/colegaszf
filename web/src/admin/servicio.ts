@@ -283,12 +283,20 @@ async function subirArchivo(desarrolloId: string | null, tipo: TipoMedio, f: Fil
  * el plano queda igual de válido: en la web se muestra como «PDF» y se descarga normalmente.
  * Devuelve un aviso para mostrar, o null si salió bien.
  */
+const LIMITE_MINIATURA_MS = 60_000;
+
 async function ponerVistaPdf(medioId: string, desarrolloId: string | null, pdf: ArrayBuffer, nombreArchivo: string): Promise<string | null> {
   try {
     const { generarVistaPdf } = await import("./vistaPdf");
-    const v = await generarVistaPdf(pdf);
-    const ruta = `${desarrolloId ?? "general"}/planos/vistas/${nombreUnico("webp")}`;
-    const r = await sb().storage.from("media").upload(ruta, v.blob, { contentType: "image/webp", upsert: false, cacheControl: "31536000" });
+    // Si la miniatura tarda demasiado (conexión lenta, pestaña en segundo plano), se sigue igual:
+    // el PDF ya quedó guardado y la miniatura se puede rehacer después.
+    let espera: ReturnType<typeof setTimeout> | undefined;
+    const limite = new Promise<never>((_, no) => {
+      espera = setTimeout(() => no(new Error("tardó demasiado")), LIMITE_MINIATURA_MS);
+    });
+    const v = await Promise.race([generarVistaPdf(pdf), limite]).finally(() => clearTimeout(espera));
+    const ruta = `${desarrolloId ?? "general"}/planos/vistas/${nombreUnico(v.extension)}`;
+    const r = await sb().storage.from("media").upload(ruta, v.blob, { contentType: v.blob.type, upsert: false, cacheControl: "31536000" });
     if (r.error) throw r.error;
     revisar(await sb().rpc("vista_plano", { p_id: medioId, p_ruta: ruta, p_ancho: v.ancho, p_alto: v.alto }));
     return null;
