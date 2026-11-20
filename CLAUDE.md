@@ -76,9 +76,13 @@ descargas (individual y ZIP); descarga de fotos en Terceros. Plan completo prese
   miniatura, «Descargar PDF», «Descargar todos los planos» = ZIP sin recomprimir). Nombres de archivo en
   `utilidades/planos.ts`. Probado en el navegador (subir, reemplazar, descargas con bytes idénticos, celular).
   **Falta:** el OK de Nahir y pasar a producción junto con la Etapa 2.
-- **Etapa 4 (fotos de Terceros):** Nahir confirmó que las carga ella desde el panel. Plan: botón «Fotos» por fila en la
-  tabla de Terceros del panel (va a `MaterialPropiedad`, sumar «Reemplazar») y «Ver fotos» por fila en la tabla
-  pública, con descarga individual y ZIP `Terceros_<Propiedad>_Fotos.zip` con los originales.
+- **Etapa 4 (hecha en PRUEBA, 20/11; sin migración):** panel: columna «Fotos (N)» en la tabla de Terceros / Locales
+  (lleva a la pestaña «Fotos y documentos» de esa propiedad; desactivada si hay cambios sin guardar) y «Reemplazar» en
+  `MaterialPropiedad` (`reemplazarMedioProp`: el anterior queda en «Ver quitados»). Página: «Ver fotos (N)» por fila en
+  `TablaComercios` abre `componentes/FotosPropiedad.tsx` debajo de la fila (miniaturas, visor, «Descargar» y «Descargar
+  todas las fotos» = ZIP `Terceros_<Dirección>_Fotos.zip` sin recomprimir). Nombres en `utilidades/fotosPropiedad.ts`.
+  Ojo: «Publicar tabla» cambia la fecha «actualizado» (comportamiento de siempre); en PRUEBA se volvió a 18/11.
+  **Falta:** el OK de Nahir, la Etapa 5 (pruebas finales) y pasar todo a producción con su autorización.
 - La cuenta temporal de navegador (`privado/cuenta-navegador.json`, solo PRUEBA) sigue activa para probar la Etapa 4;
   al terminar, quitarle el rol y bloquearla (no se puede borrar porque publicó versiones).
 - Ojo: una cuenta temporal (`cuenta_navegador.mjs`) que **publicó** versiones no se puede borrar («Database error

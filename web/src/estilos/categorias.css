@@ -59,3 +59,26 @@ table.disp.comercios td.cod{font-family:var(--mono, monospace);font-size:12.5px;
 table.disp.comercios td.ficha a{color:var(--rojo);text-decoration:none;font-size:13px}
 table.disp.comercios td.ficha a:hover{text-decoration:underline;text-underline-offset:3px}
 table.disp.comercios tr.resaltada td{background:var(--crema)}
+
+/* ---------- Terceros: «Ver fotos» abre las fotos debajo de la fila ---------- */
+table.disp.comercios td.ficha .ver-fotos{background:none;border:0;padding:0;margin-right:16px;font:inherit;font-size:13px;
+  color:var(--rojo);cursor:pointer}
+table.disp.comercios td.ficha .ver-fotos:hover{text-decoration:underline;text-underline-offset:3px}
+table.disp.comercios td.ficha .ver-fotos:focus-visible{outline:2px solid var(--rojo);outline-offset:3px}
+table.disp.comercios tr.con-fotos td{background:var(--crema);border-bottom-color:transparent}
+table.disp.comercios tr.fila-fotos td{white-space:normal;background:var(--crema);padding:6px 14px 20px}
+table.disp tbody tr.fila-fotos:hover td{background:var(--crema)}
+/* La tabla se desliza de costado en el celular: las fotos quedan fijas al ancho visible. */
+.fotos-prop{position:sticky;left:14px;max-width:calc(100vw - 72px)}
+.fotos-prop .vinculos{margin-bottom:14px;align-items:center}
+.lista-fotos-prop{list-style:none;margin:0;padding:0;display:grid;gap:12px;
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.lista-fotos-prop li{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lista-fotos-prop li > button:first-child{display:block;padding:0;border:1px solid var(--linea);background:#fff;cursor:zoom-in;
+  aspect-ratio:4/3;overflow:hidden}
+.lista-fotos-prop img{display:block;width:100%;height:100%;object-fit:cover}
+.lista-fotos-prop li > button:first-child:focus-visible{outline:2px solid var(--rojo);outline-offset:2px}
+.lista-fotos-prop .vinculo{font-size:13px;align-self:flex-start}
+@media (max-width:560px){
+  .lista-fotos-prop{grid-template-columns:repeat(2,minmax(0,1fr))}
+}

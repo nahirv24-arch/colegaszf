@@ -195,6 +195,31 @@ export async function subirMedioProp(id: string, tipo: TipoMedioProp, f: File): 
   return datos.aviso;
 }
 
+/**
+ * Cambia una foto (o plano) por otro archivo en el MISMO lugar del orden. Nunca pisa nada:
+ * el archivo nuevo se sube con otro nombre y el registro anterior queda en «Ver quitados» (se puede recuperar).
+ */
+export async function reemplazarMedioProp(m: FilaMedioProp, f: File): Promise<string | null> {
+  if (m.tipo !== "foto" && m.tipo !== "plano") throw new ErrorPanel("Solo se pueden reemplazar fotos y planos.");
+  const datos = await revisarArchivo(f);
+  const ext = datos.formato === "jpeg" ? "jpg" : datos.formato;
+  const ruta = `propiedades/${m.propiedad_id}/${m.tipo}/${Date.now().toString(36)}-${crypto.getRandomValues(new Uint32Array(1))[0]!.toString(36)}.${ext}`;
+  const sha256 = await huella(f);
+  const up = await sb().storage.from("media").upload(ruta, f, { contentType: f.type, upsert: false, cacheControl: "31536000" });
+  if (up.error) throw new ErrorPanel(`"${f.name}": no se pudo subir. ${mensajeError(up.error)}`);
+  // El anterior sale (queda recuperable) y el nuevo ocupa su lugar en el orden.
+  revisar(await sb().from("propiedad_medios").update({ eliminado_en: new Date().toISOString() })
+    .eq("id", m.id).is("eliminado_en", null).select("id").single());
+  const nuevo = await sb().from("propiedad_medios").insert({ propiedad_id: m.propiedad_id, tipo: m.tipo, orden: m.orden, bucket: "media",
+    ruta, nombre: f.name, ancho: datos.ancho, alto: datos.alto, bytes: f.size, sha256, formato: datos.formato, mime: f.type });
+  if (nuevo.error) {
+    // Si no se pudo guardar el nuevo, el anterior vuelve a su lugar.
+    await sb().from("propiedad_medios").update({ eliminado_en: null }).eq("id", m.id);
+    throw new ErrorPanel(mensajeError(nuevo.error));
+  }
+  return datos.aviso;
+}
+
 export async function quitarMedioProp(mid: string): Promise<void> {
   revisar(await sb().from("propiedad_medios").update({ eliminado_en: new Date().toISOString() }).eq("id", mid).select("id").single());
 }

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router";
 import { FILA_VACIA, filaDePropiedad, filasDeCsv, MONEDAS, OPERACIONES, TIPOS, type FilaComercio } from "../../utilidades/comercios";
 import { mensajeError } from "../servicio";
 import { CATEGORIAS_PANEL, type ClavePanel } from "../servicioPropiedades";
@@ -194,6 +195,7 @@ export function TablaComerciosPanel({ clave }: { readonly clave: ClavePanel }) {
               <th aria-label="Orden" />
               {columnas.map(([k, t]) => <th key={k}>{t}</th>)}
               <th>Estado</th>
+              <th>Fotos</th>
               <th aria-label="Quitar" />
             </tr>
           </thead>
@@ -236,6 +238,13 @@ export function TablaComerciosPanel({ clave }: { readonly clave: ClavePanel }) {
                     </td>
                   ))}
                   <td>{estadoDe(r)}</td>
+                  <td className="adm-nowrap">
+                    {!r.id ? <span className="adm-ayuda" title="Primero guardá la fila">—</span>
+                      : hayCambios ? <span className="adm-btn chico desactivado" title="Primero guardá los cambios de la tabla">Fotos</span>
+                      : <Link className="adm-btn chico" to={`/admin/${clave}/${r.id}/material`}
+                              title="Subir, ordenar, reemplazar o quitar las fotos de esta propiedad">
+                          Fotos ({datos?.resumen[r.id]?.fotos ?? 0})</Link>}
+                  </td>
                   <td className="der">
                     <button type="button" className="adm-btn chico texto-peligro" onClick={() => void quitar(r)} disabled={ocupado}>Quitar</button>
                   </td>
@@ -243,7 +252,7 @@ export function TablaComerciosPanel({ clave }: { readonly clave: ClavePanel }) {
               );
             })}
             {!renglones.length ? (
-              <tr><td colSpan={columnas.length + 3} className="adm-vacio">
+              <tr><td colSpan={columnas.length + 4} className="adm-vacio">
                 Todavía no hay filas. Tocá «+ Agregar fila» o «Importar CSV».<br />
                 Mientras no publiques ninguna, la página de colegas muestra «Próximamente».
               </td></tr>

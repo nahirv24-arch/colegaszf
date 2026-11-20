@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { mensajeError } from "../servicio";
 import {
-  ACEPTA_IMAGENES, listarMediosProp, quitarMedioProp, renombrarDocumento, reordenarMediosProp, restaurarMedioProp,
+  ACEPTA_IMAGENES, listarMediosProp, quitarMedioProp, reemplazarMedioProp, renombrarDocumento, reordenarMediosProp, restaurarMedioProp,
   subirMedioProp, urlMedioProp, usarComoPortadaProp, type FilaMedioProp, type TipoMedioProp,
 } from "../servicioPropiedades";
 import { Cargando, ErrorCaja, Modal, pesoLegible, useAvisos, useCarga, useConfirmar } from "../ui";
@@ -9,7 +9,7 @@ import { Cargando, ErrorCaja, Modal, pesoLegible, useAvisos, useCarga, useConfir
 type Progreso = { nombre: string; estado: "esperando" | "subiendo" | "ok" | "error"; mensaje?: string };
 
 const SECCIONES: { tipo: Exclude<TipoMedioProp, "portada" | "documento">; titulo: string; ayuda: string }[] = [
-  { tipo: "foto", titulo: "Fotografías", ayuda: "Interior, exterior y entorno. Se muestran en «Fotos»." },
+  { tipo: "foto", titulo: "Fotografías", ayuda: "Interior, exterior y entorno. Se guardan originales (sin recomprimir). En Terceros, los colegas las ven con «Ver fotos» y las descargan sueltas o todas en ZIP." },
   { tipo: "plano", titulo: "Planos", ayuda: "Planos y medidas." },
 ];
 
@@ -88,6 +88,13 @@ export function MaterialPropiedad({ propiedadId, onCambio }: { readonly propieda
                     <div className="adm-mini-acc">
                       <button type="button" aria-label="Mover antes" disabled={trabajando || i === 0} onClick={() => mover(s.tipo, lista, i, i - 1)}>←</button>
                       <button type="button" aria-label="Mover después" disabled={trabajando || i === lista.length - 1} onClick={() => mover(s.tipo, lista, i, i + 1)}>→</button>
+                      <label className="adm-mini-reemplazar">Reemplazar
+                        <input type="file" accept={ACEPTA_IMAGENES} disabled={trabajando}
+                               onChange={(e) => {
+                                 const f = e.target.files?.[0]; e.target.value = "";
+                                 if (f) void hacer(async () => { const aviso = await reemplazarMedioProp(m, f); if (aviso) avisar("info", aviso); },
+                                   "Archivo reemplazado. El anterior quedó en «Ver quitados».");
+                               }} /></label>
                       {s.tipo === "foto" ? <button type="button" disabled={trabajando} onClick={() => void hacer(() => usarComoPortadaProp(m), "Portada cambiada.")}>Portada</button> : null}
                       <button type="button" className="texto-peligro" disabled={trabajando} onClick={() => void quitar(m)}>Quitar</button>
                     </div>
