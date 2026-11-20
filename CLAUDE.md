@@ -102,6 +102,10 @@ descargas (individual y ZIP); descarga de fotos en Terceros. Plan completo prese
   4. Recién después, pasar `desarrollo` → `main` y subir (Cloudflare publica solo). Si el código llegara antes que
      las migraciones, el panel fallaría al guardar los campos nuevos o subir PDF (la página pública no se rompe).
   5. Revisar `colegaszf.pages.dev` y el panel con la cuenta de Nahir.
+- **Planos siempre en PDF (20/11, commit 45ee560 en `desarrollo`):** en producción todos los planos eran imágenes y se
+  bajaban como JPG/PNG. Ahora el botón, el visor y el ZIP entregan PDF: si es PDF, el original; si es imagen,
+  `utilidades/pdfDeImagen.ts` arma un PDF sin librerías y sin pérdida (JPG tal cual, datos del PNG tal cual, WEBP por
+  píxeles). Comprobado idéntico píxel a píxel con pdf.js. Falta el OK de Nahir para pasarlo a `main`.
 - La cuenta temporal de navegador (`privado/cuenta-navegador.json`, solo PRUEBA) sigue activa para probar la Etapa 4;
   al terminar, quitarle el rol y bloquearla (no se puede borrar porque publicó versiones).
 - Ojo: una cuenta temporal (`cuenta_navegador.mjs`) que **publicó** versiones no se puede borrar («Database error
