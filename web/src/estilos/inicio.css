@@ -2,6 +2,15 @@
 .seccion{padding-block:64px}
 .cabecera{display:flex;flex-direction:column;gap:18px;margin-bottom:40px;max-width:62ch}
 .cabecera p{margin:0;color:var(--humo);font-size:16px;line-height:1.55}
+/* Inicio: el texto ocupa el mismo ancho que la grilla de fotos */
+.cabecera.ancha{max-width:none}
+/* «Actualizamos los jueves · la última fue el…» resaltado */
+.cabecera .aviso-actualizado{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;
+  background:var(--crema);border:1px solid var(--linea);border-left:3px solid var(--rojo);border-radius:4px;
+  padding:9px 16px;color:var(--tinta);font-size:15px;line-height:1.45}
+.cabecera .aviso-actualizado b{font-weight:600}
+.cabecera .aviso-actualizado .fecha{color:var(--rojo)}
+.cabecera .aviso-actualizado .punto{flex:none;width:8px;height:8px;border-radius:50%;background:var(--rojo)}
 
 .grilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:40px 24px}
 .tarjeta{display:flex;flex-direction:column;gap:10px;text-decoration:none;min-width:0}

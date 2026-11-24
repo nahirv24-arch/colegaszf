@@ -16,11 +16,14 @@ export function Inicio({ contenido }: { readonly contenido: ContenidoPublico }) 
                titular={<><em>Bienvenidos, colegas.</em><br />Todo el material de nuestros desarrollos, en un solo lugar.</>} />
       <Categorias />
       <main className="seccion col gut" id="desarrollos">
-        <div className="cabecera">
+        <div className="cabecera ancha">
           <div className="rot">Desarrollos</div>
           <p>Entrá a cada uno y vas a encontrar el brochure, los planos, los renders, la lista de precios y la lista
-            de disponibles. Los links son fijos: guardá esta página y siempre vas a estar viendo la versión vigente.
-            Actualizamos los jueves{sitio.actualizado ? ` — la última fue el ${fecha(sitio.actualizado)}` : ""}.</p>
+            de disponibles. Los links son fijos: guardá esta página y siempre vas a estar viendo la versión vigente.</p>
+          <p className="aviso-actualizado">
+            <span className="punto" aria-hidden="true" />
+            <span><b>Actualizamos los jueves</b>{sitio.actualizado ? <> · la última fue el <b className="fecha">{fecha(sitio.actualizado)}</b></> : null}</span>
+          </p>
         </div>
         {!lista.length ? (
           <div className="vacio">
