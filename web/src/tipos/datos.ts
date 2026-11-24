@@ -53,7 +53,7 @@ export interface Desarrollo {
   readonly condiciones?: string;
   readonly descripcion?: string;
   readonly escribania?: string;
-  /** Marca «Material en actualización» (24/11/2026): solo viene cuando está prendida. */
+  /** Marca «Pendiente de actualización» (24/11/2026): solo viene cuando está prendida. */
   readonly desactualizado?: boolean;
   /**
    * Etapa 3: datos de cada plano, en el mismo orden que `planos`. Solo viene cuando algún plano

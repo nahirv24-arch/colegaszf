@@ -111,7 +111,7 @@ export function ChipEstado({ estado, visible, papelera, cambios, desactualizado 
       {estado === "publicado" ? <span className="adm-chip verde">Publicado</span> : <span className="adm-chip ambar">Borrador</span>}
       {!visible ? <span className="adm-chip gris">Oculto</span> : null}
       {cambios && estado === "publicado" ? <span className="adm-chip rojo">Cambios sin publicar</span> : null}
-      {desactualizado ? <span className="adm-chip ambar">En actualización</span> : null}
+      {desactualizado ? <span className="adm-chip ambar">Pendiente de actualización</span> : null}
     </span>
   );
 }

@@ -36,7 +36,7 @@ export type EstadoPublicacion = "borrador" | "publicado";
 export interface ResumenDesarrollo {
   id: string; nombre: string; direccion: string; posicion: number;
   estado: EstadoPublicacion; visible: boolean; eliminado_en: string | null; modificado_en: string;
-  /** Marca «Material en actualización» (efecto inmediato, sin publicar). */
+  /** Marca «Pendiente de actualización» (efecto inmediato, sin publicar). */
   desactualizado?: boolean;
   unidades: number; medios: number; tiene_portada: boolean;
   version_vigente: number | null; publicado_en: string | null; cambios_sin_publicar: boolean;
@@ -159,7 +159,7 @@ export async function cambiarVisible(id: string, visible: boolean): Promise<void
   revisar(await sb().from("desarrollos").update({ visible }).eq("id", id).select("id").single());
 }
 
-/** Marca «Material en actualización»: la página avisa a los colegas enseguida, sin publicar. */
+/** Marca «Pendiente de actualización»: la página avisa a los colegas enseguida, sin publicar. */
 export async function cambiarDesactualizado(id: string, desactualizado: boolean): Promise<void> {
   revisar(await sb().from("desarrollos").update({ desactualizado }).eq("id", id).select("id").single());
 }

@@ -5,7 +5,7 @@ import { Cargando, ChipEstado, ErrorCaja, fechaHora, useCarga } from "../ui";
 
 const FILTROS = [
   ["todos", "Todos"], ["publicados", "Publicados"], ["borradores", "Borradores"], ["ocultos", "Ocultos"],
-  ["actualizacion", "En actualización"],
+  ["actualizacion", "Pendientes de actualización"],
   ["cambios", "Con cambios sin publicar"], ["papelera", "Papelera"],
 ] as const;
 type Filtro = (typeof FILTROS)[number][0];

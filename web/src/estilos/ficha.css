@@ -51,6 +51,7 @@ button.fila[aria-expanded="true"] .n{color:var(--rojo)}
 .sin-dato{font-size:14.5px;color:var(--humo);line-height:1.55}
 .pista{font-size:13px;color:var(--humo);align-self:center}
 /* Aviso «Material en actualización» (se prende desde el panel, sin publicar) */
-.aviso-actualizacion{margin:18px 0 6px;background:var(--crema);border-left:3px solid var(--rojo);padding:12px 15px;
-  font-size:14.5px;line-height:1.5;color:var(--tinta);max-width:80ch}
-.aviso-actualizacion b{font-weight:500;color:var(--rojo)}
+.aviso-actualizacion{display:flex;align-items:center;gap:10px;margin:18px 0 4px;font-size:12px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--humo);line-height:1.5}
+.aviso-actualizacion b{font-weight:500;color:var(--tinta)}
+.aviso-actualizacion .punto{flex:none;width:6px;height:6px;border-radius:50%;background:var(--rojo)}

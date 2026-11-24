@@ -83,5 +83,9 @@ table.disp tbody tr.fila-fotos:hover td{background:var(--crema)}
 @media (max-width:560px){
   .lista-fotos-prop{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-/* Desarrollo marcado «Material en actualización» desde el panel */
-.tarjeta .foto .estado-prop.en-actualizacion{background:var(--rojo)}
+/* Desarrollo marcado «Pendiente de actualización» desde el panel: foto apenas borrosa y rótulo fino */
+.tarjeta.pendiente .foto img,.tarjeta.pendiente:hover .foto img{filter:blur(2.5px) saturate(.85);transform:scale(1.04)}
+.tarjeta.pendiente .foto::after{content:"";position:absolute;inset:0;background:rgba(255,255,255,.14)}
+.tarjeta .pendiente-et{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1;
+  white-space:nowrap;font-size:10.5px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:#fff;
+  padding:8px 14px;border:1px solid rgba(255,255,255,.75);background:rgba(20,24,28,.28);backdrop-filter:blur(2px)}

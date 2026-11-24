@@ -26,7 +26,7 @@ const CALCULADAS_UNIDAD = new Set(["grupo", "piso", "unidad", "tipologia", "esta
 const NOMBRES: Record<string, string> = {
   nombre: "Nombre", direccion: "Dirección", desarrollista: "Desarrollista", posesion: "Posesión", gastos: "Gastos",
   nota_tabla: "Nota de la tabla", condiciones: "Condiciones de publicación",
-  escribania: "Escribanía", links: "Enlaces", columnas: "Columnas", visible: "Visible en la página", desactualizado: "Material en actualización", estado: "Estado",
+  escribania: "Escribanía", links: "Enlaces", columnas: "Columnas", visible: "Visible en la página", desactualizado: "Pendiente de actualización", estado: "Estado",
   eliminado_en: "En la papelera desde", info_extra: "Información adicional", disponibles_ejemplo: "Aviso «datos de ejemplo»",
   posicion: "Posición", orden: "Posición", tipo: "Tipo", ruta: "Archivo", ancho: "Ancho", alto: "Alto", bytes: "Tamaño",
   formato: "Formato", mime: "Tipo de archivo", version: "Versión", vigente: "Es la vigente", nota: "Nota",

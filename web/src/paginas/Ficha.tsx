@@ -109,8 +109,8 @@ export function Ficha({ e, logo }: Props) {
         <a className="volver" href="#desarrollos"><span aria-hidden="true">&larr;</span> Todos los desarrollos</a>
         {e.desactualizado ? (
           <p className="aviso-actualizacion" role="note">
-            <b>Material en actualización.</b> Estamos actualizando el material de este desarrollo: algunos datos
-            pueden no estar al día. Ante cualquier duda, comunicate con nosotros.
+            <span className="punto" aria-hidden="true" />
+            <span><b>Pendiente de actualización</b> · algunos datos pueden no estar al día</span>
           </p>
         ) : null}
         {condiciones || descripcion || escribania ? (

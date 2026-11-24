@@ -76,10 +76,10 @@ export function EditarDesarrollo() {
             }}>{fila.visible ? "Ocultar" : "Mostrar"}</button>
             <button type="button" className="adm-btn" onClick={async () => {
               const ok = await confirmar(fila.desactualizado
-                ? { titulo: "Material al día", mensaje: <>Se quita el aviso «Material en actualización» de «{fila.nombre}» en la página de colegas <b>enseguida</b>.</>, confirmar: "Quitar el aviso" }
-                : { titulo: "Material en actualización", mensaje: <>En la página de colegas, «{fila.nombre}» muestra <b>enseguida</b> el aviso «Material en actualización» (en la tarjeta del inicio y en su ficha). No hace falta publicar y no se borra nada. Lo quitás desde este mismo botón.</>, confirmar: "Marcar en actualización" });
-              if (ok) await accion(() => cambiarDesactualizado(id, !fila.desactualizado), fila.desactualizado ? "Aviso quitado: el material figura al día." : "Marcado «En actualización» en la página pública.");
-            }}>{fila.desactualizado ? "Marcar al día" : "Marcar en actualización"}</button>
+                ? { titulo: "Material al día", mensaje: <>Se quita el aviso «Pendiente de actualización» de «{fila.nombre}» en la página de colegas <b>enseguida</b>.</>, confirmar: "Quitar el aviso" }
+                : { titulo: "Pendiente de actualización", mensaje: <>En la página de colegas, «{fila.nombre}» muestra <b>enseguida</b> el aviso «Pendiente de actualización» (foto apenas borrosa en el inicio y una línea en su ficha). No hace falta publicar y no se borra nada. Lo quitás desde este mismo botón.</>, confirmar: "Marcar pendiente de actualización" });
+              if (ok) await accion(() => cambiarDesactualizado(id, !fila.desactualizado), fila.desactualizado ? "Aviso quitado: el material figura al día." : "Marcado «Pendiente de actualización» en la página pública.");
+            }}>{fila.desactualizado ? "Marcar al día" : "Marcar pendiente de actualización"}</button>
             <button type="button" className="adm-btn texto-peligro" onClick={async () => {
               const ok = await confirmar({ titulo: "Mandar a la papelera", peligro: true, confirmar: "Mandar a la papelera",
                 mensaje: <>«{fila.nombre}» sale de la página y del panel, pero <b>no se borra</b>: lo podés recuperar desde Desarrollos → Papelera.</> });

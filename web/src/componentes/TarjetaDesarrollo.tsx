@@ -9,10 +9,10 @@ interface Props {
 /** Tarjeta del inicio: foto, nombre, posesión, dirección y "Ver material". */
 export function TarjetaDesarrollo({ e, id }: Props) {
   return (
-    <a className="tarjeta" href={`#${id}`}>
+    <a className={e.desactualizado ? "tarjeta pendiente" : "tarjeta"} href={`#${id}`}>
       <div className="foto">
         {e.portada ? <Imagen ruta={e.portada} diferida /> : <div className="sinfoto">Sin imagen</div>}
-        {e.desactualizado ? <span className="estado-prop en-actualizacion">En actualización</span> : null}
+        {e.desactualizado ? <span className="pendiente-et">Pendiente de actualización</span> : null}
       </div>
       <div className="nom">{e.nombre}</div>
       <div className="pos">Posesión: {e.posesion ? e.posesion : "a confirmar"}</div>
