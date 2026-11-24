@@ -1,7 +1,8 @@
 /* ---------- pie ---------- */
 footer{background:var(--tinta-prof);color:#fff;margin-top:80px}
 footer .col{padding-block:46px 54px;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
-footer .d1{font-size:14.5px;line-height:1.6;color:#C8CFD4;font-weight:300;max-width:42ch}
+footer .d1{font-size:14.5px;line-height:1.6;color:#C8CFD4;font-weight:300;max-width:60ch}
+footer .d1 .junto{white-space:nowrap}
 footer .d1 b{display:block;font-weight:500;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;
              color:#fff;margin-bottom:12px}
 footer a{color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.4);

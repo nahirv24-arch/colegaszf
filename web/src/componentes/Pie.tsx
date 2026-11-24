@@ -5,7 +5,7 @@ export function Pie() {
       <div className="col gut">
         <div className="d1">
           <b>ZF Propiedades</b>
-          Obispo Trejo 954, Piso 2, Of. 2, Nueva Córdoba, Córdoba<br />
+          Obispo Trejo 954, Piso 2, Of. 2, <span className="junto">Nueva Córdoba, Córdoba</span><br />
           Zavalía &amp; Fuster · Corredores Públicos Inmobiliarios
         </div>
         <div className="redes">
