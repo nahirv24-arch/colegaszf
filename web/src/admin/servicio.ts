@@ -164,6 +164,12 @@ export async function cambiarDesactualizado(id: string, desactualizado: boolean)
   revisar(await sb().from("desarrollos").update({ desactualizado }).eq("id", id).select("id").single());
 }
 
+/** Qué desarrollos están marcados «Pendiente de actualización» (para el resumen general). */
+export async function leerPendientesActualizacion(): Promise<Set<string>> {
+  const r = revisar(await sb().from("desarrollos").select("id").eq("desactualizado", true).is("eliminado_en", null)) as { id: string }[];
+  return new Set(r.map((x) => x.id));
+}
+
 export async function mandarAPapelera(id: string): Promise<void> {
   revisar(await sb().rpc("eliminar_desarrollo", { p_id: id }));
 }

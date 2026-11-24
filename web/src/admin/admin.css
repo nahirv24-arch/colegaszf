@@ -340,3 +340,15 @@ a.adm-tarjeta:hover { border-top-color: var(--rojo); }
 .adm-com textarea:focus { outline: 2px solid var(--tinta); outline-offset: -1px; }
 .adm-com textarea.con-error { border-color: var(--rojo); background: #FDF3F4; }
 .adm-com .der .adm-btn + .adm-btn { margin-left: 6px; }
+
+/* Resumen general: marca «Pendiente de actualización» por fila */
+.adm-acc-mat { white-space: nowrap; }
+.adm-pend-act { font: inherit; font-size: 12.5px; color: var(--humo); background: none; border: 0; padding: 6px 8px;
+  margin-left: -8px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; vertical-align: middle; }
+.adm-pend-act .caja { width: 15px; height: 15px; border: 1px solid #C9C3B8; display: inline-flex; align-items: center;
+  justify-content: center; font-size: 11px; line-height: 1; background: #fff; }
+.adm-pend-act:hover { color: var(--tinta); }
+.adm-pend-act:hover .caja { border-color: var(--tinta); }
+.adm-pend-act.activo { color: #8A6D1F; }
+.adm-pend-act.activo .caja { background: #8A6D1F; border-color: #8A6D1F; color: #fff; }
+.adm-pend-act:disabled { opacity: .5; cursor: wait; }
