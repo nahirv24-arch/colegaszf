@@ -103,7 +103,7 @@ export function TablaUnidades({ desarrollo, onCambio }: Props) {
                   ) : null}
                   {cols.map(([k]) => (
                     <td key={k} className={k === "estado" ? "" : "num"}>
-                      {k === "estado" ? <span className={/disponible|libre/i.test(u.campos.estado ?? "") ? "adm-chip verde" : "adm-chip gris"}>{u.campos.estado || "—"}</span>
+                      {k === "estado" ? <span className={/disponible|libre/i.test(u.campos.estado ?? "") ? "adm-chip verde" : /reserv/i.test(u.campos.estado ?? "") ? "adm-chip rojo" : "adm-chip gris"}>{u.campos.estado || "—"}</span>
                         : (u.campos[k] || "—")}
                     </td>
                   ))}

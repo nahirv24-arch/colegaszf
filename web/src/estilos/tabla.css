@@ -28,7 +28,8 @@ table.disp td.num{font-variant-numeric:tabular-nums}
 table.disp td.uni{font-weight:500}
 .chip{display:inline-block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
       padding:3px 8px;border:1px solid var(--linea);color:var(--humo)}
-.chip.libre{border-color:var(--rojo);color:var(--rojo)}
+.chip.libre{border-color:#A9CDB0;color:#2E6B3A;background:#F1F8F2}
+.chip.reservada{border-color:#E3B5B9;color:var(--rojo);background:#FDF2F3}
 .pie-tabla{font-size:12.5px;color:var(--humo);margin-top:12px;line-height:1.5}
 /* Precios tapados: se ven de a una unidad */
 .ver-precio{font:inherit;font-size:12.5px;color:var(--rojo);background:none;border:1px solid currentColor;

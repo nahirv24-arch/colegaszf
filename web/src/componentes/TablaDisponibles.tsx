@@ -87,8 +87,9 @@ export function TablaDisponibles({ e }: Props) {
           if (k === "piso") return <td key={j} className="piso">{nuevoPiso ? (f.piso ?? "") : ""}</td>;
           if (k === "estado") {
             const v = f.estado;
-            const libre = /disponible|libre/i.test(v || "");
-            return <td key={j}><span className={libre ? "chip libre" : "chip"}>{v || "—"}</span></td>;
+            // Disponible en verde, reservada en rojo, el resto (vendida, etc.) en gris.
+            const clase = /disponible|libre/i.test(v || "") ? "chip libre" : /reserv/i.test(v || "") ? "chip reservada" : "chip";
+            return <td key={j}><span className={clase}>{v || "—"}</span></td>;
           }
           if (k === "unidad") return <td key={j} className="uni">{celda(f, k)}</td>;
           return <td key={j} className="num">{celda(f, k)}</td>;
