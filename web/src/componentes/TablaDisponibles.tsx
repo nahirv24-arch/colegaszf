@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import type { Desarrollo, Unidad } from "../tipos/datos";
+import { esColumnaAnticipo, porcentajeAnticipo } from "../utilidades/anticipo";
 import { COLUMNAS_POR_DEFECTO, celda, hayTexto } from "../utilidades/textos";
 
 /** Columnas con montos (precio, contado, anticipo, cuotas…): se muestran tapadas hasta tocar «Ver precio». */
@@ -92,7 +93,8 @@ export function TablaDisponibles({ e }: Props) {
             return <td key={j}><span className={clase}>{v || "—"}</span></td>;
           }
           if (k === "unidad") return <td key={j} className="uni">{celda(f, k)}</td>;
-          return <td key={j} className="num">{celda(f, k)}</td>;
+          const pct = esColumnaAnticipo(k, t) ? porcentajeAnticipo(f, COLS, k) : null;
+          return <td key={j} className="num">{celda(f, k)}{pct ? <span className="pct"> ({pct})</span> : null}</td>;
         })}
       </tr>,
     );

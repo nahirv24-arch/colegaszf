@@ -26,6 +26,7 @@ table.disp tbody tr:not(.banda):hover td{background:var(--crema)}
 .chip-f.activo{background:var(--tinta);border-color:var(--tinta);color:#fff}
 table.disp td.num{font-variant-numeric:tabular-nums}
 table.disp td.uni{font-weight:500}
+table.disp td .pct{color:var(--humo);font-size:.9em;white-space:nowrap}
 .chip{display:inline-block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
       padding:3px 8px;border:1px solid var(--linea);color:var(--humo)}
 .chip.libre{border-color:#A9CDB0;color:#2E6B3A;background:#F1F8F2}

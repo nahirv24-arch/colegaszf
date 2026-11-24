@@ -1,6 +1,7 @@
 import { useMemo, useState, type FormEvent } from "react";
 import type { Columna } from "../../tipos/datos";
 import { COLUMNAS_POR_DEFECTO } from "../../utilidades/textos";
+import { esColumnaAnticipo, porcentajeAnticipo } from "../../utilidades/anticipo";
 import {
   crearUnidad, guardarDesarrollo, guardarUnidad, listarUnidades, mensajeError, quitarUnidad, reordenarUnidades,
   restaurarUnidad, type FilaDesarrollo, type FilaUnidad,
@@ -104,7 +105,10 @@ export function TablaUnidades({ desarrollo, onCambio }: Props) {
                   {cols.map(([k]) => (
                     <td key={k} className={k === "estado" ? "" : "num"}>
                       {k === "estado" ? <span className={/disponible|libre/i.test(u.campos.estado ?? "") ? "adm-chip verde" : /reserv/i.test(u.campos.estado ?? "") ? "adm-chip rojo" : "adm-chip gris"}>{u.campos.estado || "—"}</span>
-                        : (u.campos[k] || "—")}
+                        : <>{u.campos[k] || "—"}{(() => {
+                          const pct = esColumnaAnticipo(k, cols.find(([c]) => c === k)?.[1] ?? "") ? porcentajeAnticipo(u.campos, cols, k) : null;
+                          return pct ? <span className="adm-ayuda"> ({pct})</span> : null;
+                        })()}</>}
                     </td>
                   ))}
                   <td className="der adm-nowrap">
