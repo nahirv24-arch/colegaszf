@@ -12,6 +12,7 @@ export function TarjetaDesarrollo({ e, id }: Props) {
     <a className="tarjeta" href={`#${id}`}>
       <div className="foto">
         {e.portada ? <Imagen ruta={e.portada} diferida /> : <div className="sinfoto">Sin imagen</div>}
+        {e.desactualizado ? <span className="estado-prop en-actualizacion">En actualización</span> : null}
       </div>
       <div className="nom">{e.nombre}</div>
       <div className="pos">Posesión: {e.posesion ? e.posesion : "a confirmar"}</div>

@@ -107,6 +107,12 @@ export function Ficha({ e, logo }: Props) {
       <Portada foto={e.portada} logo={logo} rotulo={rotulo} titular={e.nombre} />
       <main className="seccion col gut" style={{ paddingBlock: "34px 64px" }}>
         <a className="volver" href="#desarrollos"><span aria-hidden="true">&larr;</span> Todos los desarrollos</a>
+        {e.desactualizado ? (
+          <p className="aviso-actualizacion" role="note">
+            <b>Material en actualización.</b> Estamos actualizando el material de este desarrollo: algunos datos
+            pueden no estar al día. Ante cualquier duda, comunicate con nosotros.
+          </p>
+        ) : null}
         {condiciones || descripcion || escribania ? (
           <div className="intro-ficha">
             {condiciones ? (

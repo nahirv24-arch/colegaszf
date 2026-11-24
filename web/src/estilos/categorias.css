@@ -83,3 +83,5 @@ table.disp tbody tr.fila-fotos:hover td{background:var(--crema)}
 @media (max-width:560px){
   .lista-fotos-prop{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+/* Desarrollo marcado «Material en actualización» desde el panel */
+.tarjeta .foto .estado-prop.en-actualizacion{background:var(--rojo)}

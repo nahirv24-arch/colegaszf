@@ -101,8 +101,9 @@ export function Modal({ titulo, abierta, onCerrar, children, ancho }: {
   );
 }
 
-export function ChipEstado({ estado, visible, papelera, cambios }: {
+export function ChipEstado({ estado, visible, papelera, cambios, desactualizado }: {
   readonly estado: string; readonly visible: boolean; readonly papelera?: boolean; readonly cambios?: boolean;
+  readonly desactualizado?: boolean;
 }) {
   if (papelera) return <span className="adm-chip gris">En la papelera</span>;
   return (
@@ -110,6 +111,7 @@ export function ChipEstado({ estado, visible, papelera, cambios }: {
       {estado === "publicado" ? <span className="adm-chip verde">Publicado</span> : <span className="adm-chip ambar">Borrador</span>}
       {!visible ? <span className="adm-chip gris">Oculto</span> : null}
       {cambios && estado === "publicado" ? <span className="adm-chip rojo">Cambios sin publicar</span> : null}
+      {desactualizado ? <span className="adm-chip ambar">En actualización</span> : null}
     </span>
   );
 }

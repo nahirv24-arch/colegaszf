@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { Link, NavLink, useNavigate, useParams } from "react-router";
 import {
-  cambiarVisible, guardarDesarrollo, leerDesarrollo, listarDesarrollos, mandarAPapelera, mensajeError, publicar,
+  cambiarDesactualizado, cambiarVisible, guardarDesarrollo, leerDesarrollo, listarDesarrollos, mandarAPapelera, mensajeError, publicar,
   sacarDePapelera, type DatosEditables, type FilaDesarrollo, type ResumenDesarrollo,
 } from "../servicio";
 import { Cargando, ChipEstado, ErrorCaja, fechaHora, Modal, useAvisos, useCarga, useConfirmar } from "../ui";
@@ -54,7 +54,7 @@ export function EditarDesarrollo() {
           <Link to="/admin/desarrollos" className="adm-volver">← Todos los desarrollos</Link>
           <h2 className="adm-ficha-titulo">{fila.nombre}</h2>
           <div className="adm-ficha-meta">
-            <ChipEstado estado={fila.estado} visible={fila.visible} papelera={enPapelera} cambios={resumen.cambios_sin_publicar} />
+            <ChipEstado estado={fila.estado} visible={fila.visible} papelera={enPapelera} cambios={resumen.cambios_sin_publicar} desactualizado={fila.desactualizado} />
             <span>Enlace: <code>/#{fila.id}</code></span>
             <span>{resumen.version_vigente ? `Versión publicada: ${resumen.version_vigente} (${fechaHora(resumen.publicado_en)})` : "Nunca publicado"}</span>
           </div>
@@ -74,6 +74,12 @@ export function EditarDesarrollo() {
                 : { titulo: "Mostrar en la página", mensaje: <>«{fila.nombre}» vuelve a verse en la página de colegas (su última versión publicada).</>, confirmar: "Mostrar" });
               if (ok) await accion(() => cambiarVisible(id, !fila.visible), fila.visible ? "Oculto de la página pública." : "Visible otra vez en la página pública.");
             }}>{fila.visible ? "Ocultar" : "Mostrar"}</button>
+            <button type="button" className="adm-btn" onClick={async () => {
+              const ok = await confirmar(fila.desactualizado
+                ? { titulo: "Material al día", mensaje: <>Se quita el aviso «Material en actualización» de «{fila.nombre}» en la página de colegas <b>enseguida</b>.</>, confirmar: "Quitar el aviso" }
+                : { titulo: "Material en actualización", mensaje: <>En la página de colegas, «{fila.nombre}» muestra <b>enseguida</b> el aviso «Material en actualización» (en la tarjeta del inicio y en su ficha). No hace falta publicar y no se borra nada. Lo quitás desde este mismo botón.</>, confirmar: "Marcar en actualización" });
+              if (ok) await accion(() => cambiarDesactualizado(id, !fila.desactualizado), fila.desactualizado ? "Aviso quitado: el material figura al día." : "Marcado «En actualización» en la página pública.");
+            }}>{fila.desactualizado ? "Marcar al día" : "Marcar en actualización"}</button>
             <button type="button" className="adm-btn texto-peligro" onClick={async () => {
               const ok = await confirmar({ titulo: "Mandar a la papelera", peligro: true, confirmar: "Mandar a la papelera",
                 mensaje: <>«{fila.nombre}» sale de la página y del panel, pero <b>no se borra</b>: lo podés recuperar desde Desarrollos → Papelera.</> });

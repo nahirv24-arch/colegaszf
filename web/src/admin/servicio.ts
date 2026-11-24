@@ -36,6 +36,8 @@ export type EstadoPublicacion = "borrador" | "publicado";
 export interface ResumenDesarrollo {
   id: string; nombre: string; direccion: string; posicion: number;
   estado: EstadoPublicacion; visible: boolean; eliminado_en: string | null; modificado_en: string;
+  /** Marca «Material en actualización» (efecto inmediato, sin publicar). */
+  desactualizado?: boolean;
   unidades: number; medios: number; tiene_portada: boolean;
   version_vigente: number | null; publicado_en: string | null; cambios_sin_publicar: boolean;
 }
@@ -47,6 +49,7 @@ export interface FilaDesarrollo {
   condiciones: string; descripcion: string; escribania: string;
   links: Record<string, string>; columnas: Columna[]; disponibles_ejemplo: boolean;
   info_extra: Record<string, string>; estado: EstadoPublicacion; visible: boolean;
+  desactualizado?: boolean;
   creado_en: string; modificado_en: string; eliminado_en: string | null;
 }
 
@@ -154,6 +157,11 @@ export async function publicar(id: string, nota: string, actualizarFecha: boolea
 /** Ocultar / mostrar en la página pública (efecto inmediato, no borra nada). */
 export async function cambiarVisible(id: string, visible: boolean): Promise<void> {
   revisar(await sb().from("desarrollos").update({ visible }).eq("id", id).select("id").single());
+}
+
+/** Marca «Material en actualización»: la página avisa a los colegas enseguida, sin publicar. */
+export async function cambiarDesactualizado(id: string, desactualizado: boolean): Promise<void> {
+  revisar(await sb().from("desarrollos").update({ desactualizado }).eq("id", id).select("id").single());
 }
 
 export async function mandarAPapelera(id: string): Promise<void> {

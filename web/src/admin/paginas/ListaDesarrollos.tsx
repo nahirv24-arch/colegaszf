@@ -5,6 +5,7 @@ import { Cargando, ChipEstado, ErrorCaja, fechaHora, useCarga } from "../ui";
 
 const FILTROS = [
   ["todos", "Todos"], ["publicados", "Publicados"], ["borradores", "Borradores"], ["ocultos", "Ocultos"],
+  ["actualizacion", "En actualización"],
   ["cambios", "Con cambios sin publicar"], ["papelera", "Papelera"],
 ] as const;
 type Filtro = (typeof FILTROS)[number][0];
@@ -15,6 +16,7 @@ function pasa(d: ResumenDesarrollo, f: Filtro): boolean {
   if (f === "publicados") return d.estado === "publicado";
   if (f === "borradores") return d.estado === "borrador";
   if (f === "ocultos") return !d.visible;
+  if (f === "actualizacion") return !!d.desactualizado;
   if (f === "cambios") return d.estado === "publicado" && d.cambios_sin_publicar;
   return true;
 }
@@ -55,7 +57,7 @@ export function ListaDesarrollos() {
                 <tr key={d.id}>
                   <td><Link to={`/admin/desarrollos/${d.id}`} className="adm-fuerte">{d.nombre}</Link>
                     <span className="adm-tabla-sec">{d.direccion || "Sin dirección"} · <code>{d.id}</code></span></td>
-                  <td><ChipEstado estado={d.estado} visible={d.visible} papelera={!!d.eliminado_en} cambios={d.cambios_sin_publicar} /></td>
+                  <td><ChipEstado estado={d.estado} visible={d.visible} papelera={!!d.eliminado_en} cambios={d.cambios_sin_publicar} desactualizado={d.desactualizado} /></td>
                   <td className="num">{d.unidades}</td>
                   <td className="num">{d.medios}</td>
                   <td>{fechaHora(d.modificado_en)}</td>
