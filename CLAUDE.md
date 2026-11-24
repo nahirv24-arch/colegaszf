@@ -105,7 +105,15 @@ descargas (individual y ZIP); descarga de fotos en Terceros. Plan completo prese
 - **Planos siempre en PDF (20/11, commit 45ee560 en `desarrollo`):** en producción todos los planos eran imágenes y se
   bajaban como JPG/PNG. Ahora el botón, el visor y el ZIP entregan PDF: si es PDF, el original; si es imagen,
   `utilidades/pdfDeImagen.ts` arma un PDF sin librerías y sin pérdida (JPG tal cual, datos del PNG tal cual, WEBP por
-  píxeles). Comprobado idéntico píxel a píxel con pdf.js. Falta el OK de Nahir para pasarlo a `main`.
+  píxeles). Comprobado idéntico píxel a píxel con pdf.js.
+- **Planos en PDF publicado** en `main` el 21/11 con OK de Nahir. También publicados (24/11): pie con «Nueva Córdoba,
+  Córdoba» junto, «Ver fotos» a la derecha de «Ver ficha» en Terceros, texto de Desarrollos al ancho de la grilla y
+  aviso «Actualizamos los jueves · la última fue el…» resaltado.
+- **`contenido_publico()` rápida (24/11, migración `20261124120000_contenido_publico_rapido.sql`, APLICADA EN PRODUCCIÓN
+  con OK de Nahir):** antes tardaba ~1,3 s (cruzaba cada archivo con las 602 filas de `medios`) y con 3 visitas a la vez
+  daba «statement timeout» → «No pudimos cargar el material». Ahora ~0,14 s, 3 a la vez sin error. JSON idéntico antes y
+  después (huella d5e927b5…). Respaldo `respaldos/exportacion-2026-11-24T13-22-20-116Z.json`. Para medir/comparar:
+  `node scripts/supabase/medir_contenido.mjs [--produccion] --guardar archivo.json` (solo lee).
 - La cuenta temporal de navegador (`privado/cuenta-navegador.json`, solo PRUEBA) sigue activa para probar la Etapa 4;
   al terminar, quitarle el rol y bloquearla (no se puede borrar porque publicó versiones).
 - Ojo: una cuenta temporal (`cuenta_navegador.mjs`) que **publicó** versiones no se puede borrar («Database error
