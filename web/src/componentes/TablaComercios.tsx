@@ -57,13 +57,13 @@ export function TablaComercios({ lista }: { readonly lista: readonly Propiedad[]
                   <td className="num precio">{precioCompleto(f)}</td>
                   {conLlave ? <><td>{f.llave || "—"}</td><td>{f.escritura || "—"}</td></> : null}
                   <td className="ficha">
+                    {link ? <a href={link} target="_blank" rel="noopener noreferrer">Ver ficha <span aria-hidden="true">&#8599;</span></a> : null}
                     {nFotos ? (
                       <button type="button" className="ver-fotos" aria-expanded={abiertaEsta} aria-controls={`fotos-${f.id}`}
                               onClick={() => setAbierta(abiertaEsta ? null : f.id)}>
                         {abiertaEsta ? "Ocultar fotos" : `Ver fotos (${nFotos})`}
                       </button>
                     ) : null}
-                    {link ? <a href={link} target="_blank" rel="noopener noreferrer">Ver ficha <span aria-hidden="true">&#8599;</span></a> : null}
                   </td>
                 </tr>
                 {abiertaEsta ? (
@@ -77,7 +77,7 @@ export function TablaComercios({ lista }: { readonly lista: readonly Propiedad[]
           </tbody>
         </table>
       </div>
-      <p className="pie-tabla">{vistas.length} {vistas.length === 1 ? "propiedad" : "propiedades"}. {hayFotos ? "«Ver fotos» muestra las fotos para descargar; «Ver ficha» abre la ficha completa en una pestaña nueva."
+      <p className="pie-tabla">{vistas.length} {vistas.length === 1 ? "propiedad" : "propiedades"}. {hayFotos ? "«Ver ficha» abre la ficha completa en una pestaña nueva; «Ver fotos» muestra las fotos para descargar."
         : "«Ver ficha» abre la ficha completa con fotos en una pestaña nueva."}</p>
     </>
   );

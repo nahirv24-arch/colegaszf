@@ -61,8 +61,9 @@ table.disp.comercios td.ficha a:hover{text-decoration:underline;text-underline-o
 table.disp.comercios tr.resaltada td{background:var(--crema)}
 
 /* ---------- Terceros: «Ver fotos» abre las fotos debajo de la fila ---------- */
-table.disp.comercios td.ficha .ver-fotos{background:none;border:0;padding:0;margin-right:16px;font:inherit;font-size:13px;
+table.disp.comercios td.ficha .ver-fotos{background:none;border:0;padding:0;font:inherit;font-size:13px;
   color:var(--rojo);cursor:pointer}
+table.disp.comercios td.ficha a + .ver-fotos{margin-left:16px}
 table.disp.comercios td.ficha .ver-fotos:hover{text-decoration:underline;text-underline-offset:3px}
 table.disp.comercios td.ficha .ver-fotos:focus-visible{outline:2px solid var(--rojo);outline-offset:3px}
 table.disp.comercios tr.con-fotos td{background:var(--crema);border-bottom-color:transparent}
