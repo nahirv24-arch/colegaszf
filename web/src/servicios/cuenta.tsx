@@ -76,7 +76,7 @@ export async function ingresar(usuario: string, clave: string): Promise<void> {
   throw new Error("Usuario o contraseña incorrectos.");
 }
 
-/** El colega se crea la cuenta (queda pendiente de aprobación) y entra con ella. */
+/** El colega se crea la cuenta (queda activa al instante) y entra con ella. */
 export async function crearCuenta(nombre: string, usuario: string, clave: string): Promise<void> {
   const { error } = await (await sb()).rpc("registrar_colega", { p_nombre: nombre, p_usuario: usuario.trim().toLowerCase(), p_clave: clave });
   if (error) {

@@ -116,18 +116,16 @@ try {
   const reg2 = nuevo();
   prueba("entra con el usuario que eligió", !(await reg2.auth.signInWithPassword({ email: correo2, password: clave1 })).error);
   const e2 = (await reg2.rpc("estado_pagina")).data;
-  prueba("queda pendiente y sin acceso (no le pide cambiar la contraseña)",
-    e2?.cuenta?.pendiente === true && e2?.cuenta?.activa === false && e2?.cuenta?.clave_provisoria === false && e2?.cuenta?.nombre === `Prueba automática ${sufijo} Registro`, JSON.stringify(e2));
-  prueba("pendiente: NO ve los desarrollos", !!(await reg2.rpc("contenido_publico")).error);
+  prueba("queda activo al instante, sin aprobación (no le pide cambiar la contraseña)",
+    e2?.cuenta?.pendiente === false && e2?.cuenta?.activa === true && e2?.cuenta?.clave_provisoria === false && e2?.cuenta?.nombre === `Prueba automática ${sufijo} Registro`, JSON.stringify(e2));
+  prueba("recién creado: ya ve los desarrollos (página cerrada)", !(await reg2.rpc("contenido_publico")).error);
+  prueba("recién creado: ya ve Terceros/Locales", !(await reg2.rpc("propiedades_publicas")).error);
   await reg2.rpc("registrar_actividad", { p_tipo: "ingreso" });
-  const { data: filaReg } = await admin.from("colegas").select("id,origen,pendiente").eq("usuario", usu2).single();
-  prueba("pendiente: no se registra su actividad", ((await admin.from("actividad").select("id").eq("colega_id", filaReg.id)).data ?? []).length === 0);
-  prueba("la administradora lo ve como «se registró solo»", filaReg.origen === "registro" && filaReg.pendiente === true);
-  prueba("otro colega no puede aprobarlo", !!(await col.rpc("aprobar_colega", { p_colega: filaReg.id })).error);
-  prueba("un visitante no puede aprobarlo", !!(await nuevo().rpc("aprobar_colega", { p_colega: filaReg.id })).error);
-  prueba("la administradora lo aprueba", !(await admin.rpc("aprobar_colega", { p_colega: filaReg.id })).error);
-  prueba("aprobado: ve los desarrollos", !(await reg2.rpc("contenido_publico")).error);
-  prueba("aprobado: deja de estar pendiente", (await reg2.rpc("estado_pagina")).data?.cuenta?.pendiente === false);
+  const { data: filaReg } = await admin.from("colegas").select("id,origen,pendiente,acceso_activo").eq("usuario", usu2).single();
+  prueba("se registra su actividad", ((await admin.from("actividad").select("id").eq("colega_id", filaReg.id)).data ?? []).length === 1);
+  prueba("la administradora lo ve como «se registró solo» y activo", filaReg.origen === "registro" && filaReg.pendiente === false && filaReg.acceso_activo === true);
+  prueba("la administradora puede pausarlo igual", !(await admin.rpc("pausar_acceso_colega", { p_colega: filaReg.id, p_activo: false })).error);
+  prueba("pausado: deja de ver", !!(await reg2.rpc("contenido_publico")).error);
   await admin.from("colegas").delete().eq("id", filaReg.id);
   prueba("al quitarlo, ya no puede entrar", !!(await nuevo().auth.signInWithPassword({ email: correo2, password: clave1 })).error);
 

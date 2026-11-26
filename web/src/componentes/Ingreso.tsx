@@ -66,7 +66,7 @@ function FormIngreso({ logo, onVolver, onCrear }: { readonly logo: string; reado
     <Marco logo={logo}>
       <div className="ingreso-rot">Material para colegas</div>
       <h1 className="ingreso-titulo">Ingresá con tu usuario</h1>
-      <p className="ingreso-texto">Usá tu usuario y tu contraseña. Si es tu primera vez, creá tu cuenta abajo: es un minuto.</p>
+      <p className="ingreso-texto">Usá tu usuario y tu contraseña. Si es tu primera vez, creá tu cuenta abajo: es un minuto. Después la sesión te queda iniciada en este dispositivo.</p>
       <form onSubmit={(e) => void enviar(e)} className="ingreso-form">
         <label className="ingreso-campo">
           <span>Usuario</span>
@@ -89,7 +89,7 @@ function FormIngreso({ logo, onVolver, onCrear }: { readonly logo: string; reado
   );
 }
 
-/** El colega se crea la cuenta: nombre, usuario y contraseña. Queda pendiente hasta que ZF la aprueba. */
+/** El colega se crea la cuenta: nombre, usuario y contraseña. Queda activa al instante (sin aprobación). */
 function CrearCuenta({ logo, onVolver, onIngresar }: {
   readonly logo: string; readonly onVolver?: () => void; readonly onIngresar: () => void;
 }) {
@@ -120,7 +120,7 @@ function CrearCuenta({ logo, onVolver, onIngresar }: {
     <Marco logo={logo}>
       <div className="ingreso-rot">Material para colegas</div>
       <h1 className="ingreso-titulo">Creá tu cuenta</h1>
-      <p className="ingreso-texto">Completá tus datos. Apenas revisemos tu registro, vas a poder ver todo el material.</p>
+      <p className="ingreso-texto">Completá tus datos y entrás directo a todo el material. En este dispositivo la sesión te queda iniciada.</p>
       <form onSubmit={(e) => void enviar(e)} className="ingreso-form">
         <label className="ingreso-campo">
           <span>Nombre y apellido</span>
