@@ -15,7 +15,7 @@ export function Inicio({ contenido }: { readonly contenido: ContenidoPublico }) 
       <Portada foto={sitio.portada} logo={logo} rotulo="ZF Propiedades" tinta
                titular={<><em>Bienvenidos, colegas.</em><br />Todo el material de nuestros desarrollos, en un solo lugar.</>} />
       <Categorias />
-      <main className="seccion col gut" id="desarrollos">
+      <main className="seccion col amplia gut" id="desarrollos">
         <div className="cabecera ancha">
           <div className="rot">Desarrollos</div>
           <p>Entrá a cada uno y vas a encontrar el brochure, los planos, los renders, la lista de precios y la lista

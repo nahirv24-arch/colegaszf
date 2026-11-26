@@ -80,7 +80,7 @@ function Contenido({ c }: { readonly c: Categoria }) {
  */
 export function Categorias() {
   return (
-    <section className="categorias col gut" id="categorias" aria-labelledby="categorias-titulo">
+    <section className="categorias col amplia gut" id="categorias" aria-labelledby="categorias-titulo">
       <div className="cabecera">
         <h2 className="titulo" id="categorias-titulo">¿Qué material estás buscando?</h2>
         <p>Explorá nuestros desarrollos, propiedades de terceros, locales comerciales y oficinas. Toda la información que
