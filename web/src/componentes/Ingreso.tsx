@@ -66,7 +66,7 @@ function FormIngreso({ logo, onVolver, onCrear }: { readonly logo: string; reado
     <Marco logo={logo}>
       <div className="ingreso-rot">Material para colegas</div>
       <h1 className="ingreso-titulo">Ingresá con tu usuario</h1>
-      <p className="ingreso-texto">Usá el usuario y la contraseña que te pasamos desde ZF Propiedades.</p>
+      <p className="ingreso-texto">Usá tu usuario y tu contraseña. Si es tu primera vez, creá tu cuenta abajo: es un minuto.</p>
       <form onSubmit={(e) => void enviar(e)} className="ingreso-form">
         <label className="ingreso-campo">
           <span>Usuario</span>
