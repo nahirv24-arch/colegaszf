@@ -114,6 +114,11 @@ descargas (individual y ZIP); descarga de fotos en Terceros. Plan completo prese
   daba «statement timeout» → «No pudimos cargar el material». Ahora ~0,14 s, 3 a la vez sin error. JSON idéntico antes y
   después (huella d5e927b5…). Respaldo `respaldos/exportacion-2026-11-24T13-22-20-116Z.json`. Para medir/comparar:
   `node scripts/supabase/medir_contenido.mjs [--produccion] --guardar archivo.json` (solo lee).
+- **Cuentas de colegas (26/11, en producción con OK de Nahir):** página cerrada con usuario y contraseña; los colegas se
+  crean la cuenta solos y **entran al instante, sin aprobación** (migración `20261126160000_registro_sin_aprobacion.sql`;
+  freno: 20 registros/hora, 100/día). La sesión queda guardada en el dispositivo (Supabase, `persistSession`) hasta
+  «Salir». Panel: Colegas (pausar/quitar) y «Métricas de colegas». Guía A4 para colegas en `../tutorial-colegas/`
+  (WhatsApp +54 9 3513 07-8944; la página todavía usa el comercial 5493516378970).
 - La cuenta temporal de navegador (`privado/cuenta-navegador.json`, solo PRUEBA) sigue activa para probar la Etapa 4;
   al terminar, quitarle el rol y bloquearla (no se puede borrar porque publicó versiones).
 - Ojo: una cuenta temporal (`cuenta_navegador.mjs`) que **publicó** versiones no se puede borrar («Database error
