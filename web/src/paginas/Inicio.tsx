@@ -12,7 +12,7 @@ export function Inicio({ contenido }: { readonly contenido: ContenidoPublico }) 
   const lista = sitio.emprendimientos.filter((e) => e.publicado !== false);
   return (
     <>
-      <Portada foto={sitio.portada} logo={logo} rotulo="ZF Propiedades" tinta
+      <Portada foto={sitio.portada} logo={logo} rotulo="ZF Propiedades" tinta amplia
                titular={<><em>Bienvenidos, colegas.</em><br />Todo el material de nuestros desarrollos, en un solo lugar.</>} />
       <Categorias />
       <main className="seccion col amplia gut" id="desarrollos">

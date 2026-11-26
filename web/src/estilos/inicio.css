@@ -36,3 +36,7 @@
 @media (min-width:1400px){
   .col.amplia.gut{padding-left:max(48px,env(safe-area-inset-left,0px));padding-right:max(48px,env(safe-area-inset-right,0px))}
 }
+/* Portada del inicio: el titular aprovecha el ancho (dos o tres líneas en lugar de cuatro) */
+@media (min-width:1100px){
+  .portada .caja.amplia .display{max-width:26ch}
+}

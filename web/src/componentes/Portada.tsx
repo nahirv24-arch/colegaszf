@@ -15,10 +15,12 @@ interface Props {
   readonly inicio?: string;
   /** Portada más baja (páginas de categoría). */
   readonly bajo?: boolean;
+  /** Inicio: mismo ancho que la grilla de desarrollos en pantallas grandes. */
+  readonly amplia?: boolean;
 }
 
 /** Cabecera a sangre con foto, logo, rótulo y titular (inicio, fichas y categorías). */
-export function Portada({ foto, logo, rotulo, titular, tinta = false, inicio, bajo = false }: Props) {
+export function Portada({ foto, logo, rotulo, titular, tinta = false, inicio, bajo = false, amplia = false }: Props) {
   const urlMedio = useUrlMedio();
   const clases = ["portada", foto ? "" : "lisa", tinta ? "tinta" : "", bajo ? "baja" : ""].filter(Boolean).join(" ");
   const marca = logo ? <img src={urlMedio(logo)} alt="ZF Propiedades" /> : <b>ZF Propiedades</b>;
@@ -27,7 +29,7 @@ export function Portada({ foto, logo, rotulo, titular, tinta = false, inicio, ba
       {foto ? <Imagen ruta={foto} prioritaria /> : null}
       {foto && tinta ? <div className="tinte" /> : null}
       <div className="sombra" />
-      <div className="caja col gut">
+      <div className={amplia ? "caja col amplia gut" : "caja col gut"}>
         {inicio
           ? <Link className="marca" to={inicio} aria-label="Inicio">{marca}</Link>
           : <a className="marca" href="#" aria-label="Inicio">{marca}</a>}
