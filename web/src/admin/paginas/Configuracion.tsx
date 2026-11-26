@@ -15,6 +15,7 @@ export function Configuracion() {
   const [valorFecha, setValorFecha] = useState("");
   const [guardandoFecha, setGuardandoFecha] = useState(false);
   const [subiendo, setSubiendo] = useState(false);
+  const [subiendoLogo, setSubiendoLogo] = useState(false);
   const [clave, setClave] = useState(""); const [clave2, setClave2] = useState("");
   const [guardandoClave, setGuardandoClave] = useState(false);
   const [bajando, setBajando] = useState(false);
@@ -53,8 +54,8 @@ export function Configuracion() {
 
       <section className="adm-panel" aria-labelledby="c-portada">
         <h2 id="c-portada" className="adm-subtitulo">Portada general y logo</h2>
-        <p className="adm-ayuda">La portada general es la foto grande del inicio. Reemplazarla se ve <b>enseguida</b> en la página
-          (la anterior queda guardada y se puede recuperar).</p>
+        <p className="adm-ayuda">La portada general es la foto grande del inicio y el logo aparece en toda la página. Reemplazarlos se ve <b>enseguida</b>
+          en la página (el anterior queda guardado y se puede recuperar).</p>
         {generales.cargando && !generales.datos ? <Cargando /> : generales.error ? <ErrorCaja texto={generales.error} reintentar={generales.recargar} /> : (
           <div className="adm-portada-fila">
             <div className="adm-portada-muestra ancha">{portada ? <img src={urlMedio(portada)} alt="Portada general" /> : <span>Sin portada</span>}</div>
@@ -68,10 +69,28 @@ export function Configuracion() {
                   catch (x) { avisar("error", mensajeError(x)); } finally { setSubiendo(false); }
                 }} /></label>
               {portada ? <span className="adm-info-archivo">{pesoLegible(portada.bytes)}{portada.ancho ? ` · ${portada.ancho}×${portada.alto}` : ""}</span> : null}
-              {logo ? <div className="adm-logo-muestra"><img src={urlMedio(logo)} alt="Logo" /><span className="adm-ayuda">Logo actual (para cambiarlo, pedilo: es parte de la identidad).</span></div> : null}
             </div>
           </div>
         )}
+        {generales.datos ? (
+          <div className="adm-logo-fila">
+            <div className="adm-logo-muestra grande">{logo ? <img src={urlMedio(logo)} alt="Logo actual" /> : <span>Sin logo</span>}</div>
+            <div className="adm-portada-acc">
+              <label className={subiendoLogo ? "adm-btn desactivado" : "adm-btn"}>{subiendoLogo ? "Subiendo…" : "Reemplazar logo"}
+                <input type="file" accept="image/png,image/webp" className="adm-sr" disabled={subiendoLogo} onChange={async (e) => {
+                  const f = e.target.files?.[0]; e.target.value = ""; if (!f) return;
+                  if (!(await confirmar({ titulo: "Reemplazar logo", confirmar: "Reemplazar",
+                    mensaje: "El logo nuevo se va a ver enseguida en la barra de arriba de toda la página. El anterior queda guardado." }))) return;
+                  setSubiendoLogo(true);
+                  try { const aviso = await subirMedio(null, "logo", f); avisar("ok", "Logo reemplazado."); if (aviso) avisar("info", aviso); generales.recargar(); }
+                  catch (x) { avisar("error", mensajeError(x)); } finally { setSubiendoLogo(false); }
+                }} /></label>
+              {logo ? <span className="adm-info-archivo">{pesoLegible(logo.bytes)}{logo.ancho ? ` · ${logo.ancho}×${logo.alto}` : ""}</span> : null}
+              <p className="adm-ayuda">Usá el logo <b>en blanco y con fondo transparente</b> (PNG o WEBP): va sobre las fotos.
+                Cuando la barra de arriba se pone blanca, la página lo muestra en oscuro sola.</p>
+            </div>
+          </div>
+        ) : null}
       </section>
 
       <section className="adm-panel" aria-labelledby="c-resp">

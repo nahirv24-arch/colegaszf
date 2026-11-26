@@ -364,3 +364,9 @@ a.adm-tarjeta:hover { border-top-color: var(--rojo); }
 .adm-orden .nom { flex: 1; min-width: 0; font-size: 14.5px; font-weight: 500; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .adm-orden .flechas { display: flex; gap: 4px; }
 .adm-orden .flechas .adm-btn { padding: 3px 9px; }
+
+/* Logo en Configuración (se reemplaza igual que la portada general) */
+.adm-logo-fila { display: flex; gap: 22px; flex-wrap: wrap; align-items: flex-start; margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--linea); }
+.adm-logo-muestra.grande { width: min(405px, 100%); min-height: 120px; justify-content: center; padding: 24px; color: #C8CFD4; font-size: 13px; }
+.adm-logo-muestra.grande img { height: 56px; max-width: 100%; object-fit: contain; }
+.adm-logo-fila .adm-ayuda { max-width: 52ch; margin: 0; }

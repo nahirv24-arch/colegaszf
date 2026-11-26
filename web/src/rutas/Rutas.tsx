@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { Navigate, Outlet, Route, Routes } from "react-router";
+import { BarraNavegacion, BotonArriba } from "../componentes/Navegacion";
 import { PaginaCategoria } from "../paginas/PaginaCategoria";
 import { PaginaPublica } from "../paginas/PaginaPublica";
 import { ProveedorDatos } from "../servicios/contexto";
@@ -20,7 +21,7 @@ const AdminApp = lazy(() => import("../admin/AdminApp"));
 export function Rutas() {
   return (
     <Routes>
-      <Route element={<ProveedorDatos><Outlet /></ProveedorDatos>}>
+      <Route element={<ProveedorDatos><BarraNavegacion /><Outlet /><BotonArriba /></ProveedorDatos>}>
         <Route path="/" element={<PaginaPublica />} />
         <Route path="/index.html" element={<PaginaPublica />} />
         <Route path="/terceros" element={<PaginaCategoria key="terceros" clave="terceros" />} />

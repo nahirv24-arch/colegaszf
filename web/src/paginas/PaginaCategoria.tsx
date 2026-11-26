@@ -68,9 +68,9 @@ export function PaginaCategoria({ clave }: { readonly clave: Exclude<ClaveCatego
 
   return (
     <>
-      <Portada foto={portada} logo={logo} rotulo="ZF Propiedades" tinta inicio="/" bajo
+      <Portada foto={portada} logo={logo} rotulo="ZF Propiedades" tinta inicio="/" bajo amplia
                titular={<><em>{c.nombre}.</em><br />{c.titular}</>} />
-      <main className="seccion col gut">
+      <main className="seccion col amplia gut">
         <Link className="volver" to="/#categorias"><span aria-hidden="true">&larr;</span> Todas las categorías</Link>
         <div className="cabecera">
           <div className="rot">{c.nombre}</div>

@@ -1,0 +1,61 @@
+/* ---------- barra de arriba (Inicio · Desarrollos · Terceros · Locales) ---------- */
+.barra-nav{position:fixed;top:0;left:0;right:0;z-index:40;height:68px;
+  background:linear-gradient(rgba(16,24,29,.5),rgba(16,24,29,0));transition:background-color .25s,box-shadow .25s}
+.barra-nav .in{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.barra-nav .logo{display:flex;align-items:center;text-decoration:none}
+.barra-nav .logo img{height:34px;width:auto;display:block;transition:filter .25s}
+.barra-nav .logo b{font-weight:500;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:#fff}
+.barra-nav nav{display:flex;gap:34px}
+.barra-nav nav a{font-family:var(--display);font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:#fff;text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;transition:border-color .2s,color .2s}
+.barra-nav nav a:hover{border-bottom-color:rgba(255,255,255,.6)}
+.barra-nav nav a.activo{border-bottom-color:var(--rojo)}
+.barra-nav.blanca{background:#fff;box-shadow:0 1px 0 var(--linea)}
+.barra-nav.blanca nav a{color:var(--tinta)}
+.barra-nav.blanca nav a:hover{border-bottom-color:var(--humo)}
+.barra-nav.blanca nav a.activo{border-bottom-color:var(--rojo)}
+.barra-nav.blanca .logo img{filter:invert(1) brightness(.25)}
+.barra-nav.blanca .logo b{color:var(--tinta)}
+.barra-nav .menu{display:none}
+/* La barra ya lleva el logo: el de la foto se oculta para no repetirlo */
+.portada .marca{visibility:hidden}
+/* Al bajar a una sección con "#", que no quede tapada por la barra */
+#categorias,#desarrollos{scroll-margin-top:84px}
+
+/* Celular: los enlaces van en un menú desplegable */
+@media (max-width:760px){
+  .barra-nav{height:58px}
+  .barra-nav .logo img{height:29px}
+  .barra-nav .menu{display:flex;align-items:center;gap:10px;background:none;border:0;padding:8px 0;cursor:pointer;
+    font-family:var(--display);font-size:11.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#fff}
+  .barra-nav.blanca .menu,.barra-nav.abierta .menu{color:var(--tinta)}
+  .barra-nav .rayas{display:flex;flex-direction:column;gap:4px;width:18px}
+  .barra-nav .rayas i{display:block;height:1.5px;background:currentColor;transition:transform .2s,opacity .2s}
+  .barra-nav.abierta .rayas i:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+  .barra-nav.abierta .rayas i:nth-child(2){opacity:0}
+  .barra-nav.abierta .rayas i:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+  .barra-nav nav{display:none;position:absolute;top:58px;left:0;right:0;flex-direction:column;gap:0;background:#fff;
+    box-shadow:0 12px 24px rgba(26,37,44,.14);border-top:1px solid var(--linea)}
+  .barra-nav.abierta{background:#fff;box-shadow:0 1px 0 var(--linea)}
+  .barra-nav.abierta .logo img{filter:invert(1) brightness(.25)}
+  .barra-nav.abierta nav{display:flex}
+  .barra-nav nav a,.barra-nav.blanca nav a{color:var(--tinta);padding:17px max(20px,env(safe-area-inset-left,0px));
+    border-bottom:1px solid var(--linea);font-size:12.5px}
+  .barra-nav nav a.activo{border-bottom-color:var(--linea);box-shadow:inset 3px 0 0 var(--rojo)}
+  #categorias,#desarrollos{scroll-margin-top:72px}
+}
+
+/* ---------- circulito «volver arriba» ---------- */
+.boton-arriba{position:fixed;right:max(28px,env(safe-area-inset-right,0px));bottom:max(28px,env(safe-area-inset-bottom,0px));z-index:40;
+  width:52px;height:52px;border-radius:50%;border:0;background:var(--tinta);color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(26,37,44,.28);
+  opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .25s,transform .25s,background-color .2s}
+.boton-arriba.ver{opacity:1;transform:none;pointer-events:auto}
+.boton-arriba:hover{background:var(--tinta-prof)}
+.boton-arriba:focus-visible{outline:2px solid var(--rojo);outline-offset:3px}
+@media (max-width:760px){
+  .boton-arriba{width:46px;height:46px;right:16px;bottom:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  .barra-nav,.boton-arriba,.barra-nav .rayas i{transition:none}
+}
