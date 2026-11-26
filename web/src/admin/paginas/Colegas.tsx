@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { mensajeError } from "../servicio";
-import { COLEGA_VACIO, erroresColega, guardarColegas, linkWhatsapp, listarColegas, pausarAcceso, type Colega, type DatosColega } from "../servicioColegas";
+import { COLEGA_VACIO, erroresColega, guardarColegas, linkWhatsapp, listarColegas, pausarAcceso, aprobarColega, type Colega, type DatosColega } from "../servicioColegas";
 import { Cargando, ErrorCaja, fechaHora, useAvisos, useCarga, useConfirmar } from "../ui";
 import { AccesoColega, type ColegaAcceso } from "./AccesoColega";
 
-type Cuenta = Pick<Colega, "usuario" | "acceso_activo" | "clave_provisoria" | "ultimo_ingreso">;
+type Cuenta = Pick<Colega, "usuario" | "acceso_activo" | "clave_provisoria" | "ultimo_ingreso" | "pendiente" | "origen">;
 
 interface Renglon {
   clave: string;
@@ -42,7 +42,7 @@ export function Colegas() {
     if (!datos) return;
     setRenglones(datos.map((c) => {
       const d = { nombre_apellido: c.nombre_apellido, telefono: c.telefono, inmobiliaria: c.inmobiliaria, notas: c.notas };
-      const cuenta = { usuario: c.usuario, acceso_activo: c.acceso_activo, clave_provisoria: c.clave_provisoria, ultimo_ingreso: c.ultimo_ingreso };
+      const cuenta = { usuario: c.usuario, acceso_activo: c.acceso_activo, clave_provisoria: c.clave_provisoria, ultimo_ingreso: c.ultimo_ingreso, pendiente: c.pendiente, origen: c.origen };
       return { clave: nuevaClave(), id: c.id, datos: d, original: firma(d), creado_en: c.creado_en, cuenta };
     }));
     setQuitados([]);
@@ -116,6 +116,25 @@ export function Colegas() {
     finally { setOcupado(false); }
   };
 
+  const aprobar = async (r: Renglon) => {
+    if (!r.id) return;
+    setOcupado(true);
+    try { await aprobarColega(r.id); avisar("ok", `Listo: «${r.datos.nombre_apellido}» ya puede ver el material.`); recargar(); }
+    catch (e) { avisar("error", mensajeError(e)); }
+    finally { setOcupado(false); }
+  };
+
+  const rechazar = async (r: Renglon) => {
+    if (!r.id) return;
+    const ok = await confirmar({ titulo: "Rechazar registro", confirmar: "Rechazar", peligro: true,
+      mensaje: <>Se borra la cuenta de «{r.datos.nombre_apellido}» ({r.cuenta?.usuario}). No va a poder entrar. Si era un colega, puede volver a registrarse.</> });
+    if (!ok) return;
+    setOcupado(true);
+    try { await guardarColegas({ nuevos: [], editados: [], quitados: [r.id] }); avisar("ok", "Registro rechazado."); recargar(); }
+    catch (e) { avisar("error", mensajeError(e)); }
+    finally { setOcupado(false); }
+  };
+
   /** Celda «Acceso a la página»: usuario, estado y botones. */
   const celdaAcceso = (r: Renglon) => {
     if (!r.id) return <span className="adm-ayuda">Guardá primero</span>;
@@ -125,9 +144,22 @@ export function Colegas() {
     if (!c?.usuario) {
       return <button type="button" className="adm-btn chico" onClick={abrir} disabled={ocupado || hayCambios} title={bloqueo}>Crear acceso</button>;
     }
+    if (c.pendiente) {
+      return (
+        <div className="adm-col-acceso">
+          <div><code>{c.usuario}</code> <span className="adm-chip ambar">Pendiente</span></div>
+          <small>Se registró solo/a el {fecha(r.creado_en)}</small>
+          <div className="adm-col-acceso-bot">
+            <button type="button" className="adm-btn chico primario" onClick={() => void aprobar(r)} disabled={ocupado || hayCambios} title={bloqueo}>Aprobar</button>
+            <button type="button" className="adm-btn chico texto-peligro" onClick={() => void rechazar(r)} disabled={ocupado || hayCambios} title={bloqueo}>Rechazar</button>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="adm-col-acceso">
         <div><code>{c.usuario}</code>{" "}
+          {c.origen === "registro" ? <span className="adm-chip gris" title="Se creó la cuenta desde la página">Se registró solo/a</span> : null}{" "}
           {!c.acceso_activo ? <span className="adm-chip rojo">Pausado</span>
             : c.clave_provisoria ? <span className="adm-chip ambar" title="Todavía no entró a elegir su contraseña">Sin estrenar</span>
             : <span className="adm-chip verde">Activo</span>}
@@ -143,12 +175,21 @@ export function Colegas() {
   };
 
   const guardados = renglones.filter((r) => r.id).length;
+  const pendientes = renglones.filter((r) => r.cuenta?.pendiente).length;
 
   return (
     <div className="adm-pagina">
       <p className="adm-intro">Registro de los colegas a los que les diste acceso a la página. <b>Es privado:</b> solo se ve en
-        este panel y no aparece en la página de colegas. Con «Crear acceso» le armás un usuario y una contraseña para entrar;
+        este panel y no aparece en la página de colegas. Los colegas pueden crearse la cuenta solos desde la página (quedan pendientes hasta que los aprobás),
+        o se la armás vos con «Crear acceso»;
         lo que mira y descarga lo ves en «Métricas de colegas».</p>
+
+      {pendientes ? (
+        <div className="adm-aviso-pendientes" role="status">
+          <b>{pendientes === 1 ? "1 colega espera" : `${pendientes} colegas esperan`} tu aprobación.</b> Se crearon la cuenta desde la página:
+          revisá quién es y tocá «Aprobar» (o «Rechazar» si no lo conocés). Hasta que lo apruebes, no ve el material.
+        </div>
+      ) : null}
 
       <div className="adm-barra adm-com-barra">
         <div className="adm-com-acc">

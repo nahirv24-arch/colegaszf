@@ -396,3 +396,6 @@ a.adm-tarjeta:hover { border-top-color: var(--rojo); }
 .adm-met-detalle ol { list-style: none; margin: 0; padding: 4px 0 4px 16px; display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; }
 .adm-met-detalle .cuando { color: var(--humo); font-variant-numeric: tabular-nums; display: inline-block; min-width: 130px; }
 a.adm-chip { text-decoration: none; }
+.adm-aviso-pendientes { background: #FCF6E5; border: 1px solid #E5D29E; border-left: 3px solid #C9A227; padding: 12px 16px;
+  font-size: 14px; line-height: 1.5; color: var(--tinta); }
+.adm-aviso-pendientes b { font-weight: 500; }

@@ -28,12 +28,15 @@ export interface Colega extends DatosColega {
   /** true = todavía no cambió la contraseña que le diste. */
   clave_provisoria: boolean;
   ultimo_ingreso: string | null;
+  /** Se registró desde la página y espera tu aprobación. */
+  pendiente: boolean;
+  origen: "panel" | "registro";
 }
 
 export const COLEGA_VACIO: DatosColega = { nombre_apellido: "", telefono: "", inmobiliaria: "", notas: "" };
 
 export async function listarColegas(): Promise<Colega[]> {
-  return revisar(await sb().from("colegas").select("id,nombre_apellido,telefono,inmobiliaria,notas,creado_en,usuario,acceso_activo,clave_provisoria,ultimo_ingreso")
+  return revisar(await sb().from("colegas").select("id,nombre_apellido,telefono,inmobiliaria,notas,creado_en,usuario,acceso_activo,clave_provisoria,ultimo_ingreso,pendiente,origen")
     .order("nombre_apellido")) as Colega[];
 }
 
@@ -111,6 +114,10 @@ export async function crearAcceso(colega: string, usuario: string, clave: string
 
 export async function resetearClave(colega: string, clave: string): Promise<void> {
   revisar(await sb().rpc("resetear_clave_colega", { p_colega: colega, p_clave: clave }));
+}
+
+export async function aprobarColega(colega: string): Promise<void> {
+  revisar(await sb().rpc("aprobar_colega", { p_colega: colega }));
 }
 
 export async function pausarAcceso(colega: string, activo: boolean): Promise<void> {

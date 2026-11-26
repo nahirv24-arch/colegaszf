@@ -46,3 +46,12 @@
   .barra-nav .cuenta .quien,.barra-nav.blanca .cuenta .quien{color:var(--humo)}
   .barra-nav .cuenta button,.barra-nav.blanca .cuenta button{color:var(--tinta)}
 }
+
+/* ---------- crear cuenta / pendiente ---------- */
+.ingreso-ayuda{font-size:12.5px;color:var(--humo);line-height:1.45}
+.ingreso-alternativa{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:18px;padding-top:16px;
+  border-top:1px solid var(--linea);font-size:13.5px;color:var(--humo)}
+.ingreso-secundario{background:none;border:0;padding:0;cursor:pointer;font-family:var(--display);font-size:13.5px;font-weight:500;
+  color:var(--rojo);text-decoration:underline;text-underline-offset:3px}
+.ingreso-secundario.centrado{align-self:center;margin-top:16px}
+.ingreso-usuario{font-weight:500;color:var(--tinta);font-family:var(--mono);font-size:13px}

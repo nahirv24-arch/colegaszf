@@ -29,6 +29,7 @@ async function limpiar() {
     await srv.from("colegas").delete().eq("id", colegaId);
   }
   await srv.from("actividad").delete().like("colega_nombre", `Prueba automática ${sufijo}%`);
+  await srv.from("colegas").delete().like("nombre_apellido", `Prueba automática ${sufijo}%`);
   if (adminId) { await srv.from("roles_usuario").delete().eq("user_id", adminId); await srv.auth.admin.deleteUser(adminId); }
 }
 
@@ -103,6 +104,32 @@ try {
   prueba("cerrada: el colega SÍ ve los desarrollos", !(await col.rpc("contenido_publico")).error);
   prueba("cerrada: el colega SÍ ve Terceros/Locales", !(await col.rpc("propiedades_publicas")).error);
   prueba("cerrada: la administradora SÍ ve", !(await admin.rpc("contenido_publico")).error);
+
+  console.log("Registro propio (con la página cerrada)");
+  const usu2 = `prueba.registro.${sufijo}`;
+  const correo2 = `${usu2}@colegas.zf.local`;
+  const reg = await nuevo().rpc("registrar_colega", { p_nombre: `  Prueba automática ${sufijo}   Registro `, p_usuario: usu2.toUpperCase(), p_clave: clave1 });
+  prueba("un colega se crea la cuenta solo", !reg.error, reg.error?.message);
+  prueba("no deja repetir el usuario", !!(await nuevo().rpc("registrar_colega", { p_nombre: "Otro Nombre", p_usuario: usu2, p_clave: clave1 })).error);
+  prueba("rechaza contraseñas cortas", !!(await nuevo().rpc("registrar_colega", { p_nombre: "Otro Nombre", p_usuario: `${usu2}x`, p_clave: "1234567" })).error);
+  prueba("rechaza usuarios con espacios o acentos", !!(await nuevo().rpc("registrar_colega", { p_nombre: "Otro Nombre", p_usuario: "josé pérez", p_clave: clave1 })).error);
+  const reg2 = nuevo();
+  prueba("entra con el usuario que eligió", !(await reg2.auth.signInWithPassword({ email: correo2, password: clave1 })).error);
+  const e2 = (await reg2.rpc("estado_pagina")).data;
+  prueba("queda pendiente y sin acceso (no le pide cambiar la contraseña)",
+    e2?.cuenta?.pendiente === true && e2?.cuenta?.activa === false && e2?.cuenta?.clave_provisoria === false && e2?.cuenta?.nombre === `Prueba automática ${sufijo} Registro`, JSON.stringify(e2));
+  prueba("pendiente: NO ve los desarrollos", !!(await reg2.rpc("contenido_publico")).error);
+  await reg2.rpc("registrar_actividad", { p_tipo: "ingreso" });
+  const { data: filaReg } = await admin.from("colegas").select("id,origen,pendiente").eq("usuario", usu2).single();
+  prueba("pendiente: no se registra su actividad", ((await admin.from("actividad").select("id").eq("colega_id", filaReg.id)).data ?? []).length === 0);
+  prueba("la administradora lo ve como «se registró solo»", filaReg.origen === "registro" && filaReg.pendiente === true);
+  prueba("otro colega no puede aprobarlo", !!(await col.rpc("aprobar_colega", { p_colega: filaReg.id })).error);
+  prueba("un visitante no puede aprobarlo", !!(await nuevo().rpc("aprobar_colega", { p_colega: filaReg.id })).error);
+  prueba("la administradora lo aprueba", !(await admin.rpc("aprobar_colega", { p_colega: filaReg.id })).error);
+  prueba("aprobado: ve los desarrollos", !(await reg2.rpc("contenido_publico")).error);
+  prueba("aprobado: deja de estar pendiente", (await reg2.rpc("estado_pagina")).data?.cuenta?.pendiente === false);
+  await admin.from("colegas").delete().eq("id", filaReg.id);
+  prueba("al quitarlo, ya no puede entrar", !!(await nuevo().auth.signInWithPassword({ email: correo2, password: clave1 })).error);
 
   console.log("Pausar y resetear");
   prueba("la administradora pausa el acceso", !(await admin.rpc("pausar_acceso_colega", { p_colega: colegaId, p_activo: false })).error);

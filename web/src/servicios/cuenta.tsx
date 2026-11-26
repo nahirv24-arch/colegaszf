@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { Ingreso, CambiarClave, AccesoPausado } from "../componentes/Ingreso";
+import { Ingreso, CambiarClave, AccesoPausado, CuentaPendiente } from "../componentes/Ingreso";
 
 /**
  * Cuentas de colegas en la página pública.
@@ -21,6 +21,8 @@ export interface CuentaColega {
   readonly usuario: string;
   readonly clave_provisoria: boolean;
   readonly activa: boolean;
+  /** Se registró sola/solo y espera la aprobación de la administradora. */
+  readonly pendiente?: boolean;
 }
 
 interface EstadoPagina {
@@ -74,6 +76,16 @@ export async function ingresar(usuario: string, clave: string): Promise<void> {
   throw new Error("Usuario o contraseña incorrectos.");
 }
 
+/** El colega se crea la cuenta (queda pendiente de aprobación) y entra con ella. */
+export async function crearCuenta(nombre: string, usuario: string, clave: string): Promise<void> {
+  const { error } = await (await sb()).rpc("registrar_colega", { p_nombre: nombre, p_usuario: usuario.trim().toLowerCase(), p_clave: clave });
+  if (error) {
+    if (/fetch|network/i.test(error.message)) throw new Error("No hay conexión. Revisá internet y probá de nuevo.");
+    throw new Error(error.message || "No se pudo crear la cuenta. Probá de nuevo.");
+  }
+  await ingresar(usuario, clave);
+}
+
 export async function cambiarClave(nueva: string): Promise<void> {
   if (nueva.length < 10) throw new Error("La contraseña tiene que tener al menos 10 caracteres.");
   const c = await sb();
@@ -99,6 +111,8 @@ const CLAVE_INGRESO = "zf-ingreso-registrado";
 export function ProveedorCuenta({ children }: { readonly children: ReactNode }) {
   const [estado, setEstado] = useState<EstadoPagina | "cargando" | "sin-dato">(USA_SUPABASE ? "cargando" : "sin-dato");
   const [verIngreso, setVerIngreso] = useState(false);
+  /** Con la página abierta, el aviso «cuenta pendiente» se muestra una vez y después sigue a la página. */
+  const [pendienteVisto, setPendienteVisto] = useState(false);
 
   const actualizar = useCallback(() => {
     leerEstado().then(setEstado, () => setEstado("sin-dato"));
@@ -142,7 +156,12 @@ export function ProveedorCuenta({ children }: { readonly children: ReactNode }) 
 
   if (estado === "cargando") return null;
   if (est) {
-    if (cuenta && !cuenta.activa) return <AccesoPausado logo={est.logo} nombre={cuenta.nombre} onSalir={salir} />;
+    // Pendiente de aprobación: con la página cerrada espera; con la página abierta la ve como cualquier visitante.
+    if (cuenta?.pendiente && (est.cerrada || !pendienteVisto)) {
+      return <CuentaPendiente logo={est.logo} nombre={cuenta.nombre} usuario={cuenta.usuario} onRevisar={actualizar} onSalir={salir}
+                              onVolver={est.cerrada ? undefined : () => setPendienteVisto(true)} />;
+    }
+    if (cuenta && !cuenta.activa && !cuenta.pendiente) return <AccesoPausado logo={est.logo} nombre={cuenta.nombre} onSalir={salir} />;
     if (cuenta?.clave_provisoria) return <CambiarClave logo={est.logo} nombre={cuenta.nombre} onListo={actualizar} onSalir={salir} />;
     if (!cuenta && !est.admin && (est.cerrada || verIngreso)) {
       return <Ingreso logo={est.logo} onVolver={est.cerrada ? undefined : () => setVerIngreso(false)} />;
