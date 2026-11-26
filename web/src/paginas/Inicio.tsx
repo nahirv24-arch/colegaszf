@@ -18,8 +18,6 @@ export function Inicio({ contenido }: { readonly contenido: ContenidoPublico }) 
       <main className="seccion col amplia gut" id="desarrollos">
         <div className="cabecera ancha">
           <div className="rot">Desarrollos</div>
-          <p>Entrá a cada uno y vas a encontrar el brochure, los planos, los renders, la lista de precios y la lista
-            de disponibles. Los links son fijos: guardá esta página y siempre vas a estar viendo la versión vigente.</p>
           <p className="aviso-actualizado">
             <span className="punto" aria-hidden="true" />
             <span>Actualizamos los jueves{sitio.actualizado ? <>{" "}<i aria-hidden="true">·</i><span className="ult">Última actualización <b className="fecha">{fecha(sitio.actualizado)}</b></span></> : null}</span>
