@@ -22,7 +22,7 @@ export function Inicio({ contenido }: { readonly contenido: ContenidoPublico }) 
             de disponibles. Los links son fijos: guardá esta página y siempre vas a estar viendo la versión vigente.</p>
           <p className="aviso-actualizado">
             <span className="punto" aria-hidden="true" />
-            <span><b>Actualizamos los jueves</b>{sitio.actualizado ? <> · la última fue el <b className="fecha">{fecha(sitio.actualizado)}</b></> : null}</span>
+            <span>Actualizamos los jueves{sitio.actualizado ? <>{" "}<i aria-hidden="true">·</i><span className="ult">Última actualización <b className="fecha">{fecha(sitio.actualizado)}</b></span></> : null}</span>
           </p>
         </div>
         {!lista.length ? (

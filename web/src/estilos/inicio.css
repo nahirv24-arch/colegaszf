@@ -4,13 +4,18 @@
 .cabecera p{margin:0;color:var(--humo);font-size:16px;line-height:1.55}
 /* Inicio: el texto ocupa el mismo ancho que la grilla de fotos */
 .cabecera.ancha{max-width:none}
-/* «Actualizamos los jueves · la última fue el…» resaltado */
-.cabecera .aviso-actualizado{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;
-  background:var(--crema);border:1px solid var(--linea);border-left:3px solid var(--rojo);border-radius:4px;
-  padding:9px 16px;color:var(--tinta);font-size:15px;line-height:1.45}
-.cabecera .aviso-actualizado b{font-weight:600}
-.cabecera .aviso-actualizado .fecha{color:var(--rojo)}
-.cabecera .aviso-actualizado .punto{flex:none;width:8px;height:8px;border-radius:50%;background:var(--rojo)}
+/* «Actualizamos los jueves · Última actualización…»: una línea fina, sin caja */
+.cabecera .aviso-actualizado{align-self:flex-start;display:inline-flex;align-items:baseline;gap:10px;
+  font-size:11.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;line-height:1.7;color:var(--humo)}
+.cabecera .aviso-actualizado b{font-weight:600;color:var(--tinta);white-space:nowrap}
+.cabecera .aviso-actualizado i{font-style:normal;margin:0 12px;color:var(--linea)}
+.cabecera .aviso-actualizado .punto{flex:none;width:6px;height:6px;border-radius:50%;background:var(--rojo);
+  align-self:flex-start;margin-top:7px}
+/* En el celular, la fecha va en su propio renglón */
+@media (max-width:600px){
+  .cabecera .aviso-actualizado i{display:none}
+  .cabecera .aviso-actualizado .ult{display:block}
+}
 
 .grilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:40px 24px}
 .tarjeta{display:flex;flex-direction:column;gap:10px;text-decoration:none;min-width:0}
