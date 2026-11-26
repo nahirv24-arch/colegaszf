@@ -1,4 +1,4 @@
-/** Pie con dirección, web, Instagram y WhatsApp comercial (mismos datos que el original). */
+/** Pie con dirección, web, Instagram y WhatsApp (número nuevo desde el 26/11/2026). */
 export function Pie() {
   return (
     <footer>
@@ -19,7 +19,7 @@ export function Pie() {
                 <circle cx="17.4" cy="6.6" r="1.2" fill="currentColor" />
               </svg>
             </a>
-            <a className="ico" href="https://wa.me/5493516378970" target="_blank" rel="noopener"
+            <a className="ico" href="https://wa.me/5493513078944" target="_blank" rel="noopener"
                aria-label="WhatsApp del equipo comercial" title="WhatsApp comercial">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor"

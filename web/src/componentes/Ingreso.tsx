@@ -2,7 +2,7 @@ import { useState, type FormEvent, type ReactNode } from "react";
 import { cambiarClave, crearCuenta, ingresar } from "../servicios/cuenta";
 import { urlPublicaMedia } from "../servicios/urlSupabase";
 
-const WHATSAPP = "https://wa.me/5493516378970";
+const WHATSAPP = "https://wa.me/5493513078944";
 
 /** Marco común: fondo oscuro, logo y una tarjeta blanca en el medio. */
 function Marco({ logo, children }: { readonly logo: string; readonly children: ReactNode }) {
