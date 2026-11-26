@@ -3,7 +3,7 @@ import { Pie } from "../componentes/Pie";
 import { Portada } from "../componentes/Portada";
 import { TarjetaDesarrollo } from "../componentes/TarjetaDesarrollo";
 import type { ContenidoPublico } from "../servicios";
-import { idDe, ordenarPorMaterial } from "../utilidades/orden";
+import { idDe } from "../utilidades/orden";
 import { fecha } from "../utilidades/textos";
 
 /** Inicio: portada general + las tres categorías + grilla de desarrollos ordenada por material. */
@@ -32,7 +32,7 @@ export function Inicio({ contenido }: { readonly contenido: ContenidoPublico }) 
           </div>
         ) : (
           <div className="grilla">
-            {ordenarPorMaterial(sitio.emprendimientos)
+            {sitio.emprendimientos.map((e, i) => ({ e, i })) /* orden elegido en el panel («Ordenar la página») */
               .filter(({ e }) => e.publicado !== false)
               .map(({ e, i }) => <TarjetaDesarrollo key={idDe(e, i)} e={e} id={idDe(e, i)} />)}
           </div>

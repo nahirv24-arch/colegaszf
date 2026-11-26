@@ -352,3 +352,15 @@ a.adm-tarjeta:hover { border-top-color: var(--rojo); }
 .adm-pend-act.activo { color: #8A6D1F; }
 .adm-pend-act.activo .caja { background: #8A6D1F; border-color: #8A6D1F; color: #fff; }
 .adm-pend-act:disabled { opacity: .5; cursor: wait; }
+
+/* Ventana «Ordenar la página» (orden de los desarrollos en el inicio) */
+.adm-orden { list-style: none; margin: 0; padding: 0; border: 1px solid var(--linea); max-height: min(56vh, 560px); overflow-y: auto; }
+.adm-orden li { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border-bottom: 1px solid var(--linea); background: #fff; cursor: grab; user-select: none; }
+.adm-orden li:last-child { border-bottom: 0; }
+.adm-orden li:hover { background: var(--crema); }
+.adm-orden li.arrastrando { opacity: .55; background: var(--crema); outline: 1px dashed var(--tinta); }
+.adm-orden .asa { color: var(--humo); letter-spacing: -.25em; font-size: 13px; }
+.adm-orden .num { width: 22px; text-align: right; font-variant-numeric: tabular-nums; color: var(--humo); font-size: 13px; }
+.adm-orden .nom { flex: 1; min-width: 0; font-size: 14.5px; font-weight: 500; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.adm-orden .flechas { display: flex; gap: 4px; }
+.adm-orden .flechas .adm-btn { padding: 3px 9px; }

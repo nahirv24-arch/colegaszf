@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { listarDesarrollos, type ResumenDesarrollo } from "../servicio";
 import { Cargando, ChipEstado, ErrorCaja, fechaHora, useCarga } from "../ui";
+import { OrdenDesarrollos } from "./OrdenDesarrollos";
 
 const FILTROS = [
   ["todos", "Todos"], ["publicados", "Publicados"], ["borradores", "Borradores"], ["ocultos", "Ocultos"],
@@ -28,6 +29,7 @@ export function ListaDesarrollos() {
   const [params, setParams] = useSearchParams();
   const filtro = (FILTROS.find(([k]) => k === params.get("filtro"))?.[0] ?? "todos") as Filtro;
   const [buscar, setBuscar] = useState("");
+  const [ordenando, setOrdenando] = useState(false);
 
   const lista = useMemo(() => (datos ?? []).filter((d) => pasa(d, filtro)
     && (!buscar.trim() || sinAcentos(`${d.nombre} ${d.id} ${d.direccion}`).includes(sinAcentos(buscar.trim())))), [datos, filtro, buscar]);
@@ -37,6 +39,7 @@ export function ListaDesarrollos() {
       <div className="adm-barra">
         <label className="adm-buscar"><span className="adm-sr">Buscar por nombre</span>
           <input type="search" placeholder="Buscar por nombre…" value={buscar} onChange={(e) => setBuscar(e.target.value)} /></label>
+        <button type="button" className="adm-btn" disabled={!datos} onClick={() => setOrdenando(true)}>Ordenar la página</button>
         <Link to="/admin/desarrollos/nuevo" className="adm-btn primario">+ Nuevo desarrollo</Link>
       </div>
       <div className="adm-filtros" role="tablist" aria-label="Filtrar desarrollos">
@@ -69,6 +72,7 @@ export function ListaDesarrollos() {
           </table>
         </div>
       )}
+      <OrdenDesarrollos abierta={ordenando} desarrollos={datos ?? []} onCerrar={() => setOrdenando(false)} onGuardado={recargar} />
     </div>
   );
 }

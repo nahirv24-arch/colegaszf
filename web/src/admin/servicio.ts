@@ -145,6 +145,20 @@ export async function crearDesarrollo(id: string, datos: DatosEditables): Promis
   revisar(await sb().from("desarrollos").insert({ id, posicion: (max[0]?.posicion ?? 0) + 1, estado: "borrador", visible: true, columnas: [], ...datos }));
 }
 
+/**
+ * Orden de los desarrollos en la página (efecto inmediato, sin publicar: «posicion» no forma parte de
+ * la versión publicada). Solo escribe los que cambiaron de lugar.
+ */
+export async function guardarOrdenDesarrollos(ids: readonly string[], actuales: ReadonlyMap<string, number>): Promise<number> {
+  let cambiados = 0;
+  for (const [i, id] of ids.entries()) {
+    if (actuales.get(id) === i + 1) continue;
+    revisar(await sb().from("desarrollos").update({ posicion: i + 1 }).eq("id", id).select("id").single());
+    cambiados++;
+  }
+  return cambiados;
+}
+
 /** Guarda en la COPIA DE TRABAJO. No cambia la página pública hasta publicar. El id nunca se modifica. */
 export async function guardarDesarrollo(id: string, cambios: Partial<DatosEditables> & { columnas?: Columna[] }): Promise<void> {
   revisar(await sb().from("desarrollos").update(cambios).eq("id", id).select("id").single());
