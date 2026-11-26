@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router";
 import { cerrarSesion, guardarNuevaContrasena } from "../../servicios/auth";
 import { descargarRespaldo, guardarActualizado, leerActualizado, listarMedios, mensajeError, subirMedio, urlMedio } from "../servicio";
+import { guardarPaginaCerrada, leerPaginaCerrada, listarColegas } from "../servicioColegas";
 import { useSesion } from "../sesion";
 import { Cargando, ErrorCaja, pesoLegible, useAvisos, useCarga, useConfirmar } from "../ui";
 
@@ -19,6 +20,9 @@ export function Configuracion() {
   const [clave, setClave] = useState(""); const [clave2, setClave2] = useState("");
   const [guardandoClave, setGuardandoClave] = useState(false);
   const [bajando, setBajando] = useState(false);
+  const cerrada = useCarga(leerPaginaCerrada, []);
+  const colegas = useCarga(listarColegas, []);
+  const [cambiandoCierre, setCambiandoCierre] = useState(false);
   useEffect(() => { if (fecha.datos !== null) setValorFecha(fecha.datos); }, [fecha.datos]);
 
   const portada = (generales.datos ?? []).find((m) => m.tipo === "portada_general" && !m.eliminado_en);
@@ -33,8 +37,44 @@ export function Configuracion() {
     finally { setGuardandoClave(false); }
   };
 
+  const conAcceso = (colegas.datos ?? []).filter((c) => c.usuario && c.acceso_activo).length;
+  const cambiarCierre = async (cerrar: boolean) => {
+    const ok = await confirmar(cerrar ? {
+      titulo: "Cerrar la página", confirmar: "Cerrar la página", peligro: true,
+      mensaje: <>Desde ahora, para ver el material hay que entrar con <b>usuario y contraseña</b>. Hoy {conAcceso === 1 ? "hay 1 colega" : `hay ${conAcceso} colegas`} con
+        acceso; el resto va a ver solo la pantalla para ingresar. {conAcceso ? null : <b>Todavía no creaste ningún acceso: nadie va a poder ver la página. </b>}
+        Lo podés volver a abrir cuando quieras.</>,
+    } : {
+      titulo: "Abrir la página", confirmar: "Abrir la página",
+      mensaje: "Cualquiera con el link va a poder ver el material sin usuario. Solo se va a registrar la actividad de quien ingrese con su cuenta.",
+    });
+    if (!ok) return;
+    setCambiandoCierre(true);
+    try { await guardarPaginaCerrada(cerrar); avisar("ok", cerrar ? "Listo: la página ahora pide usuario y contraseña." : "Listo: la página está abierta."); cerrada.recargar(); }
+    catch (x) { avisar("error", mensajeError(x)); } finally { setCambiandoCierre(false); }
+  };
+
   return (
     <div className="adm-pagina adm-config">
+      <section className="adm-panel" aria-labelledby="c-cierre">
+        <h2 id="c-cierre" className="adm-subtitulo">Acceso a la página</h2>
+        {cerrada.cargando && cerrada.datos === null ? <Cargando /> : cerrada.error ? <ErrorCaja texto={cerrada.error} reintentar={cerrada.recargar} /> : (
+          <div className="adm-cierre">
+            <div>
+              <p className="adm-cierre-estado">{cerrada.datos
+                ? <><span className="adm-chip verde">Cerrada</span> Solo entran los colegas con usuario y contraseña.</>
+                : <><span className="adm-chip ambar">Abierta</span> Cualquiera con el link ve el material.</>}</p>
+              <p className="adm-ayuda">Con la página cerrada, cada colega entra con el usuario que le creaste en <Link to="/admin/colegas">Colegas</Link> y
+                todo lo que mira queda en <Link to="/admin/metricas">Métricas de colegas</Link>. Hoy {conAcceso === 1 ? "hay 1 colega" : `hay ${conAcceso} colegas`} con acceso.
+                El cambio se ve <b>enseguida</b>.</p>
+            </div>
+            <button type="button" className={cerrada.datos ? "adm-btn" : "adm-btn primario"} disabled={cambiandoCierre}
+                    onClick={() => void cambiarCierre(!cerrada.datos)}>
+              {cambiandoCierre ? "Guardando…" : cerrada.datos ? "Abrir la página" : "Cerrar la página"}</button>
+          </div>
+        )}
+      </section>
+
       <section className="adm-panel" aria-labelledby="c-fecha">
         <h2 id="c-fecha" className="adm-subtitulo">Fecha de la última actualización</h2>
         <p className="adm-ayuda">Es la fecha que aparece en el inicio: «Actualizamos los jueves — la última fue el…».

@@ -6,6 +6,7 @@ import { Portada } from "../componentes/Portada";
 import { TablaComercios } from "../componentes/TablaComercios";
 import { TarjetaPropiedad } from "../componentes/TarjetaPropiedad";
 import { useEstadoDatos } from "../servicios/contexto";
+import { registrar } from "../servicios/cuenta";
 import { useHash } from "../utilidades/hash";
 import { FichaPropiedad } from "./FichaPropiedad";
 
@@ -39,6 +40,8 @@ export function PaginaCategoria({ clave }: { readonly clave: Exclude<ClaveCatego
   useEffect(() => {
     document.title = `${elegida ? `${elegida.titulo} · ` : ""}${c.nombre} · ${TITULO_BASE}`;
   }, [c.nombre, elegida]);
+  // Métricas: el colega entró a Terceros o a Locales / oficinas.
+  useEffect(() => { registrar("ver_categoria", { detalle: { categoria: clave } }); }, [clave]);
   // Al salir de la categoría, la pestaña vuelve al título general.
   useEffect(() => () => { document.title = TITULO_BASE; }, []);
 

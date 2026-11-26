@@ -49,6 +49,8 @@ function contenidoRaiz(): Plugin {
     },
     closeBundle() {
       for (const c of CARPETAS_PUBLICAS) {
+        // Con Supabase, los datos viejos (con precios) NO se publican: con «Página cerrada» quedarían a la vista.
+        if (c === "datos" && process.env.VITE_FUENTE_DATOS === "supabase") continue;
         cpSync(resolve(RAIZ, c), resolve(RAIZ, "dist", c), { recursive: true });
       }
     },

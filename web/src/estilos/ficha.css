@@ -55,3 +55,5 @@ button.fila[aria-expanded="true"] .n{color:var(--rojo)}
   letter-spacing:.12em;text-transform:uppercase;color:var(--humo);line-height:1.5}
 .aviso-actualizacion b{font-weight:500;color:var(--tinta)}
 .aviso-actualizacion .punto{flex:none;width:6px;height:6px;border-radius:50%;background:var(--rojo)}
+/* Ficha con los márgenes amplios (como el inicio): el texto largo no se estira de punta a punta, para que se lea cómodo */
+.intro-ficha .descripcion{max-width:96ch}

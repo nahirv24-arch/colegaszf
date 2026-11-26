@@ -5,6 +5,8 @@
  * en el momento (calidad 0,85, fondo blanco), exactamente como la página original.
  */
 
+import { anotarDescarga } from "../servicios/cuenta";
+
 function guardar(blob: Blob, nombre: string): void {
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
@@ -28,6 +30,7 @@ async function traer(url: string): Promise<Blob> {
 
 export async function bajarImagen(url: string, nombre: string): Promise<void> {
   guardar(await traer(url), `${nombre}.${extension(url)}`);
+  anotarDescarga("imagen", `${nombre}.${extension(url)}`);
 }
 
 export async function bajarZip(urls: readonly string[], nombre: string): Promise<void> {
@@ -40,6 +43,7 @@ export async function bajarZip(urls: readonly string[], nombre: string): Promise
     zip.file(`${nombre}-${num}.${extension(url)}`, blobs[i] as Blob);
   });
   guardar(await zip.generateAsync({ type: "blob" }), `${nombre}.zip`);
+  anotarDescarga("zip", `${nombre}.zip`);
 }
 
 /** WEBP u otro formato → píxeles RGBA (sin pérdida), para ponerlos en un PDF. */
@@ -74,11 +78,13 @@ export async function planoEnPdf(url: string, titulo = ""): Promise<Blob> {
 
 export async function bajarPlanoPdf(url: string, nombre: string, titulo = ""): Promise<void> {
   guardar(await planoEnPdf(url, titulo), nombre);
+  anotarDescarga("plano", nombre);
 }
 
 /** Descarga un archivo con el nombre indicado, con sus bytes originales (PDF o imagen, sin convertir). */
 export async function bajarArchivo(url: string, nombre: string): Promise<void> {
   guardar(await traer(url), nombre);
+  anotarDescarga("archivo", nombre);
 }
 
 /**
@@ -96,6 +102,7 @@ export async function bajarZipConNombres(
   const blobs = await Promise.all(archivos.map((a) => (a.armar ? a.armar() : traer(a.url))));
   archivos.forEach((a, i) => zip.file(a.nombre, blobs[i] as Blob, { binary: true, compression: "STORE" }));
   guardar(await zip.generateAsync({ type: "blob", compression: "STORE" }), nombreZip);
+  anotarDescarga("zip", nombreZip);
 }
 
 interface PaginaJPEG { dato: string; w: number; h: number }
@@ -134,5 +141,7 @@ export async function bajarBrochure(urls: readonly string[], nombreDesarrollo: s
     else doc.addPage([im.w, im.h], orient);
     doc.addImage(im.dato, "JPEG", 0, 0, im.w, im.h);
   }
-  doc?.save(`${(nombreDesarrollo || "Brochure").replace(/\s+/g, "-")}-Brochure.pdf`);
+  const archivo = `${(nombreDesarrollo || "Brochure").replace(/\s+/g, "-")}-Brochure.pdf`;
+  doc?.save(archivo);
+  anotarDescarga("brochure", archivo);
 }

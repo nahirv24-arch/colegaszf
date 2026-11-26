@@ -1,6 +1,7 @@
 import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
 import { Link, useLocation } from "react-router";
 import { useEstadoDatos, useUrlMedio } from "../servicios/contexto";
+import { useCuenta } from "../servicios/cuenta";
 import { useHash } from "../utilidades/hash";
 
 type Seccion = "inicio" | "desarrollos" | "terceros" | "comercios";
@@ -42,6 +43,7 @@ export function BarraNavegacion() {
   const [blanca, setBlanca] = useState(false);
   const [abierto, setAbierto] = useState(false);
   const enRaiz = pathname === "/" || pathname === "/index.html";
+  const { cuenta, puedeIngresar, abrirIngreso, salir } = useCuenta();
 
   useEffect(() => {
     const medir = () => {
@@ -92,6 +94,14 @@ export function BarraNavegacion() {
           {enlace("desarrollos", "Desarrollos")}
           {enlace("terceros", "Terceros")}
           {enlace("comercios", "Locales / oficinas")}
+          {cuenta ? (
+            <span className="cuenta">
+              <span className="quien">{cuenta.nombre.trim().split(/\s+/)[0]}</span>
+              <button type="button" onClick={() => { cerrar(); salir(); }}>Salir</button>
+            </span>
+          ) : puedeIngresar ? (
+            <span className="cuenta"><button type="button" onClick={() => { cerrar(); abrirIngreso(); }}>Ingresar</button></span>
+          ) : null}
         </nav>
       </div>
     </header>

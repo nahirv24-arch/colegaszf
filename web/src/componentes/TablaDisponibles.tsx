@@ -1,4 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
+import { registrar } from "../servicios/cuenta";
 import type { Desarrollo, Unidad } from "../tipos/datos";
 import { esColumnaAnticipo, porcentajeAnticipo } from "../utilidades/anticipo";
 import { COLUMNAS_POR_DEFECTO, celda, hayTexto } from "../utilidades/textos";
@@ -79,7 +80,10 @@ export function TablaDisponibles({ e }: Props) {
             return (
               <td key={j} className="num">
                 {!COLS.slice(0, j).some(([k2, t2]) => esMonto(f, k2, t2)) ? (
-                  <button type="button" className="ver-precio" onClick={() => setVista(idx)}
+                  <button type="button" className="ver-precio" onClick={() => {
+                    setVista(idx);
+                    registrar("ver_precio", { desarrollo: e.id, detalle: { unidad: [f.grupo, f.piso ? `Piso ${f.piso}` : "", celda(f, "unidad")].filter(Boolean).join(" · "), nombre: e.nombre } });
+                  }}
                           aria-label={`Ver precio de la unidad ${celda(f, "unidad")}`}>Ver precio</button>
                 ) : <span className="precio-oculto" aria-hidden="true">••••••</span>}
               </td>

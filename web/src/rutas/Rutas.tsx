@@ -4,6 +4,7 @@ import { BarraNavegacion, BotonArriba } from "../componentes/Navegacion";
 import { PaginaCategoria } from "../paginas/PaginaCategoria";
 import { PaginaPublica } from "../paginas/PaginaPublica";
 import { ProveedorDatos } from "../servicios/contexto";
+import { ProveedorCuenta } from "../servicios/cuenta";
 
 /** El panel se carga en archivos aparte: los colegas nunca descargan su código. */
 const AdminApp = lazy(() => import("../admin/AdminApp"));
@@ -17,11 +18,12 @@ const AdminApp = lazy(() => import("../admin/AdminApp"));
  *   /admin/*       panel privado (inicio de sesión obligatorio; los permisos los controla Supabase)
  *   cualquier otra → inicio
  * Las páginas públicas comparten los datos: se descargan una sola vez al entrar.
+ * Con «Página cerrada» (panel → Configuración), primero piden usuario y contraseña (ProveedorCuenta).
  */
 export function Rutas() {
   return (
     <Routes>
-      <Route element={<ProveedorDatos><BarraNavegacion /><Outlet /><BotonArriba /></ProveedorDatos>}>
+      <Route element={<ProveedorCuenta><ProveedorDatos><BarraNavegacion /><Outlet /><BotonArriba /></ProveedorDatos></ProveedorCuenta>}>
         <Route path="/" element={<PaginaPublica />} />
         <Route path="/index.html" element={<PaginaPublica />} />
         <Route path="/terceros" element={<PaginaCategoria key="terceros" clave="terceros" />} />

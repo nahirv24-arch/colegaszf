@@ -1,6 +1,7 @@
 import { Fragment, useState } from "react";
 import type { Propiedad } from "../tipos/datos";
 import { FotosPropiedad } from "./FotosPropiedad";
+import { registrar } from "../servicios/cuenta";
 import { filaDePropiedad, metros, OPERACIONES, precioCompleto } from "../utilidades/comercios";
 import { linkSeguro } from "../utilidades/propiedades";
 
@@ -57,10 +58,14 @@ export function TablaComercios({ lista }: { readonly lista: readonly Propiedad[]
                   <td className="num precio">{precioCompleto(f)}</td>
                   {conLlave ? <><td>{f.llave || "—"}</td><td>{f.escritura || "—"}</td></> : null}
                   <td className="ficha">
-                    {link ? <a href={link} target="_blank" rel="noopener noreferrer">Ver ficha <span aria-hidden="true">&#8599;</span></a> : null}
+                    {link ? <a href={link} target="_blank" rel="noopener noreferrer"
+                          onClick={() => registrar("ver_propiedad", { propiedad: f.id, detalle: { nombre: f.direccion, categoria: f.p.categoria } })}>Ver ficha <span aria-hidden="true">&#8599;</span></a> : null}
                     {nFotos ? (
                       <button type="button" className="ver-fotos" aria-expanded={abiertaEsta} aria-controls={`fotos-${f.id}`}
-                              onClick={() => setAbierta(abiertaEsta ? null : f.id)}>
+                              onClick={() => {
+                              if (!abiertaEsta) registrar("ver_fotos", { propiedad: f.id, detalle: { nombre: f.direccion, categoria: f.p.categoria } });
+                              setAbierta(abiertaEsta ? null : f.id);
+                            }}>
                         {abiertaEsta ? "Ocultar fotos" : `Ver fotos (${nFotos})`}
                       </button>
                     ) : null}

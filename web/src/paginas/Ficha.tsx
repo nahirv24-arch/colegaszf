@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { BotonAccion } from "../componentes/BotonAccion";
 import { FilaSeccion } from "../componentes/FilaSeccion";
 import { Galeria } from "../componentes/Galeria";
@@ -9,6 +9,7 @@ import { TablaDisponibles } from "../componentes/TablaDisponibles";
 import { TextoLibre } from "../componentes/TextoLibre";
 import { Visor, type DescargaVisor } from "../componentes/Visor";
 import { useUrlMedio } from "../servicios/contexto";
+import { fijarLugar, registrar } from "../servicios/cuenta";
 import type { ClaveGaleria, Desarrollo, RutaMedio } from "../tipos/datos";
 import { bajarBrochure } from "../utilidades/descargas";
 import { esPdfPlano, etiquetaPlano, tituloPlano } from "../utilidades/planos";
@@ -43,6 +44,13 @@ export function Ficha({ e, logo }: Props) {
   const condiciones = e.condiciones?.trim() ?? "";
   const descripcion = e.descripcion?.trim() ?? "";
   const escribania = e.escribania?.trim() ?? "";
+
+  // Métricas: qué ficha abrió el colega (y a qué desarrollo corresponden sus descargas).
+  useEffect(() => {
+    fijarLugar({ desarrollo: e.id, nombre: e.nombre });
+    registrar("ver_ficha", { desarrollo: e.id, detalle: { nombre: e.nombre } });
+    return () => fijarLugar(null);
+  }, [e.id, e.nombre]);
 
   const galeria = (clave: ClaveGaleria, plano: boolean) => {
     const lista = e[clave] ?? [];
@@ -104,8 +112,8 @@ export function Ficha({ e, logo }: Props) {
 
   return (
     <>
-      <Portada foto={e.portada} logo={logo} rotulo={rotulo} titular={e.nombre} />
-      <main className="seccion col gut" style={{ paddingBlock: "34px 64px" }}>
+      <Portada foto={e.portada} logo={logo} rotulo={rotulo} titular={e.nombre} amplia />
+      <main className="seccion col amplia gut" style={{ paddingBlock: "34px 64px" }}>
         <a className="volver" href="#desarrollos"><span aria-hidden="true">&larr;</span> Todos los desarrollos</a>
         {e.desactualizado ? (
           <p className="aviso-actualizacion" role="note">

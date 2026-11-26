@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMedio, useUrlMedio } from "../servicios/contexto";
+import { fijarLugar } from "../servicios/cuenta";
 import type { Propiedad } from "../tipos/datos";
 import { bajarArchivo, bajarZipConNombres } from "../utilidades/descargas";
 import { nombresArchivosFotos, nombreZipFotos } from "../utilidades/fotosPropiedad";
@@ -14,6 +15,11 @@ export function FotosPropiedad({ p }: { readonly p: Propiedad }) {
   const urlMedio = useUrlMedio();
   const medio = useMedio();
   const [visor, setVisor] = useState<number | null>(null);
+  // Métricas: las descargas de acá se anotan como fotos de esta propiedad.
+  useEffect(() => {
+    fijarLugar({ propiedad: p.id, nombre: p.direccion || p.titulo });
+    return () => fijarLugar(null);
+  }, [p.id, p.direccion, p.titulo]);
   const fotos = p.fotos ?? [];
   if (!fotos.length) return null;
   const nombres = nombresArchivosFotos(p.categoria, p.direccion, fotos, p.titulo);

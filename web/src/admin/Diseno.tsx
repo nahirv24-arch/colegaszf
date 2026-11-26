@@ -13,6 +13,7 @@ const MENU = [
   { a: "/admin/terceros", texto: "Terceros", icono: "M7.5 16.5a4.5 4.5 0 1 1 4.24-6H22v3h-2v2.5h-3V13.5h-5.26a4.5 4.5 0 0 1-4.24 3zm0-2.4a2.1 2.1 0 1 0 0-4.2 2.1 2.1 0 0 0 0 4.2z" },
   { a: "/admin/comercios", texto: "Locales / oficinas", icono: "M3.5 4h17l1.5 5.5c0 1.7-1.3 3-3 3-1.2 0-2.2-.7-2.7-1.6-.5 1-1.5 1.6-2.6 1.6h-.4c-1.1 0-2.1-.6-2.6-1.6-.5.9-1.5 1.6-2.7 1.6-1.7 0-3-1.3-3-3zM4 14.2c.6.2 1.3.3 2 .3V21h4.5v-4.5h3V21H18v-6.5c.7 0 1.4-.1 2-.3V21h1v1H3v-1h1z" },
   { a: "/admin/colegas", texto: "Colegas", icono: "M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm7.5 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2 20c0-3.3 3.1-6 7-6s7 2.7 7 6zm15.2 0c0-2.2-.9-4.2-2.4-5.6.6-.2 1.1-.3 1.7-.3 3.2 0 5.5 2.4 5.5 5.9z" },
+  { a: "/admin/metricas", texto: "Métricas de colegas", icono: "M4 20V10h3v10zm6.5 0V4h3v16zM17 20v-7h3v7z" },
   { a: "/admin/unidades", texto: "Unidades disponibles", icono: "M4 5h16v3H4zm0 5.5h16v3H4zM4 16h16v3H4z" },
   { a: "/admin/multimedia", texto: "Material multimedia", icono: "M4 5h16v14H4zm2 11h12l-4-5-3 4-2-2z" },
   { a: "/admin/configuracion", texto: "Configuración", icono: "M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zM10.6 2h2.8l.5 2.6 1.9.8 2.2-1.5 2 2-1.5 2.2.8 1.9 2.6.5v2.8l-2.6.5-.8 1.9 1.5 2.2-2 2-2.2-1.5-1.9.8-.5 2.6h-2.8l-.5-2.6-1.9-.8-2.2 1.5-2-2 1.5-2.2-.8-1.9L2 13.4v-2.8l2.6-.5.8-1.9-1.5-2.2 2-2 2.2 1.5 1.9-.8z" },
