@@ -33,10 +33,10 @@
 .vacio{border:1px solid var(--linea);padding:64px 24px;text-align:center;color:var(--humo)}
 .vacio .sub{color:var(--tinta);margin-bottom:8px}
 
-/* Pantallas grandes: el inicio usa más ancho y muestra 4 desarrollos por fila */
+/* Pantallas grandes: el inicio usa más ancho y muestra 3 desarrollos por fila (fotos más grandes) */
 @media (min-width:1100px){
   .col.amplia{max-width:1720px}
-  .col.amplia .grilla{grid-template-columns:repeat(4,minmax(0,1fr));gap:40px 24px}
+  .col.amplia .grilla{grid-template-columns:repeat(3,minmax(0,1fr));gap:48px 32px}
 }
 @media (min-width:1400px){
   .col.amplia.gut{padding-left:max(48px,env(safe-area-inset-left,0px));padding-right:max(48px,env(safe-area-inset-right,0px))}
