@@ -1,0 +1,62 @@
+/* ---------- Mapa de ubicaciones del inicio (27/11/2026) ---------- */
+.mapa-seccion{padding-top:0}
+.mapa-zf{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:0;border:1px solid var(--linea);background:var(--crema);min-height:540px}
+.mapa-zf.cargando{display:block}
+.mapa-lienzo{position:relative;min-height:540px}
+.mapa-caja{position:absolute;inset:0;background:#e9e5de;font-family:var(--display)}
+.mapa-caja .leaflet-tile-pane{filter:grayscale(.55) contrast(.95) brightness(1.03)}
+.mapa-aviso{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:500;pointer-events:none;
+  background:rgba(26,37,44,.82);color:#fff;font-size:12.5px;letter-spacing:.02em;padding:7px 14px;white-space:nowrap}
+
+/* Pines con el rojo de ZF */
+.mapa-caja .pin-zf{background:none;border:0}
+.mapa-caja .pin-zf svg{width:28px;height:40px;display:block;filter:drop-shadow(0 2px 2px rgba(0,0,0,.35));
+  transform-origin:50% 100%;transition:transform .15s ease}
+.mapa-caja .pin-zf path{fill:var(--rojo);stroke:#fff;stroke-width:1.6}
+.mapa-caja .pin-zf circle{fill:#fff}
+.mapa-caja .pin-zf:hover svg,.mapa-caja .pin-zf.activo svg{transform:scale(1.18)}
+.mapa-caja .pin-zf.activo path{fill:var(--tinta-prof)}
+
+/* Ficha que se abre al tocar un pin */
+.mapa-caja .pin-popup .leaflet-popup-content-wrapper{border-radius:0;padding:0;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+.mapa-caja .pin-popup .leaflet-popup-content{margin:0;width:240px!important;font-family:var(--display);color:var(--tinta);font-weight:300}
+.mapa-caja .pin-popup .leaflet-popup-tip{box-shadow:none}
+.mapa-caja .pin-popup a.leaflet-popup-close-button{color:#fff;text-shadow:0 0 4px rgba(0,0,0,.6);font-size:20px;width:28px;height:28px;top:2px;right:2px}
+.pin-ficha .pf-foto{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--crema)}
+.pin-ficha .pf-nom{font-weight:500;font-size:13.5px;letter-spacing:.06em;text-transform:uppercase;margin:12px 14px 0}
+.pin-ficha .pf-pos{font-size:12.5px;font-weight:500;color:var(--rojo);margin:3px 14px 0}
+.pin-ficha .pf-dir{font-size:13px;color:var(--humo);margin:4px 14px 0;line-height:1.4}
+.pin-ficha .pf-acc{display:flex;justify-content:space-between;gap:10px;margin:12px 14px 14px;font-size:13.5px}
+.mapa-caja .pin-ficha a{color:var(--rojo);text-decoration:none;font-weight:400}
+.mapa-caja .pin-ficha a.pf-ir{color:var(--tinta)}
+.mapa-caja .pin-ficha a:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* Lista de desarrollos al costado */
+.mapa-lista{display:flex;flex-direction:column;border-left:1px solid var(--linea);background:var(--papel);min-height:0;max-height:540px}
+.mapa-lista ul{list-style:none;margin:0;padding:0;overflow-y:auto;flex:1;position:relative}
+.mapa-lista li + li{border-top:1px solid var(--linea)}
+.mapa-lista li button{all:unset;box-sizing:border-box;display:flex;flex-direction:column;gap:2px;width:100%;padding:12px 18px;cursor:pointer;
+  border-left:3px solid transparent}
+.mapa-lista li button:hover{background:var(--crema)}
+.mapa-lista li button:focus-visible{outline:2px solid var(--rojo);outline-offset:-2px}
+.mapa-lista li button.activo{border-left-color:var(--rojo);background:var(--crema)}
+.mapa-lista .ml-nom{font-weight:500;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.mapa-lista .ml-dir{font-size:13px;color:var(--humo);line-height:1.35}
+.mapa-lista .mapa-todos{all:unset;box-sizing:border-box;border-top:1px solid var(--linea);padding:13px 18px;font-size:13.5px;font-weight:500;color:var(--rojo);cursor:pointer;text-align:center}
+.mapa-lista .mapa-todos:hover{background:var(--crema)}
+.mapa-lista .mapa-todos:focus-visible{outline:2px solid var(--rojo);outline-offset:-2px}
+
+/* Celular y tablet: el mapa arriba y la lista abajo, en tiras que se deslizan */
+@media (max-width:860px){
+  .mapa-zf{grid-template-columns:minmax(0,1fr);min-height:0}
+  .mapa-lista,.mapa-lienzo{min-width:0}
+  .mapa-lienzo{min-height:420px}
+  .mapa-zf.cargando{min-height:420px}
+  .mapa-lista{border-left:0;border-top:1px solid var(--linea);max-height:none}
+  .mapa-lista ul{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity}
+  .mapa-lista li{flex:none;scroll-snap-align:start}
+  .mapa-lista li + li{border-top:0;border-left:1px solid var(--linea)}
+  .mapa-lista li button{width:auto;max-width:220px;padding:10px 16px;border-left:0;border-bottom:3px solid transparent}
+  .mapa-lista li button.activo{border-bottom-color:var(--rojo)}
+  .mapa-lista .ml-dir{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+}

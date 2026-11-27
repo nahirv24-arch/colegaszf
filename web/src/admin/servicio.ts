@@ -50,6 +50,8 @@ export interface FilaDesarrollo {
   links: Record<string, string>; columnas: Columna[]; disponibles_ejemplo: boolean;
   info_extra: Record<string, string>; estado: EstadoPublicacion; visible: boolean;
   desactualizado?: boolean;
+  /** Ubicación del pin en el mapa del inicio (27/11/2026). Null si no está en el mapa. */
+  lat?: number | string | null; lng?: number | string | null;
   creado_en: string; modificado_en: string; eliminado_en: string | null;
 }
 
@@ -176,6 +178,14 @@ export async function cambiarVisible(id: string, visible: boolean): Promise<void
 /** Marca «Pendiente de actualización»: la página avisa a los colegas enseguida, sin publicar. */
 export async function cambiarDesactualizado(id: string, desactualizado: boolean): Promise<void> {
   revisar(await sb().from("desarrollos").update({ desactualizado }).eq("id", id).select("id").single());
+}
+
+/** Pin del mapa del inicio (efecto inmediato, sin publicar). null = sacarlo del mapa. */
+export async function cambiarUbicacion(id: string, punto: { lat: number; lng: number } | null): Promise<void> {
+  if (punto && (!Number.isFinite(punto.lat) || !Number.isFinite(punto.lng) || Math.abs(punto.lat) > 90 || Math.abs(punto.lng) > 180)) {
+    throw new ErrorPanel("La ubicación no es válida.");
+  }
+  revisar(await sb().from("desarrollos").update(punto ? { lat: punto.lat, lng: punto.lng } : { lat: null, lng: null }).eq("id", id).select("id").single());
 }
 
 /** Qué desarrollos están marcados «Pendiente de actualización» (para el resumen general). */

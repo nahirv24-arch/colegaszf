@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { lazy, Suspense, useCallback, useMemo, useState } from "react";
 import { Link, NavLink, useNavigate, useParams } from "react-router";
 import {
   cambiarDesactualizado, cambiarVisible, guardarDesarrollo, leerDesarrollo, listarDesarrollos, mandarAPapelera, mensajeError, publicar,
@@ -10,7 +10,10 @@ import { Multimedia } from "./Multimedia";
 import { TablaUnidades } from "./TablaUnidades";
 import { Versiones } from "./Versiones";
 
-const PESTANAS = [["datos", "Datos"], ["unidades", "Unidades"], ["multimedia", "Multimedia"], ["versiones", "Versiones e historial"]] as const;
+const PESTANAS = [["datos", "Datos"], ["unidades", "Unidades"], ["multimedia", "Multimedia"], ["ubicacion", "Ubicación"], ["versiones", "Versiones e historial"]] as const;
+
+/** El mapa (Leaflet) se baja solo al abrir la pestaña «Ubicación». */
+const UbicacionDesarrollo = lazy(() => import("./UbicacionDesarrollo").then((m) => ({ default: m.UbicacionDesarrollo })));
 
 export function EditarDesarrollo() {
   const { id = "", pestana = "datos" } = useParams();
@@ -101,6 +104,10 @@ export function EditarDesarrollo() {
         <TablaUnidades desarrollo={fila} onCambio={refrescar} />
       ) : pestana === "multimedia" ? (
         <Multimedia desarrolloId={id} onCambio={refrescar} />
+      ) : pestana === "ubicacion" ? (
+        <Suspense fallback={<Cargando texto="Cargando el mapa…" />}>
+          <UbicacionDesarrollo key={id} fila={fila} onCambio={refrescar} />
+        </Suspense>
       ) : (
         <Versiones desarrolloId={id} onCambio={refrescar} />
       )}

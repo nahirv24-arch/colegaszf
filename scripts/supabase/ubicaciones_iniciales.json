@@ -1,0 +1,21 @@
+{
+  "nota": "Ubicaciones buscadas el 27/11/2026 en OpenStreetMap a partir de la dirección de cada desarrollo. 'aproximada' = solo se encontró la calle o la esquina: conviene revisar el pin en el panel.",
+  "ubicaciones": [
+    { "id": "patagonia-15", "lat": -31.428527, "lng": -64.192242 },
+    { "id": "patagonia-16", "lat": -31.424781, "lng": -64.183405 },
+    { "id": "ignea-15", "lat": -31.430610, "lng": -64.189050, "aproximada": true },
+    { "id": "ignea-16", "lat": -31.428365, "lng": -64.187678 },
+    { "id": "magna-11", "lat": -31.414215, "lng": -64.167997 },
+    { "id": "reggia-6", "lat": -31.423793, "lng": -64.177112 },
+    { "id": "reggia-7", "lat": -31.421755, "lng": -64.183322 },
+    { "id": "reggia-9", "lat": -31.424020, "lng": -64.182630 },
+    { "id": "canitas-slg", "lat": -31.424440, "lng": -64.181580 },
+    { "id": "canitas-park", "lat": -31.425900, "lng": -64.181900, "aproximada": true },
+    { "id": "palaze", "lat": -31.427510, "lng": -64.185550 },
+    { "id": "wissen-df", "lat": -31.408120, "lng": -64.209300 },
+    { "id": "aviva-rondeau", "lat": -31.424070, "lng": -64.179420 },
+    { "id": "alere", "lat": -31.423700, "lng": -64.189370 },
+    { "id": "hyri", "lat": -31.426280, "lng": -64.186060 },
+    { "id": "foresta", "lat": -31.383630, "lng": -64.277510, "aproximada": true }
+  ]
+}

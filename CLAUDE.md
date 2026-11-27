@@ -119,7 +119,7 @@ descargas (individual y ZIP); descarga de fotos en Terceros. Plan completo prese
   freno: 20 registros/hora, 100/día). La sesión queda guardada en el dispositivo (Supabase, `persistSession`) hasta
   «Salir». Panel: Colegas (pausar/quitar) y «Métricas de colegas». Guía A4 para colegas en `../tutorial-colegas/`
   (WhatsApp +54 9 3513 07-8944; desde el 26/11 la página también usa ese número).
-- **Seguimiento comercial (27/11, hecho en PRUEBA, falta OK para producción):** migración
+- **Seguimiento comercial (27/11, EN PRODUCCIÓN desde el 27/11 con OK de Nahir; solo el panel):** migración
   `20261127120000_seguimiento_comercial.sql` (solo agrega): tablas `reuniones` (asistentes = uuid[] de colegas),
   `consultas`, `visitas`, `operaciones` (reserva/venta/caída, monto, comisión) y `pendientes`, todas solo admin
   (es_admin), sin historial (como `colegas`); clave `configuracion.seguimiento` (inicio de la idea vacío,
@@ -129,8 +129,20 @@ descargas (individual y ZIP); descarga de fotos en Terceros. Plan completo prese
   (`Registros.tsx`, genérico, con «Descargar (Excel)» y «Venta →» desde una visita) y Uso de la página (la de antes).
   Respaldos (`sb:exportar` y el del panel) incluyen `seguimiento`. Pruebas: `node scripts/supabase/pruebas_seguimiento.mjs`
   (30 OK). Ojo: la clase `.adm-seg` ya existía (gráfico segmentado); lo nuevo usa `.adm-sg-*`.
-- La cuenta temporal de navegador (`privado/cuenta-navegador.json`, solo PRUEBA) sigue activa para probar la Etapa 4;
-  al terminar, quitarle el rol y bloquearla (no se puede borrar porque publicó versiones).
+- **Inicio con 3 desarrollos por fila en la compu (27/11, commit en `desarrollo`, falta OK para `main`).**
+- **Mapa de ubicaciones (27/11, hecho en PRUEBA, falta OK para producción):** migración
+  `20261127150000_ubicacion_desarrollos.sql` (solo agrega `lat`/`lng` en `desarrollos`; efecto inmediato como
+  `desactualizado`, no entra en las versiones ni genera «cambios sin publicar»; `contenido_publico()` suma
+  `"ubicacion"` solo si está cargada). Página: sección «Ubicaciones» debajo de la grilla
+  (`componentes/MapaDesarrollos.tsx`, Leaflet + OpenStreetMap, se carga aparte; lista al costado / tira en celular;
+  ficha del pin con foto, posesión, «Ver material» y «Cómo llegar»). Panel: pestaña «Ubicación» de cada desarrollo
+  (`admin/paginas/UbicacionDesarrollo.tsx`: buscar dirección, tocar el mapa / arrastrar el pin, pegar coordenadas de
+  Google Maps, «Quitar del mapa»). Coordenadas iniciales en `scripts/supabase/ubicaciones_iniciales.json`, se cargan con
+  `node scripts/supabase/cargar_ubicaciones.mjs [--ver] [--produccion --confirmo-produccion]` (no pisa las que ya
+  tengan ubicación). Aproximadas (revisar con Nahir): Ignea 15, Cañitas Park y Foresta. Toscana 8 no tiene dirección.
+  Para producción: respaldo → migración → `cargar_ubicaciones` → comparar lo público (solo cambia `ubicacion`) → `main`.
+- Ojo con Git Bash: un argumento que empieza con «/admin…» se convierte en una ruta de Windows; en scripts de captura
+  conviene navegar con `location.href` desde la página.
 - Ojo: una cuenta temporal (`cuenta_navegador.mjs`) que **publicó** versiones no se puede borrar («Database error
   deleting user»). Se le quitó el rol y se la bloqueó (`privado/cuenta-navegador-bloqueada-2026-11-20.json`).
 - `verificar.mjs` en PRUEBA da 14/15: la fecha «actualizado» de la base de pruebas (18/11) difiere de la del JSON
