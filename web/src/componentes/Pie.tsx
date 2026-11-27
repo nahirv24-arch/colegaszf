@@ -2,7 +2,7 @@
 export function Pie() {
   return (
     <footer>
-      <div className="col gut">
+      <div className="col amplia gut">
         <div className="d1">
           <b>ZF Propiedades</b>
           Obispo Trejo 954, Piso 2, Of. 2, <span className="junto">Nueva Córdoba, Córdoba</span><br />
