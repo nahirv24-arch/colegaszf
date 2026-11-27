@@ -19,6 +19,14 @@ for (const tabla of ["propiedades", "propiedad_medios", "propiedad_publicaciones
   propiedades[tabla] = r.data;
 }
 if (Object.keys(propiedades).length) data.propiedades = propiedades;
+// Colegas y seguimiento comercial (privado). Si las tablas todavía no existen en este proyecto, se omiten.
+const seguimiento = {};
+for (const tabla of ["colegas", "reuniones", "consultas", "visitas", "operaciones", "pendientes"]) {
+  const r = await db.from(tabla).select("*").order("creado_en");
+  if (r.error) { if (r.error.code === "42P01" || /does not exist|schema cache/i.test(r.error.message)) continue; salir(limpiar(r.error.message, e)); }
+  seguimiento[tabla] = r.data;
+}
+if (Object.keys(seguimiento).length) data.seguimiento = seguimiento;
 const nombre = `exportacion-${new Date().toISOString().replace(/[:.]/g, "-")}.json`;
 const texto = JSON.stringify(data, null, 2);
 mkdirSync(join(RAIZ, "respaldos"), { recursive: true });

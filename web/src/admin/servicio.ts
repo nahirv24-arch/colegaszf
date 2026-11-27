@@ -421,7 +421,14 @@ export async function guardarActualizado(fecha: string): Promise<void> {
 }
 
 export async function descargarRespaldo(): Promise<void> {
-  const datos = revisar(await sb().rpc("exportar_todo"));
+  const datos = revisar(await sb().rpc("exportar_todo")) as Record<string, unknown>;
+  // Colegas y seguimiento comercial (reuniones, visitas, ventas…): también van en el respaldo.
+  const seguimiento: Record<string, unknown> = {};
+  for (const tabla of ["colegas", "reuniones", "consultas", "visitas", "operaciones", "pendientes"]) {
+    const r = await sb().from(tabla).select("*").order("creado_en");
+    if (!r.error) seguimiento[tabla] = r.data;
+  }
+  datos.seguimiento = seguimiento;
   const blob = new Blob([JSON.stringify(datos, null, 2)], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);

@@ -118,7 +118,17 @@ descargas (individual y ZIP); descarga de fotos en Terceros. Plan completo prese
   crean la cuenta solos y **entran al instante, sin aprobación** (migración `20261126160000_registro_sin_aprobacion.sql`;
   freno: 20 registros/hora, 100/día). La sesión queda guardada en el dispositivo (Supabase, `persistSession`) hasta
   «Salir». Panel: Colegas (pausar/quitar) y «Métricas de colegas». Guía A4 para colegas en `../tutorial-colegas/`
-  (WhatsApp +54 9 3513 07-8944; la página todavía usa el comercial 5493516378970).
+  (WhatsApp +54 9 3513 07-8944; desde el 26/11 la página también usa ese número).
+- **Seguimiento comercial (27/11, hecho en PRUEBA, falta OK para producción):** migración
+  `20261127120000_seguimiento_comercial.sql` (solo agrega): tablas `reuniones` (asistentes = uuid[] de colegas),
+  `consultas`, `visitas`, `operaciones` (reserva/venta/caída, monto, comisión) y `pendientes`, todas solo admin
+  (es_admin), sin historial (como `colegas`); clave `configuracion.seguimiento` (inicio de la idea vacío,
+  lanzamiento 2026-11-27, fecha límite 2027-07-01, metas opcionales). Panel: «Métricas de colegas» ahora tiene
+  pestañas (`MetricasPanel.tsx`): Resultados (`Resultados.tsx`: plazo, metas, embudo, ranking, mes a mes, origen,
+  «¿Sirven las reuniones?», comisiones a pagar), Reuniones / Visitas / Reservas y ventas / Consultas / Pendientes
+  (`Registros.tsx`, genérico, con «Descargar (Excel)» y «Venta →» desde una visita) y Uso de la página (la de antes).
+  Respaldos (`sb:exportar` y el del panel) incluyen `seguimiento`. Pruebas: `node scripts/supabase/pruebas_seguimiento.mjs`
+  (30 OK). Ojo: la clase `.adm-seg` ya existía (gráfico segmentado); lo nuevo usa `.adm-sg-*`.
 - La cuenta temporal de navegador (`privado/cuenta-navegador.json`, solo PRUEBA) sigue activa para probar la Etapa 4;
   al terminar, quitarle el rol y bloquearla (no se puede borrar porque publicó versiones).
 - Ojo: una cuenta temporal (`cuenta_navegador.mjs`) que **publicó** versiones no se puede borrar («Database error

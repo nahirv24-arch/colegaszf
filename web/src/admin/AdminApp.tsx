@@ -12,7 +12,7 @@ import { EditarPropiedad } from "./paginas/EditarPropiedad";
 import { ElegirDesarrollo } from "./paginas/ElegirDesarrollo";
 import { Ingresar, NuevaContrasena, Recuperar } from "./paginas/Acceso";
 import { ListaDesarrollos } from "./paginas/ListaDesarrollos";
-import { Metricas } from "./paginas/Metricas";
+import { MetricasPanel } from "./paginas/MetricasPanel";
 import { TablaComerciosPanel } from "./paginas/TablaComerciosPanel";
 import { NuevaPropiedad } from "./paginas/NuevaPropiedad";
 import { NuevoDesarrollo } from "./paginas/NuevoDesarrollo";
@@ -67,7 +67,8 @@ export default function AdminApp() {
               <Route path="unidades" element={<ElegirDesarrollo destino="unidades" titulo="Unidades disponibles" />} />
               <Route path="multimedia" element={<ElegirDesarrollo destino="multimedia" titulo="Material multimedia" />} />
               <Route path="colegas" element={<Colegas />} />
-              <Route path="metricas" element={<Metricas />} />
+              <Route path="metricas" element={<MetricasPanel />} />
+              <Route path="metricas/:pestana" element={<MetricasPanel />} />
               <Route path="configuracion" element={<Configuracion />} />
               <Route path="actividad" element={<Actividad />} />
             </Route>
