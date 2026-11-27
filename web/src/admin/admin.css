@@ -399,3 +399,14 @@ a.adm-chip { text-decoration: none; }
 .adm-aviso-pendientes { background: #FCF6E5; border: 1px solid #E5D29E; border-left: 3px solid #C9A227; padding: 12px 16px;
   font-size: 14px; line-height: 1.5; color: var(--tinta); }
 .adm-aviso-pendientes b { font-weight: 500; }
+
+/* ---------- Desarrollo → Ubicación (pin del mapa del inicio, 27/11/2026) ---------- */
+.adm-ubic-barra { display: flex; flex-wrap: wrap; gap: 10px 12px; align-items: flex-end; }
+.adm-ubic-buscar { flex: 2 1 280px; }
+.adm-ubic-pegar { flex: 1 1 220px; }
+.adm-ubic-mapa { position: relative; height: 480px; border: 1px solid var(--linea); }
+.adm-ubic-pie { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+.adm-ubic-pie .adm-acciones { margin-top: 0; }
+.adm-ubic-pie code { font-size: 12.5px; }
+.adm-ubic-sin { color: var(--rojo, #BD1522); font-weight: 500; }
+@media (max-width: 700px) { .adm-ubic-mapa { height: 380px; } }
