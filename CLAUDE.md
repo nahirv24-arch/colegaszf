@@ -130,7 +130,8 @@ descargas (individual y ZIP); descarga de fotos en Terceros. Plan completo prese
   Respaldos (`sb:exportar` y el del panel) incluyen `seguimiento`. Pruebas: `node scripts/supabase/pruebas_seguimiento.mjs`
   (30 OK). Ojo: la clase `.adm-seg` ya existía (gráfico segmentado); lo nuevo usa `.adm-sg-*`.
 - **Inicio con 3 desarrollos por fila en la compu (27/11, commit en `desarrollo`, falta OK para `main`).**
-- **Mapa de ubicaciones (27/11, hecho en PRUEBA, falta OK para producción):** migración
+- **Mapa de ubicaciones (27/11, EN PRODUCCIÓN desde el 27/11 con OK de Nahir; respaldo previo
+  `respaldos/exportacion-2026-11-27T15-39-54-386Z.json`; 16 ubicaciones cargadas; solo el mapa, sin el 3 por fila):** migración
   `20261127150000_ubicacion_desarrollos.sql` (solo agrega `lat`/`lng` en `desarrollos`; efecto inmediato como
   `desactualizado`, no entra en las versiones ni genera «cambios sin publicar»; `contenido_publico()` suma
   `"ubicacion"` solo si está cargada). Página: sección «Ubicaciones» debajo de la grilla
